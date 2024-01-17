@@ -3,16 +3,16 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Tue Jan 16 17:36:11 2024 
--- * LUN file: C:\Users\rinch\Desktop\Web-Technologies-Estote-Social\doc\Social.lun 
--- * Schema: EstoteSocial2Logico/SQL 
+-- * Generation date: Wed Jan 17 15:37:33 2024 
+-- * LUN file: C:\Users\rinch\Desktop\Web-Technologies-Estote-Social\src\db\Social.lun 
+-- * Schema: EstoteSocialLogico/SQL 
 -- ********************************************* 
 
 
 -- Database Section
 -- ________________ 
 
-create database EstoteSocial2Logico;
+create database EstoteSocialLogico;
 
 
 -- DBSpace Section
@@ -22,17 +22,17 @@ create database EstoteSocial2Logico;
 -- Tables Section
 -- _____________ 
 
-create table appartenenza (
+create table appartenere (
      NomeTipo char(30) not null,
      IDPost numeric(20) not null,
-     constraint ID_appartenenza_ID primary key (IDPost, NomeTipo));
+     constraint ID_appartenere_ID primary key (IDPost, NomeTipo));
 
 create table COMMENTI (
      IDPost numeric(20) not null,
      Username char(25) not null,
      IDCommento numeric(20) not null,
      IDNotifica numeric(1) not null,
-     Testo char(250) not null,
+     Testo char(300) not null,
      constraint ID_COMMENTI_ID primary key (IDCommento, IDPost, Username),
      constraint SID_COMME_NOTIF_ID unique (IDNotifica));
 
@@ -56,13 +56,16 @@ create table NOTIFICA (
 
 create table POST (
      IDPost numeric(20) not null,
+     Testo char(300) not null,
+     Immagine char(100),
      Username char(25) not null,
+     Data date not null,
      constraint ID_POST_ID primary key (IDPost));
 
 create table seguire (
      IDNotifica numeric(1) not null,
      Username char(25) not null,
-     S_U_Username char(25) not null,
+     Username_seguito char(25) not null,
      constraint ID_segui_NOTIF_ID primary key (IDNotifica));
 
 create table UTENTE (
@@ -70,12 +73,13 @@ create table UTENTE (
      Cognome char(20) not null,
      DataDiNascita date not null,
      CodiceCensimento char(10),
+     ImmagineProfilo char(200) not null,
      GruppoAppartenenza char(15),
      Mail char(30) not null,
      Username char(25) not null,
      Password char(40) not null,
      Scout char not null,
-     Bio char(200) not null,
+     Bio char(300) not null,
      Fazzolettone char(200),
      Specialita char(200),
      Totem char(200),
@@ -85,11 +89,11 @@ create table UTENTE (
 -- Constraints Section
 -- ___________________ 
 
-alter table appartenenza add constraint REF_appar_POST
+alter table appartenere add constraint REF_appar_POST
      foreign key (IDPost)
      references POST;
 
-alter table appartenenza add constraint REF_appar_HASHT_FK
+alter table appartenere add constraint REF_appar_HASHT_FK
      foreign key (NomeTipo)
      references HASHTAG;
 
@@ -142,7 +146,7 @@ alter table seguire add constraint REF_segui_UTENT_1_FK
      references UTENTE;
 
 alter table seguire add constraint REF_segui_UTENT_FK
-     foreign key (S_U_Username)
+     foreign key (Username_seguito)
      references UTENTE;
 
 alter table seguire add constraint ID_segui_NOTIF_FK
@@ -153,11 +157,11 @@ alter table seguire add constraint ID_segui_NOTIF_FK
 -- Index Section
 -- _____________ 
 
-create unique index ID_appartenenza_IND
-     on appartenenza (IDPost, NomeTipo);
+create unique index ID_appartenere_IND
+     on appartenere (IDPost, NomeTipo);
 
 create index REF_appar_HASHT_IND
-     on appartenenza (NomeTipo);
+     on appartenere (NomeTipo);
 
 create unique index ID_COMMENTI_IND
      on COMMENTI (IDCommento, IDPost, Username);
@@ -199,7 +203,7 @@ create index REF_segui_UTENT_1_IND
      on seguire (Username);
 
 create index REF_segui_UTENT_IND
-     on seguire (S_U_Username);
+     on seguire (Username_seguito);
 
 create unique index ID_segui_NOTIF_IND
      on seguire (IDNotifica);
