@@ -7,20 +7,21 @@ class DatabaseHelper {
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
         }
-    }
+    }  //connessione al database
 
     /**
      * User CRUD
      */
 
-    public function getUserById($username) {
+    public function getUsersByUsername($username) {
         $query = "
-            SELECT username, imgProfilo, nome, cognome, email, dataNascita, codCensismento, 
-                gruppoApp, pw, scout, bio, fazzolettone, specialità, totem 
+            SELECT Username, Immagineprofilo, Nome, Cognome, Mail, DataDiNascita, codCensismento, 
+                gruppoAppartenenza, password, scout, bio, fazzolettone, specialita, totem 
             FROM utente 
             WHERE username = ?
-        ";
-
+        "; 
+        //cerca un utente per username
+        
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -29,14 +30,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function serchUser($input) {
+    public function searchUser($input) {
         $query = "
-            SELECT username, imgProfilo, nome, cognome,
+            SELECT username, immagineProfilo, nome, cognome,
             FROM utente 
             WHERE username LIKE CONCAT(?, '%') 
             OR nome LIKE CONCAT(?, '%') 
             OR cognome LIKE CONCAT(?, '%')
-        ";
+        "; 
+        //cerca un utente per username, nome o cognome
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sss", $input, $input, $input);
@@ -48,10 +50,11 @@ class DatabaseHelper {
 
     public function getUsersByusername($username) {
         $query = "
-            SELECT username, imgProfilo
+            SELECT username, immagineProfilo
             FROM utente 
             WHERE username LIKE ?
         ";
+        //cerca un utente per username resituisce solo username e immagineProfilo
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -64,10 +67,11 @@ class DatabaseHelper {
     /** Funzione che non so se andremo ad usare, MOMENTANEA*/
     public function getUsersFriendsById ($username) {
         $query = "
-            SELECT u.username, u.imgProfilo
+            SELECT u.username, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.usernameSeguito = u.username
             WHERE s.usernameSeguace = ?
         ";
+        //cerca gli amici di un utente per username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -83,6 +87,7 @@ class DatabaseHelper {
             FROM Notifica
             WHERE username = ? AND letta = false
         ";
+        //cerca le notifiche di un utente per username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
