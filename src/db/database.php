@@ -177,7 +177,7 @@ class DatabaseHelper {
 
     public function getPostById($idPost) {
         $query = "
-            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.dataOra, p.testo, p.imgPost, p.like, p.commenti
+            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.data, p.testo, p.imgPost, p.like, p.commenti
             FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hastag = h.idHastag
             WHERE p.idPost = ?
             WHERE idPost = ?
@@ -193,7 +193,7 @@ class DatabaseHelper {
 
     public function getPostByhashtag ($hashtagName) {
         $query = "
-            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.dataOra, p.testo, p.imgPost, p.like, p.commenti
+            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.data, p.testo, p.imgPost, p.like, p.commenti
             FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hastag = h.idHastag
             WHERE h.nome = ?
         ";
@@ -206,16 +206,14 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    /*METTERE UNA FUNZIONE CHE restituisce i dati del giorno e mese passati come parametro ??? */
-
-    public function insertPost($idPost, $image, $hashtag, $username) {
+    public function insertPost($idPost, $image, $hashtag, $username, $date) {
         $query = "
-            INSERT INTO post (idPost, imgPost, hastag, username)
+            INSERT INTO post (idPost, imgPost, hastag, username, date)
             VALUES (?, ?, ?, ?)
         ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("isss", $idPost, $image, $hashtag, $username);
+        $stmt->bind_param("issss", $idPost, $image, $hashtag, $username, $date);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -464,7 +462,7 @@ class DatabaseHelper {
         $query = "
             SELECT *
             FROM utente
-            WHERE username = ? AND password = ? LIMIT 1
+            WHERE username = ? AND password = ?
         ";
 
         $stmt = $this->db->prepare($query);
@@ -477,12 +475,29 @@ class DatabaseHelper {
 
     //funzione che inserisce un tentativo di login
     public function insertLoginAttempt($username, $time){
-        //todo
+        $query = "
+                INSERT INTO tentativoLogin (username, time)
+                VALUES (?, ?)
+                ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $username, $time);
+        $stmt->execute();
+
+        return $stmt->insert_id;
     }
 
-    //Funzione che restituisce se il tentativo di login è fallito o meno
     public function getLoginAttempt($username, $timeThd){
-        //todo
+        $query = "
+                SELECT time 
+                FROM tentativoLogin 
+                WHERE user_id = ? AND time > ?
+                ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $userId, $timeThd);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     /**
