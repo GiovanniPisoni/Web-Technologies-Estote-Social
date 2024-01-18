@@ -201,11 +201,11 @@ class DatabaseHelper {
         INNER JOIN 
             utente u ON p.username = u.username 
         LEFT JOIN 
-            like_table l ON p.idPost = l.idPost
+            like l ON p.idPost = l.idPost
         LEFT JOIN 
-            commenti_table c ON p.idPost = c.idPost
+            commenti c ON p.idPost = c.idPost
         LEFT JOIN 
-            post_hashtag ph ON p.idPost = ph.idPost
+            appartenere ph ON p.idPost = ph.idPost
         LEFT JOIN 
             hashtag h ON ph.nome = h.nome
         WHERE 
@@ -222,12 +222,35 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    //get all the post's data by idPost
 
-    public function getPostByhashtag ($hashtagName) {
+    public function getPostByHashtag ($hashtagName) {
         $query = "
-            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.data, p.testo, p.imgPost, p.like, p.commenti
-            FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hashtag = h.idHashtag
-            WHERE h.nome = ?
+        SELECT 
+        u.username, u.immagineProfilo, u.nome, u.cognome, 
+        p.idPost, p.data, p.testo, p.immagine,
+        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nome ASC) AS hashtag_list,
+        COUNT(DISTINCT l.username) AS num_like,
+        COUNT(DISTINCT c.idCommento) AS num_commenti,
+        GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
+        FROM 
+            post p 
+        INNER JOIN 
+            utente u ON p.username = u.username 
+        LEFT JOIN 
+            like l ON p.idPost = l.idPost
+        LEFT JOIN 
+            commenti c ON p.idPost = c.idPost
+        LEFT JOIN 
+            appartenere ph ON p.idPost = ph.idPost
+        LEFT JOIN 
+            hashtag h ON ph.nome = h.nome
+        WHERE 
+            h.nome = ?
+        GROUP BY 
+            u.username, u.immagineProfilo, u.nome, u.cognome, 
+            p.idPost, p.data, p.testo, p.immagine;
+    
         ";
 
         $stmt = $this->db->prepare($query);
@@ -237,10 +260,11 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    //get all the post's data by hashtag
 
-    public function insertPost($idPost, $image, $hashtag, $username, $date) {
+   /* public function insertPost($idPost, $image, $hashtag, $username, $date) {
         $query = "
-            INSERT INTO post (idPost, imgPost, hastag, username, date)
+            INSERT INTO post (idPost, immagine, hastag, username, date)
             VALUES (?, ?, ?, ?)
         ";
 
@@ -249,14 +273,54 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->insert_id;
-    }
+    } */
 
-    public function updatePostWhitImage($idPost, $text, $image) {
+    public function insertPost($idPost, $image, $username, $date, $hashtagArray) {
+        // Inserimento del post
+        $queryPost = "
+        INSERT INTO post (idPost, immagine, username, data) VALUES (?, ?, ?, ?)
+        ";
+        $stmtPost = $this->db->prepare($queryPost);
+        $stmtPost->bind_param("isss", $idPost, $image, $username, $date);
+        $stmtPost->execute();
+    
+        // Recupero dell'ID del post appena inserito
+        $idPostInserito = $stmtPost->insert_id;
+    
+        // Inserimento degli hashtag
+        $queryHashtag = "
+        INSERT INTO hashtag (nometipo) VALUES (?) ON DUPLICATE KEY UPDATE nometipo = nometipo
+        ";
+        $stmtHashtag = $this->db->prepare($queryHashtag);
+        $stmtHashtag->bind_param("s", $hashtag);
+    
+        foreach ($hashtagArray as $hashtag) {
+            $stmtHashtag->execute();
+    
+            // Associazione dell'hashtag al post
+            $queryPostHashtag = "
+            INSERT INTO appartenere (idPost, nome) VALUES (?, ?)
+            ";
+            $stmtPostHashtag = $this->db->prepare($queryPostHashtag);
+            $stmtPostHashtag->bind_param("is", $idPostInserito, $hashtag);
+            $stmtPostHashtag->execute();
+            $stmtPostHashtag->close();
+        }
+    
+        // Restituisci l'ID del post appena inserito
+        return $idPostInserito;
+    }
+    //insert a new post
+    
+    
+
+    public function updatePostWithImage($idPost, $text, $image) {
         $query = "
             UPDATE post
-            SET testo = ?, imgPost = ?
+            SET testo = ?, immagine = ?
             WHERE idPost = ?
         ";
+        //update the post's data by idPost
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssi", $text, $image, $idPost);
@@ -265,6 +329,8 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    //secondo me questa fz non serve, basta utilizzare quella sopra e passare come parametro $image = NULL, come consigliato
+    //da mio fratello il copilot
     public function updatePostWithoutImage($idPost, $text) {
         $query = "
             UPDATE post
@@ -292,7 +358,8 @@ class DatabaseHelper {
 
         return $stmt->execute();
     }
-
+    //delete the post's image by idPost
+    //in my opinion this function is useless, because the number of comments is already calculated in the getPostById function
     public function incrementCommentsById($idPost) {
         $query = "
             UPDATE post
@@ -306,7 +373,7 @@ class DatabaseHelper {
 
         return $stmt->execute();
     }
-
+    //also this function is useless, because the number of comments is already calculated in the getPostById function
     public function decrementCommentsById($idPost) {
         $query = "
             UPDATE post
@@ -320,7 +387,7 @@ class DatabaseHelper {
 
         return $stmt->execute();
     }
-
+    //in my opinion this function is useless, because the number of likes is already calculated in the getPostById function
     public function incrementLikesById($idPost) {
         $query = "
             UPDATE post
@@ -334,7 +401,7 @@ class DatabaseHelper {
 
         return $stmt->execute();
     }
-
+    //in my opinion this function is useless, because the number of likes is already calculated in the getPostById function
     public function decrementLikesById($idPost) {
         $query = "
             UPDATE post
@@ -354,7 +421,7 @@ class DatabaseHelper {
             DELETE FROM post
             WHERE idPost = ?
         ";
-
+        //delete the post's data by idPost
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
@@ -366,10 +433,11 @@ class DatabaseHelper {
     /**
      * Comments CRUD
      */
-
+    //also this function is useless, because the number of comments is already calculated in the getPostById function and also
+    //the list of comments is already given in the getPostById function
     public function getCommentsById($idPost) {
         $query = "
-            SELECT u.username, u.imgProfilo, u.nome, u.cognome, c.idCommento, c.dataOra, c.testo
+            SELECT u.username, u.immagineprofilo, u.nome, u.cognome, c.idCommento, c.data, c.testo
             FROM commento c INNER JOIN utente u ON c.username = u.username
             WHERE c.idPost = ?
         ";
@@ -382,11 +450,12 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertComment($idCommento, $text, $username, $idPost, $idNotifitication) {
+    public function insertComment($idCommento, $text, $username, $idPost, $idNotifitication, $date) {
         $query = "
-            INSERT INTO commento (idCommento, testo, username, idPost, idNotifica)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO commento (idCommento, testo, username, idPost, idNotifica, data)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
+        //insert a new comment
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("issii", $idCommento, $text, $username, $idPost, $idNotification);
@@ -398,11 +467,11 @@ class DatabaseHelper {
     /**
      * Likes CRUD
      */
-
+    //also this function is useless, because the number of likes is already calculated in the getPostById function
     public function getLikesByPostId($idPost) {
         $query = "
             SELECT like
-            FORM post
+            FROM post
             WHERE idPost = ?
         ";
 
@@ -413,7 +482,7 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
+    //also this function is useless, because the number of likes is already calculated in the getPostById function
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
             SELECT *
@@ -429,11 +498,12 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertLike($idPost, $username) {
+    public function insertLike($idPost, $username, $idNotification) {
         $query = "
-            INSERT INTO like (idPost, username)
-            VALUES (?, ?)
+            INSERT INTO like (idPost, username, IDNotifica)
+            VALUES (?, ?, ?)
         ";
+        //insert a new like
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("is", $idPost, $username);
@@ -460,14 +530,14 @@ class DatabaseHelper {
      * Notifications CRUD
      */
 
-    public function insertNotification($testo, $idPost, $usernameReciver, $usernameSender) {
+    public function insertNotification($text, $idPost, $usernameReceiver, $usernameSender) {
         $query = "
             INSERT INTO notifica (testo, idPost, usernameReciver, usernameSender)
             VALUES (?, ?, ?, ?)
         ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("siss", $testo, $idPost, $usernameReciver, $usernameSender);
+        $stmt->bind_param("siss", $text, $idPost, $usernameReceiver, $usernameSender);
         $stmt->execute();
 
         return $stmt->insert_id;
