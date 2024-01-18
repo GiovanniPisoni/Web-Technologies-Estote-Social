@@ -530,14 +530,15 @@ class DatabaseHelper {
      * Notifications CRUD
      */
 
-    public function insertNotification($text, $idPost, $usernameReceiver, $usernameSender) {
+    public function insertNotification($text, $idNotification, $usernameReceiver, $letta) {
         $query = "
-            INSERT INTO notifica (testo, idPost, usernameReciver, usernameSender)
+            INSERT INTO notifica (testo, idNotifica, username, Letta)
             VALUES (?, ?, ?, ?)
         ";
+        //insert a new notification
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("siss", $text, $idPost, $usernameReceiver, $usernameSender);
+        $stmt->bind_param("siss", $text, $idNotification, $usernameReceiver, $letta);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -548,6 +549,7 @@ class DatabaseHelper {
             DELETE FROM notifica
             WHERE idNotifica = ?
         ";
+        //delete a notification by idNotification
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idNotifica);
@@ -566,6 +568,7 @@ class DatabaseHelper {
             FROM utente
             WHERE username = ? AND password = ?
         ";
+        //check if the username and the password are correct
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $username, $password);
@@ -592,8 +595,9 @@ class DatabaseHelper {
         $query = "
                 SELECT time 
                 FROM tentativoLogin 
-                WHERE user_id = ? AND time > ?
+                WHERE username = ? AND time > ?
                 ";
+                //prendo tutti i tentativi di login di un utente che sono stati fatti dopo un certo tempo
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ii', $userId, $timeThd);
         $stmt->execute();
@@ -606,13 +610,14 @@ class DatabaseHelper {
      * Register
      */
 
-    public function insertUser($username, $nome, $cognome, $dataNascita, $codCensimento, $gruppo, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem){
+    public function insertUser($username, $nome, $cognome, $dataNascita, $immagineProfilo, $codiceCensimento, $gruppo, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem){
         $query = "
-            INSERT INTO utente (username, nome, cognome, dataNascita, codCensimento, gruppo, email, password, scout, bio, fazzolettone, specialita, totem)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, codCensimento, gruppo, email, password, scout, bio, fazzolettone, specialita, totem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ";
+        //insert a new user
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssssisssissss", $username, $nome, $cognome, $dataNascita, $codCensimento, $gruppo, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem);
+        $stmt->bind_param("ssssisssissss", $username, $nome, $cognome, $dataNascita, $immagineProfilo, $codiceCensimento, $gruppo, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem);
         $stmt->execute();
 
         return $username;
