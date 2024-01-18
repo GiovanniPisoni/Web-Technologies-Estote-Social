@@ -48,7 +48,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getUsersByusername($username) {
+    public function getUsersByUsernameImageOnly($username) {
         $query = "
             SELECT username, immagineProfilo
             FROM utente 
