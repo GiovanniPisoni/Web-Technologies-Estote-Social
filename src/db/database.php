@@ -7,7 +7,7 @@ class DatabaseHelper {
         if ($this->db->connect_error) {
             die("Connection failed: " . $this->db->connect_error);
         }
-    }  //connessione al database
+    }  //connect to the database
 
     /**
      * User CRUD
@@ -20,7 +20,7 @@ class DatabaseHelper {
             FROM utente 
             WHERE username = ?
         "; 
-        //cerca un utente per username
+        //get all the user's data by username
         
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -38,7 +38,7 @@ class DatabaseHelper {
             OR nome LIKE CONCAT(?, '%') 
             OR cognome LIKE CONCAT(?, '%')
         "; 
-        //cerca un utente per username, nome o cognome
+        //get username, immagineProfilo, nome, cognome of all the users that match the input
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sss", $input, $input, $input);
@@ -54,7 +54,7 @@ class DatabaseHelper {
             FROM utente 
             WHERE username LIKE ?
         ";
-        //cerca un utente per username resituisce solo username e immagineProfilo
+       //get username and immagineProfilo of all the users that match the input
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -65,13 +65,13 @@ class DatabaseHelper {
     }
 
     /** Funzione che non so se andremo ad usare, MOMENTANEA*/
-    public function getUsersFriendsById ($username) {
+    public function getUsersFriendsByusername ($username) {
         $query = "
             SELECT u.username, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.usernameSeguito = u.username
             WHERE s.usernameSeguace = ?
         ";
-        //cerca gli amici di un utente per username
+        //search for the friends of a user by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -81,13 +81,13 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getNotificationsById($username) {
+    public function getNotificationsByUsername($username) {
         $query = "
             SELECT *
             FROM Notifica
             WHERE username = ? AND letta = false
         ";
-        //cerca le notifiche di un utente per username
+        //search for the notifications of a user by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -97,12 +97,13 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getSeguitiById($username) {
+    public function getSeguitiByUsername($username) {
         $query = "
-            SELECT u.usernameSeguito, u.imgProfilo, u.nome, u.cognome
+            SELECT u.usernameSeguito, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.usernameSeguito = u.username
             WHERE s.usernameSeguace = ?
         ";
+        //search for the followed users of a user by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -114,10 +115,11 @@ class DatabaseHelper {
 
     public function getSeguaciById($username) {
         $query = "
-            SELECT u.usernameSeguace, u.imgProfilo, u.nome, u.cognome
+            SELECT u.usernameSeguace, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.usernameSeguace = u.username
             WHERE s.usernameSeguito = ?
         ";
+        //search for the followers of a user by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -131,45 +133,50 @@ class DatabaseHelper {
         $query = "
             SELECT *
             FROM seguire
-            WHERE username = ? AND usernameFollowed = ?
+            WHERE username = ? AND username_seguito = ?
         ";
+        //search for the followers of a user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $usernameFollowed);
+        $stmt->bind_param("ss", $username, $username_seguito);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function follow($username, $usernameFollowed) {
+    public function follow($username, $username_seguito) {
         $query = "
-            INSERT INTO seguire (username, usernameFollowed)
+            INSERT INTO seguire (username, username_seguito)
             VALUES (?, ?)
         ";
+        //follow an user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $usernameFollowed);
+        $stmt->bind_param("ss", $username, $username_seguito);
         $stmt->execute();
     }
 
-    public function unfollow($username, $usernameFollowed) {
+    public function unfollow($username, $username_seguito) {
         $query = "
             DELETE FROM seguire
-            WHERE username = ? AND usernameFollowed = ?
+            WHERE username = ? AND username_seguito = ?
         ";
 
+        //unfollow an user by username
+
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $usernameFollowed);
+        $stmt->bind_param("ss", $username, $username_seguito);
         $stmt->execute();
     }
 
     public function updateUserWithoutImg($username, $email, $name, $surname) {
         $query = "
             UPDATE utente
-            SET email = ?, nome = ?, cognome = ?
+            SET mail = ?, nome = ?, cognome = ?
             WHERE username = ?
         ";
+        //update the user's data by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssss", $email, $name, $surname, $username);
@@ -182,10 +189,30 @@ class DatabaseHelper {
 
     public function getPostById($idPost) {
         $query = "
-            SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.data, p.testo, p.imgPost, p.like, p.commenti
-            FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hastag = h.idHastag
-            WHERE p.idPost = ?
-            WHERE idPost = ?
+        SELECT 
+        u.username, u.immagineProfilo, u.nome, u.cognome, 
+        p.idPost, p.data, p.testo, p.immagine,
+        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nome ASC) AS hashtag_list,
+        COUNT(DISTINCT l.username) AS num_like,
+        COUNT(DISTINCT c.idCommento) AS num_commenti,
+        GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
+        FROM 
+            post p 
+        INNER JOIN 
+            utente u ON p.username = u.username 
+        LEFT JOIN 
+            like_table l ON p.idPost = l.idPost
+        LEFT JOIN 
+            commenti_table c ON p.idPost = c.idPost
+        LEFT JOIN 
+            post_hashtag ph ON p.idPost = ph.idPost
+        LEFT JOIN 
+            hashtag h ON ph.nome = h.nome
+        WHERE 
+            p.idPost = ?
+        GROUP BY 
+            u.username, u.immagineProfilo, u.nome, u.cognome, 
+            p.idPost, p.data, p.testo, p.immagine;
         ";
 
         $stmt = $this->db->prepare($query);
@@ -199,7 +226,7 @@ class DatabaseHelper {
     public function getPostByhashtag ($hashtagName) {
         $query = "
             SELECT u.username, u.imgProfilo, u.nome, u.cognome, p.idPost, p.data, p.testo, p.imgPost, p.like, p.commenti
-            FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hastag = h.idHastag
+            FROM post p INNER JOIN utente u ON p.username = u.username INNER JOIN hashtag h ON p.hashtag = h.idHashtag
             WHERE h.nome = ?
         ";
 
