@@ -54,7 +54,7 @@
         
         $now = time();//Get the current time
         $valid_attempts = $now - (60 * 60); //Set the valid attempts to 1 hours ago
-        $attemptResult = $dbh->loginAttempt($username, $valid_attempts); //Check if there are more than 5 attempts in the last hour
+        $attemptResult = $dbh->getloginAttempt($username, $valid_attempts); //Check if there are more than 5 attempts in the last hour
 
         if(count($attemptResult) > 3) {
             return true;
