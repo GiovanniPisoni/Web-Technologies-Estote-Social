@@ -12,8 +12,8 @@
 -- Database Section
 -- ________________ 
 
-create database EstateSocialLogico;
-use EstateSocialLogico;
+create database db-estatesocial;
+use db-estatesocial;
 
 
 -- Tables Section
