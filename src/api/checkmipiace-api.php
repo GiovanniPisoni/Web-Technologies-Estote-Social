@@ -1,8 +1,6 @@
 <?php 
     require_once("../db_config.php");
 
-    $dbh = new DatabaseHelper("localhost", "root", "", "ontopic", 3306);
-
     $idPost = $_POST["postId"];
 
     //controllo se l'utente loggato abbia o meno messo mi piace al post

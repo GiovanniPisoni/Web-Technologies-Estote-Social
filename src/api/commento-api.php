@@ -1,8 +1,6 @@
 <?php
     require_once("db_config.php");
 
-    $dbh = new DatabaseHelper("localhost", "root", "", "ontopic", 3306);
-
     //redirect if not auth
     if(!userIsAlreadyIn($dbh->db)){
         header('Location: ./../index.php');
