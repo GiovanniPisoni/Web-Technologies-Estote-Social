@@ -15,8 +15,8 @@ class DatabaseHelper {
 
     public function getUsersByUsername($username) {
         $query = "
-            SELECT Username, Immagineprofilo, Nome, Cognome, Mail, DataDiNascita, codCensismento, 
-                gruppoAppartenenza, password, scout, bio, fazzolettone, specialita, totem 
+            SELECT Username, Immagineprofilo, Nome, Cognome, Mail, DataDiNascita, 
+                gruppoAppartenenza, password, bio, fazzolettone, specialita, totem 
             FROM utente 
             WHERE username = ?
         "; 
@@ -68,8 +68,8 @@ class DatabaseHelper {
     public function getUsersFriendsByusername ($username) {
         $query = "
             SELECT u.username, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.usernameSeguito = u.username
-            WHERE s.usernameSeguace = ?
+            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
+            WHERE s.username_Follower = ?
         ";
         //search for the friends of a user by username
 
@@ -99,9 +99,9 @@ class DatabaseHelper {
 
     public function getSeguitiByUsername($username) {
         $query = "
-            SELECT u.usernameSeguito, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.usernameSeguito = u.username
-            WHERE s.usernameSeguace = ?
+            SELECT u.username_Seguito, u.immagineProfilo
+            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
+            WHERE s.username_Follower = ?
         ";
         //search for the followed users of a user by username
 
@@ -115,9 +115,9 @@ class DatabaseHelper {
 
     public function getSeguaciById($username) {
         $query = "
-            SELECT u.usernameSeguace, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.usernameSeguace = u.username
-            WHERE s.usernameSeguito = ?
+            SELECT u.username_Follower, u.immagineProfilo
+            FROM seguire s INNER JOIN utente u ON s.username_Follower = u.username
+            WHERE s.username_Seguito = ?
         ";
         //search for the followers of a user by username
 
@@ -244,9 +244,9 @@ class DatabaseHelper {
         LEFT JOIN 
             appartenere ph ON p.idPost = ph.idPost
         LEFT JOIN 
-            hashtag h ON ph.nome = h.nome
+            hashtag h ON ph.nometipo = h.nometipo
         WHERE 
-            h.nome = ?
+            h.nometipo = ?
         GROUP BY 
             u.username, u.immagineProfilo, u.nome, u.cognome, 
             p.idPost, p.data, p.testo, p.immagine;
@@ -299,7 +299,7 @@ class DatabaseHelper {
     
             // Associazione dell'hashtag al post
             $queryPostHashtag = "
-            INSERT INTO appartenere (idPost, nome) VALUES (?, ?)
+            INSERT INTO appartenere (idPost, nometipo) VALUES (?, ?)
             ";
             $stmtPostHashtag = $this->db->prepare($queryPostHashtag);
             $stmtPostHashtag->bind_param("is", $idPostInserito, $hashtag);
@@ -458,7 +458,7 @@ class DatabaseHelper {
         //insert a new comment
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issii", $idCommento, $text, $username, $idPost, $idNotification);
+        $stmt->bind_param("issiis", $idCommento, $text, $username, $idPost, $idNotification, $date);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -506,9 +506,9 @@ class DatabaseHelper {
         //insert a new like
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("is", $idPost, $username);
+        $stmt->bind_param("isi", $idPost, $username, $idNotification);
         $stmt->execute();
-        $result = array("username" => $username, "idPost" => $idPost);
+        $result = array("username" => $username, "idPost" => $idPost, "idNotifica" => $idNotification);
 
         return $result;
     }
@@ -538,7 +538,7 @@ class DatabaseHelper {
         //insert a new notification
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("siss", $text, $idNotification, $usernameReceiver, $letta);
+        $stmt->bind_param("sisb", $text, $idNotification, $usernameReceiver, $letta);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -581,11 +581,11 @@ class DatabaseHelper {
     //funzione che inserisce un tentativo di login
     public function insertLoginAttempt($username, $time){
         $query = "
-                INSERT INTO tentativoLogin (username, time)
+                INSERT INTO tentativoLogin (username, dataora)
                 VALUES (?, ?)
                 ";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $time);
+        $stmt->bind_param("ss", $username, $dataora);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -595,11 +595,11 @@ class DatabaseHelper {
         $query = "
                 SELECT time 
                 FROM tentativoLogin 
-                WHERE username = ? AND time > ?
+                WHERE username = ? AND dataora > ?
                 ";
                 //prendo tutti i tentativi di login di un utente che sono stati fatti dopo un certo tempo
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ii', $userId, $timeThd);
+        $stmt->bind_param('ss', $username, $timeThd);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -610,14 +610,14 @@ class DatabaseHelper {
      * Register
      */
 
-    public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $codiceCensimento, $group, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem){
+    public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $bio, $salt, $fazzolettone, $specialita, $totem){
         $query = "
-            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, codCensimento, gruppo, email, password, scout, bio, fazzolettone, specialita, totem)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, gruppo, mail, password, bio, salt, fazzolettone, specialita, totem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ";
         //insert a new user
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssssisssissss", $username, $name, $surname, $dateofbirth, $profileimage, $codiceCensimento, $group, $email, $password, $scout, $bio, $fazzolettone, $specialita, $totem);
+        $stmt->bind_param("sssssssssssss", $username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $bio, $salt, $fazzolettone, $specialita, $totem);
         $stmt->execute();
 
         return $username;
