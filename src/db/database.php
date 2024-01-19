@@ -15,8 +15,7 @@ class DatabaseHelper {
 
     public function getUsersByUsername($username) {
         $query = "
-            SELECT Username, Immagineprofilo, Nome, Cognome, Mail, DataDiNascita, 
-                gruppoAppartenenza, password, bio, fazzolettone, specialita, totem 
+            SELECT *
             FROM utente 
             WHERE username = ?
         "; 
@@ -85,7 +84,7 @@ class DatabaseHelper {
         $query = "
             SELECT *
             FROM Notifica
-            WHERE username = ? AND letta = false
+            WHERE username_receiver = ? AND letta = false
         ";
         //search for the notifications of a user by username
 
@@ -129,16 +128,16 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function checkFollow($username, $usernameFollowed) {
+    public function checkFollow($usernameFollower, $usernameFollowed) {
         $query = "
             SELECT *
             FROM seguire
-            WHERE username = ? AND username_seguito = ?
+            WHERE username_follower = ? AND username_seguito = ?
         ";
         //search for the followers of a user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $username_seguito);
+        $stmt->bind_param("ss", $usernameFollower, $username_seguito);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -147,7 +146,7 @@ class DatabaseHelper {
 
     public function follow($username, $username_seguito) {
         $query = "
-            INSERT INTO seguire (username, username_seguito)
+            INSERT INTO seguire (username_follower, username_seguito)
             VALUES (?, ?)
         ";
         //follow an user by username
@@ -157,10 +156,10 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function unfollow($username, $username_seguito) {
+    public function unfollow($username_follower, $username_seguito) {
         $query = "
             DELETE FROM seguire
-            WHERE username = ? AND username_seguito = ?
+            WHERE username_follower = ? AND username_seguito = ?
         ";
 
         //unfollow an user by username
@@ -190,9 +189,9 @@ class DatabaseHelper {
     public function getPostById($idPost) {
         $query = "
         SELECT 
-        u.username, u.immagineProfilo, u.nome, u.cognome, 
+        u.username, u.immagineProfilo, 
         p.idPost, p.data, p.testo, p.immagine,
-        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nome ASC) AS hashtag_list,
+        GROUP_CONCAT(DISTINCT h.nometipo ORDER BY h.nometipo ASC) AS hashtag_list,
         COUNT(DISTINCT l.username) AS num_like,
         COUNT(DISTINCT c.idCommento) AS num_commenti,
         GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
@@ -207,11 +206,11 @@ class DatabaseHelper {
         LEFT JOIN 
             appartenere ph ON p.idPost = ph.idPost
         LEFT JOIN 
-            hashtag h ON ph.nome = h.nome
+            hashtag h ON ph.nometipo = h.nometipo
         WHERE 
             p.idPost = ?
         GROUP BY 
-            u.username, u.immagineProfilo, u.nome, u.cognome, 
+            u.username, u.immagineProfilo,
             p.idPost, p.data, p.testo, p.immagine;
         ";
 
@@ -227,9 +226,9 @@ class DatabaseHelper {
     public function getPostByHashtag ($hashtagName) {
         $query = "
         SELECT 
-        u.username, u.immagineProfilo, u.nome, u.cognome, 
+        u.username, u.immagineProfilo, 
         p.idPost, p.data, p.testo, p.immagine,
-        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nome ASC) AS hashtag_list,
+        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nometipo ASC) AS hashtag_list,
         COUNT(DISTINCT l.username) AS num_like,
         COUNT(DISTINCT c.idCommento) AS num_commenti,
         GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
@@ -248,7 +247,7 @@ class DatabaseHelper {
         WHERE 
             h.nometipo = ?
         GROUP BY 
-            u.username, u.immagineProfilo, u.nome, u.cognome, 
+            u.username, u.immagineProfilo, 
             p.idPost, p.data, p.testo, p.immagine;
     
         ";
@@ -275,13 +274,13 @@ class DatabaseHelper {
         return $stmt->insert_id;
     } */
 
-    public function insertPost($image, $username, $date, $hashtagArray) {
+    public function insertPost($image, $username, $date, $hashtagArray, $text) {
         // Inserimento del post
         $queryPost = "
-        INSERT INTO post (immagine, username, data) VALUES (?, ?, ?)
+        INSERT INTO post (immagine, username, data, testo) VALUES (?, ?, ?, ?)
         ";
         $stmtPost = $this->db->prepare($queryPost);
-        $stmtPost->bind_param("sss", $image, $username, $date);
+        $stmtPost->bind_param("ssss", $image, $username, $date, $text);
         $stmtPost->execute();
     
         // Recupero dell'ID del post appena inserito
@@ -437,7 +436,7 @@ class DatabaseHelper {
     //the list of comments is already given in the getPostById function
     public function getCommentsById($idPost) {
         $query = "
-            SELECT u.username, u.immagineprofilo, u.nome, u.cognome, c.idCommento, c.data, c.testo
+            SELECT u.username, u.immagineprofilo, c.idCommento, c.data, c.testo
             FROM commento c INNER JOIN utente u ON c.username = u.username
             WHERE c.idPost = ?
         ";
@@ -498,7 +497,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertLike($idPost, $username) {
+    public function insertLike($idPost, $username_sender) {
         $query = "
             INSERT INTO like (idPost, username)
             VALUES (?, ?)
@@ -506,9 +505,9 @@ class DatabaseHelper {
         //insert a new like
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("is", $idPost, $username);
+        $stmt->bind_param("is", $idPost, $username_sender);
         $stmt->execute();
-        $result = array("username" => $username, "idPost" => $idPost);
+        $result = array("username" => $username_sender, "idPost" => $idPost);
 
         return $result;
     }
@@ -530,15 +529,15 @@ class DatabaseHelper {
      * Notifications CRUD
      */
 
-    public function insertNotification($text, $tipo, $usernameReceiver, $usernameSender, $letta) {
+    public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
         $query = "
-            INSERT INTO notifica (testo, tipo, username_receiver, username_sender, Letta)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO notifica (tipo, username_receiver, username_sender, Letta)
+            VALUES (?, ?, ?, ?)
         ";
         //insert a new notification
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sissb", $text, $tipo, $usernameReceiver, $usernameSender, $letta);
+        $stmt->bind_param("issb", $tipo, $usernameReceiver, $usernameSender, $letta);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -613,7 +612,7 @@ class DatabaseHelper {
 
     public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem){
         $query = "
-            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, gruppo, email, password, salt, bio, fazzolettone, specialita, totem)
+            INSERT INTO utente (username, nome, cognome, datadiNascita, immagineProfilo, gruppoappartenenza, mail, password, salt, bio, fazzolettone, specialita, totem)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ";
         //insert a new user
