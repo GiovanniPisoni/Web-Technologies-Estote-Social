@@ -466,12 +466,13 @@ class DatabaseHelper {
     /**
      * Likes CRUD
      */
-    //also this function is useless, because the number of likes is already calculated in the getPostById function
+
     public function getLikesByPostId($idPost) {
         $query = "
-            SELECT like
-            FROM post
-            WHERE idPost = ?
+            SELECT COUNT(*) AS numeroLike
+            FROM like
+            WHERE idPost = ?;
+        
         ";
 
         $stmt = $this->db->prepare($query);
@@ -484,7 +485,7 @@ class DatabaseHelper {
     //also this function is useless, because the number of likes is already calculated in the getPostById function
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
-            SELECT *
+            SELECT COUNT(*) AS numeroLike
             FROM like
             WHERE username = ? AND idPost = ?
         ";
