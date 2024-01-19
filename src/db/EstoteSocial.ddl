@@ -40,7 +40,7 @@ create table HASHTAG (
      NomeTipo char(30) not null,
      constraint ID_HASHTAG_ID primary key (NomeTipo));
 
-create table LIKE (
+create table MIPIACE (
      IDPost numeric(20) not null,
      Username char(25) not null,
      IDNotifica numeric(1) not null,
@@ -109,21 +109,21 @@ alter table COMMENTI add constraint REF_COMME_POST_FK
      foreign key (IDPost)
      references POST;
 
-alter table LIKE add constraint REF_LIKE_UTENT
+alter table MIPIACE add constraint REF_LIKE_UTENT
      foreign key (Username)
      references UTENTE;
 
-alter table LIKE add constraint SID_LIKE_NOTIF_FK
+alter table MIPIACE add constraint SID_LIKE_NOTIF_FK
      foreign key (IDNotifica)
      references NOTIFICA;
 
-alter table LIKE add constraint REF_LIKE_POST_FK
+alter table MIPIACE add constraint REF_LIKE_POST_FK
      foreign key (IDPost)
      references POST;
 
 alter table NOTIFICA add constraint ID_NOTIFICA_CHK
-     check(exists(select * from LIKE
-                  where LIKE.IDNotifica = IDNotifica)); 
+     check(exists(select * from MIPIACE
+                  where MIPIACE.IDNotifica = IDNotifica)); 
 
 alter table NOTIFICA add constraint ID_NOTIFICA_CHK
      check(exists(select * from COMMENTI
@@ -179,13 +179,13 @@ create unique index ID_HASHTAG_IND
      on HASHTAG (NomeTipo);
 
 create unique index ID_LIKE_IND
-     on LIKE (Username, IDPost);
+     on MIPIACE (Username, IDPost);
 
 create unique index SID_LIKE_NOTIF_IND
-     on LIKE (IDNotifica);
+     on MIPIACE (IDNotifica);
 
 create index REF_LIKE_POST_IND
-     on LIKE (IDPost);
+     on MIPIACE (IDPost);
 
 create unique index ID_NOTIFICA_IND
      on NOTIFICA (IDNotifica);
