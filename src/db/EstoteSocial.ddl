@@ -22,7 +22,7 @@ use EstoteSocial2;
 create table COMMENTI (
      IDPost bigint not null,
      Username char(40) not null,
-     IDCommento bigint not null,
+     IDCommento bigint not null auto-increment,
      Testo char(250) not null,
      Data date not null,
      constraint IDCOMMENTI primary key (IDCommento, IDPost, Username));
@@ -42,16 +42,15 @@ create table LOGINATTEMPT (
      constraint IDLOGINATTEMPT primary key (Username, Dataora));
 
 create table NOTIFICA (
-     IDNotifica int not null,
+     IDNotifica int not null auto-increment,
      Letta char not null,
-     Testo char(100) not null,
      Tipo char(20) not null,
      Username_receiver char(40) not null,
      Username_sender char(40) not null,
      constraint IDNOTIFICA primary key (IDNotifica));
 
 create table POST (
-     IDPost bigint not null,
+     IDPost bigint not null auto-increment,
      Testo char(250) not null,
      Immagine char(100),
      Data date not null,
