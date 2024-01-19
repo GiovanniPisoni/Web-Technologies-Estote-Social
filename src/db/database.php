@@ -275,13 +275,13 @@ class DatabaseHelper {
         return $stmt->insert_id;
     } */
 
-    public function insertPost($idPost, $image, $username, $date, $hashtagArray) {
+    public function insertPost($image, $username, $date, $hashtagArray) {
         // Inserimento del post
         $queryPost = "
-        INSERT INTO post (idPost, immagine, username, data) VALUES (?, ?, ?, ?)
+        INSERT INTO post (immagine, username, data) VALUES (?, ?, ?)
         ";
         $stmtPost = $this->db->prepare($queryPost);
-        $stmtPost->bind_param("isss", $idPost, $image, $username, $date);
+        $stmtPost->bind_param("sss", $image, $username, $date);
         $stmtPost->execute();
     
         // Recupero dell'ID del post appena inserito
@@ -450,15 +450,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertComment($idCommento, $text, $username, $idPost, $idNotifitication, $date) {
+    public function insertComment($text, $username, $idPost, $date) {
         $query = "
-            INSERT INTO commento (idCommento, testo, username, idPost, idNotifica, data)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO commento (testo, username, idPost, data)
+            VALUES (?, ?, ?, ?)
         ";
         //insert a new comment
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issiis", $idCommento, $text, $username, $idPost, $idNotification, $date);
+        $stmt->bind_param("ssis", $text, $username, $idPost, $date);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -498,17 +498,17 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertLike($idPost, $username, $idNotification) {
+    public function insertLike($idPost, $username) {
         $query = "
-            INSERT INTO like (idPost, username, IDNotifica)
-            VALUES (?, ?, ?)
+            INSERT INTO like (idPost, username)
+            VALUES (?, ?)
         ";
         //insert a new like
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("isi", $idPost, $username, $idNotification);
+        $stmt->bind_param("is", $idPost, $username);
         $stmt->execute();
-        $result = array("username" => $username, "idPost" => $idPost, "idNotifica" => $idNotification);
+        $result = array("username" => $username, "idPost" => $idPost);
 
         return $result;
     }
@@ -530,15 +530,15 @@ class DatabaseHelper {
      * Notifications CRUD
      */
 
-    public function insertNotification($text, $idNotification, $usernameReceiver, $letta) {
+    public function insertNotification($text, $tipo, $usernameReceiver, $usernameSender, $letta) {
         $query = "
-            INSERT INTO notifica (testo, idNotifica, username, Letta)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO notifica (testo, tipo, username_receiver, username_sender, Letta)
+            VALUES (?, ?, ?, ?, ?)
         ";
         //insert a new notification
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sisb", $text, $idNotification, $usernameReceiver, $letta);
+        $stmt->bind_param("sissb", $text, $tipo, $usernameReceiver, $usernameSender, $letta);
         $stmt->execute();
 
         return $stmt->insert_id;

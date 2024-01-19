@@ -1,7 +1,5 @@
 <?php 
-    include '../utils/functions.php';
-    
-    session_start_withCookies();
+    require_once '../db_config.php';
 
     // Elimina tutti i valori della sessione.
     $_SESSION = array();
