@@ -1,14 +1,5 @@
 <?php
 
-    //Function that check if the password is the same of the confirm password
-    function checkPassword($password, $confirm_password) {
-        if($password == $confirm_password) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     //Function that start the session with cookies
     function session_start_withCookies() {
         $session_name = 'session_withCookies'; // Set a custom session name
