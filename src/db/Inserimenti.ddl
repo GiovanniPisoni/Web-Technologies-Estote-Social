@@ -3,7 +3,7 @@ INSERT INTO HASHTAG (NomeTipo) VALUES
   ('#caccia'), ('#costruzione'), ('#totem'), ('#campo'), ('#cerimonia'), ('#uscita'), ('#specialità'), ('#thinkingDay'), ('#caveja'), ('#campetto');
 
 -- Inserimento dati per la tabella UTENTE
-INSERT INTO UTENTE (Nome, Cognome, DataDiNascita, CodiceCensimento, ImmagineProfilo, GruppoAppartenenza, Mail, Username, Password, Scout, Bio, Fazzolettone, Specialita, Totem)
+INSERT INTO UTENTE (Nome, Cognome, DataDiNascita, ImmagineProfilo, GruppoAppartenenza, Mail, Username, Password, Scout, Bio, Fazzolettone, Specialita, Totem)
 VALUES 
   ('Giacomo', 'Foschi', '2002-03-02', 'img_giacomo.jpg', 'Cesena6', 'giakyfoschi@gmail.com', 'giaky_ilNano', 'password', 'true', 'Appassionato di outdoor,Insegnante di musica', 'fazzolettoneGiacomo.jpg', 'specialitàGiacomo.jpg', 'Dingo Loquace'),
   ('Giovanni', 'Rinchiuso', '2002-02-15', 'img_gino.jpg', 'Ravenna4', 'rinchiusog8@gmail.com', 'gino_ilGrande', 'password', 'true', 'Amante della cucina italiana', 'fazzolettoneGino.jpg', 'specialitàGino.jpg', 'Daino Pacifico'),

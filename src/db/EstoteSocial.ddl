@@ -5,15 +5,15 @@
 -- * Generator date: Sep 14 2021              
 -- * Generation date: Fri Jan 19 15:46:17 2024 
 -- * LUN file: C:\Users\rinch\Desktop\Web-Technologies-Estote-Social\src\db\Social.lun 
--- * Schema: EstateSocialLogico/1-1 
+-- * Schema: EstoteSocialLogico/1-1 
 -- ********************************************* 
 
 
 -- Database Section
 -- ________________ 
 
-create database db-estatesocial;
-use db-estatesocial;
+create database db_estotesocial;
+use db_estotesocial;
 
 
 -- Tables Section

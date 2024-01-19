@@ -8,5 +8,4 @@
     header("Location:homepage.php");
   }
 
-  include"start.php"
 ?>
