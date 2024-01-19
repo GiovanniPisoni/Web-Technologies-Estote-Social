@@ -5,7 +5,8 @@
     if(!userIsAlreadyIn($dbh->db)){
         header('Location: ./../index.php');
     }
-
+    //questa api va modificata, nel nostro db possiamo calcolare 
+    //direttamente il numero di likes di un post tramite una query
     //rimuove un mi piace ad un post se già presente, o ne aggiunge uno
     $idPost = $_POST["postId"];
     $remove = false;
