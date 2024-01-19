@@ -5,9 +5,11 @@
     if(!userIsAlreadyIn($dbh->db)){
         header('Location: ./../index.php');
     }
-    //questa api va modificata, nel nostro db possiamo calcolare 
-    //direttamente il numero di likes di un post tramite una query
+    
     //rimuove un mi piace ad un post se già presente, o ne aggiunge uno
+    //però se un utente vuole aggiungere un like dove il like c'è già, non succede nulla, perchè nel db 
+    //l'entità like ha come chiave primaria la coppia (idPost, idUtente), quindi un certo utente può mettere
+    //like ad un post una sola volta
     $idPost = $_POST["postId"];
     $remove = false;
     if(isset($_POST["remove"])) {
@@ -15,10 +17,8 @@
     }
 
     if($remove){
-        $dbh->decrementLikesById($idPost);
         $dbh->removeLike($idPost, $_SESSION["user_id"]);
     } else {
-        $dbh->incrementLikesById($idPost);
         $dbh->insertLike($idPost, $_SESSION["user_id"]);
     }
     $result["likes"] = $dbh->getLikesByPostId($idPost);
