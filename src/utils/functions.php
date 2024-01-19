@@ -1,5 +1,15 @@
 <?php
 
+    //Function that check if the password is the same of the confirm password
+    function checkPassword($password, $confirm_password) {
+        if($password == $confirm_password) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Function that start the session with cookies
     function session_start_withCookies() {
         $session_name = 'session_withCookies'; // Set a custom session name
         $secure = false; // Set to true if using https.
@@ -21,7 +31,6 @@
             $username = $checkLogin[0]["username"]; //Retrieve username from database
             $passwordDB = $checkLogin[0]["password"]; //Retrieve password from database
             $salt = $checkLogin[0]["salt"]; //Retrieve salt from database
-            //DA AGGIUNGERE AL DATABASE
 
             $password = hash('sha512', $password . $salt); //Hash with SHA512 algorithm the password with the unique salt.
 
