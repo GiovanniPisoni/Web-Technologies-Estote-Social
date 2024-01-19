@@ -5,15 +5,15 @@
 -- * Generator date: Sep 14 2021              
 -- * Generation date: Fri Jan 19 15:46:17 2024 
 -- * LUN file: C:\Users\rinch\Desktop\Web-Technologies-Estote-Social\src\db\Social.lun 
--- * Schema: EstateSocialLogico/1-1 
+-- * Schema: EstoteSocialLogico/1-1 
 -- ********************************************* 
 
 
 -- Database Section
 -- ________________ 
 
-create database db-estatesocial;
-use db-estatesocial;
+create database db_estotesocial;
+use db_estotesocial;
 
 
 -- Tables Section
@@ -75,13 +75,11 @@ create table UTENTE (
      Nome char(20),
      Cognome char(20),
      DataDiNascita date,
-     CodiceCensimento char(10),
      ImmagineProfilo char(200) not null,
      GruppoAppartenenza char(15),
      Mail char(30) not null,
      Username char(25) not null,
      Password char(40) not null,
-     Scout char not null,
      Salt char(1) not null,
      Bio char(250) not null,
      Fazzolettone char(200),

@@ -610,14 +610,15 @@ class DatabaseHelper {
      * Register
      */
 
-    public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $bio, $salt, $fazzolettone, $specialita, $totem){
+
+    public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem){
         $query = "
-            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, gruppo, mail, password, bio, salt, fazzolettone, specialita, totem)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO utente (username, nome, cognome, dataNascita, immagineProfilo, gruppo, email, password, salt, bio, fazzolettone, specialita, totem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ";
         //insert a new user
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sssssssssssss", $username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $bio, $salt, $fazzolettone, $specialita, $totem);
+        $stmt->bind_param("sssssssssssss", $username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem);
         $stmt->execute();
 
         return $username;
