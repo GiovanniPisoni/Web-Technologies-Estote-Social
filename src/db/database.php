@@ -13,81 +13,27 @@ class DatabaseHelper {
      * User CRUD
      */
 
+     public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem){
+        $query = "
+            INSERT INTO utente (username, nome, cognome, datadiNascita, immagineProfilo, gruppoappartenenza, mail, password, salt, bio, fazzolettone, specialita, totem)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+        //insert a new user
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssssssssssss", $username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem);
+        $stmt->execute();
+
+        return $username;
+    }
+
     public function getUsersByUsername($username) {
         $query = "
-            SELECT *
+            SELECT username, immagineProfilo, nome, cognome, bio, fazzolettone, specialita, totem, gruppoappartenenza, datadiNascita, mail, 
             FROM utente 
             WHERE username = ?
         "; 
-        //get all the user's data by username
+        //get all the user's data by username, except the password and the salt
         
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function searchUser($input) {
-        $query = "
-            SELECT username, immagineProfilo, nome, cognome,
-            FROM utente 
-            WHERE username LIKE CONCAT(?, '%') 
-            OR nome LIKE CONCAT(?, '%') 
-            OR cognome LIKE CONCAT(?, '%')
-        "; 
-        //get username, immagineProfilo, nome, cognome of all the users that match the input
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sss", $input, $input, $input);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getUsersByUsernameImageOnly($username) {
-        $query = "
-            SELECT username, immagineProfilo
-            FROM utente 
-            WHERE username LIKE ?
-        ";
-       //get username and immagineProfilo of all the users that match the input
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    /** Funzione che non so se andremo ad usare, MOMENTANEA*/
-    public function getUsersFriendsByusername ($username) {
-        $query = "
-            SELECT u.username, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
-            WHERE s.username_Follower = ?
-        ";
-        //search for the friends of a user by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getNotificationsByUsername($username) {
-        $query = "
-            SELECT *
-            FROM Notifica
-            WHERE username_receiver = ? AND letta = false
-        ";
-        //search for the notifications of a user by username
-
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -112,13 +58,96 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getSeguaciById($username) {
+    public function getFollowerByUsername($username) {
         $query = "
-            SELECT u.username_Follower, u.immagineProfilo
+            SELECT u.username, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.username_Follower = u.username
-            WHERE s.username_Seguito = ?
+            WHERE s.username_seguito = ?
         ";
         //search for the followers of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //this function is not correct because we don't have name and surname mandatory
+    public function searchUser($input) {
+        $query = "
+            SELECT username, immagineProfilo, nome, cognome, bio, fazzolettone, specialita, totem, gruppoappartenenza, datadiNascita, mail, 
+            FROM utente 
+            WHERE username LIKE CONCAT(?, '%') 
+            OR nome LIKE CONCAT(?, '%') 
+            OR cognome LIKE CONCAT(?, '%')
+        "; 
+        //get username's data of all the users that match the input
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sss", $input, $input, $input);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUsersByUsernameImageOnly($username) {
+        $query = "
+            SELECT username, immagineProfilo
+            FROM utente 
+            WHERE username LIKE ?
+        ";
+       //get username and immagineProfilo of all the users that match the input
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function updateUser($email, $name, $surname, $image, $bio, $fazzolettone, $specialita, $totem, $group, $dateofbirth, $username) {
+        $query = "
+            UPDATE utente
+            SET mail = ?, nome = ?, cognome = ?, immagineProfilo = ?, bio = ?, fazzolettone = ?, specialita = ?, totem = ?, gruppoappartenenza = ?, datadiNascita = ?
+            WHERE username = ?
+        ";
+        //update the user's data by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssssssssss", $email, $name, $surname, $image, $bio, $fazzolettone, $specialita, $totem, $group, $dateofbirth, $username);
+        $stmt->execute();
+    }
+
+    /** Funzione che non so se andremo ad usare, MOMENTANEA*/
+    public function getUsersFriendsByusername ($username) {
+        $query = "
+            SELECT u.username, u.immagineProfilo
+            FROM seguire s1
+            INNER JOIN seguire s2 ON s1.username_seguito = s2.username_Follower AND s1.username_Follower = s2.username_seguito
+            INNER JOIN utente u ON s1.username_Follower = u.username
+            WHERE s1.username_seguito = ?;
+        
+        ";
+        //search for the friends of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getSeguitiById($username) {
+        $query = "
+            SELECT u.username_Seguito, u.immagineProfilo
+            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
+            WHERE s.username_Follower = ?
+        ";
+        //search for the followed users of a user by username
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
@@ -144,18 +173,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function follow($username, $username_seguito) {
-        $query = "
-            INSERT INTO seguire (username_follower, username_seguito)
-            VALUES (?, ?)
-        ";
-        //follow an user by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $username_seguito);
-        $stmt->execute();
-    }
-
     public function unfollow($username_follower, $username_seguito) {
         $query = "
             DELETE FROM seguire
@@ -169,22 +186,90 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function updateUserWithoutImg($username, $email, $name, $surname) {
+
+    public function follow($username, $username_seguito) {
         $query = "
-            UPDATE utente
-            SET mail = ?, nome = ?, cognome = ?
-            WHERE username = ?
+            INSERT INTO seguire (username_follower, username_seguito)
+            VALUES (?, ?)
         ";
-        //update the user's data by username
+        //follow an user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssss", $email, $name, $surname, $username);
+        $stmt->bind_param("ss", $username, $username_seguito);
         $stmt->execute();
     }
 
-    /**
-     * post CRUD
-    */
+    public function getNotificationsByUsername($username) {
+        $query = "
+            SELECT *
+            FROM Notifica
+            WHERE username_receiver = ? AND letta = false
+        ";
+        //search for the notifications of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function isReadNotification($idNotifica) {
+        $query = "
+            UPDATE notifica
+            SET letta = true
+            WHERE idNotifica = ?
+        ";
+        //update the notification's letta by idNotification
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idNotifica);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
+    public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
+        $query = "
+            INSERT INTO notifica (tipo, username_receiver, username_sender, Letta)
+            VALUES (?, ?, ?, ?)
+        ";
+        //insert a new notification
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("issb", $tipo, $usernameReceiver, $usernameSender, $letta);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function removeNotification($idNotifica) {
+        $query = "
+            DELETE FROM notifica
+            WHERE idNotifica = ?
+        ";
+        //delete a notification by idNotification
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idNotifica);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
+
+
+
+
+    
+
+    
+
+    
+    
+
+   
 
     public function getPostById($idPost) {
         $query = "
@@ -261,20 +346,8 @@ class DatabaseHelper {
     }
     //get all the post's data by hashtag
 
-   /* public function insertPost($idPost, $image, $hashtag, $username, $date) {
-        $query = "
-            INSERT INTO post (idPost, immagine, hastag, username, date)
-            VALUES (?, ?, ?, ?)
-        ";
 
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issss", $idPost, $image, $hashtag, $username, $date);
-        $stmt->execute();
-
-        return $stmt->insert_id;
-    } */
-
-    public function insertPost($image, $username, $date, $hashtagArray, $text) {
+    public function insertPost($image, $username, $date, $text, $hashtagArray) {
         // Inserimento del post
         $queryPost = "
         INSERT INTO post (immagine, username, data, testo) VALUES (?, ?, ?, ?)
@@ -313,7 +386,7 @@ class DatabaseHelper {
     
     
 
-    public function updatePostWithImage($idPost, $text, $image) {
+    public function updatePost($idPost, $text, $image) {
         $query = "
             UPDATE post
             SET testo = ?, immagine = ?
@@ -326,23 +399,11 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->execute();
-    }
+    } 
 
-    //secondo me questa fz non serve, basta utilizzare quella sopra e passare come parametro $image = NULL, come consigliato
-    //da mio fratello il copilot
-    public function updatePostWithoutImage($idPost, $text) {
-        $query = "
-            UPDATE post
-            SET testo = ?
-            WHERE idPost = ?
-        ";
+    
 
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("si", $text, $idPost);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
+    
 
     public function deletePostImage($idPost) {
         $query = "
@@ -358,62 +419,6 @@ class DatabaseHelper {
         return $stmt->execute();
     }
     //delete the post's image by idPost
-    //in my opinion this function is useless, because the number of comments is already calculated in the getPostById function
-    public function incrementCommentsById($idPost) {
-        $query = "
-            UPDATE post
-            SET commenti = commenti + 1
-            WHERE idPost = ?
-        ";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
-    //also this function is useless, because the number of comments is already calculated in the getPostById function
-    public function decrementCommentsById($idPost) {
-        $query = "
-            UPDATE post
-            SET commenti = commenti - 1
-            WHERE idPost = ?
-        ";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
-    //in my opinion this function is useless, because the number of likes is already calculated in the getPostById function
-    public function incrementLikesById($idPost) {
-        $query = "
-            UPDATE post
-            SET like = like + 1
-            WHERE idPost = ?
-        ";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
-    //in my opinion this function is useless, because the number of likes is already calculated in the getPostById function
-    public function decrementLikesById($idPost) {
-        $query = "
-            UPDATE post
-            SET like = like - 1
-            WHERE idPost = ?
-        ";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
 
     public function deletePostById($idPost) {
         $query = "
@@ -474,7 +479,7 @@ class DatabaseHelper {
             WHERE idPost = ?;
         
         ";
-
+//return the number of likes of a post by idPost
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
@@ -482,13 +487,15 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    //also this function is useless, because the number of likes is already calculated in the getPostById function
+    
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
             SELECT COUNT(*) AS numeroLike
             FROM like
             WHERE username = ? AND idPost = ?
         ";
+
+        //this function controls if a user has liked a post by username and idPost, returns 1 if the user has liked the post, 0 otherwise
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("si", $username, $idPost);
@@ -530,34 +537,7 @@ class DatabaseHelper {
      * Notifications CRUD
      */
 
-    public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
-        $query = "
-            INSERT INTO notifica (tipo, username_receiver, username_sender, Letta)
-            VALUES (?, ?, ?, ?)
-        ";
-        //insert a new notification
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issb", $tipo, $usernameReceiver, $usernameSender, $letta);
-        $stmt->execute();
-
-        return $stmt->insert_id;
-    }
-
-    public function removeNotification($idNotifica) {
-        $query = "
-            DELETE FROM notifica
-            WHERE idNotifica = ?
-        ";
-        //delete a notification by idNotification
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idNotifica);
-        $stmt->execute();
-
-        return $stmt->execute();
-    }
-
+    
     /**
      * Login
      */
@@ -591,6 +571,22 @@ class DatabaseHelper {
         return $stmt->insert_id;
     }
 
+    //funzione che elimina i tentativi di login più vecchi di un certo tempo
+
+    public function deleteLoginAttemptByTime($timeThd){
+        $query = "
+                DELETE FROM tentativoLogin
+                WHERE dataora < ?
+                ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $timeThd);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
+    
+
     public function getLoginAttempt($username, $timeThd){
         $query = "
                 SELECT time 
@@ -611,18 +607,7 @@ class DatabaseHelper {
      */
 
 
-    public function insertUser($username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem){
-        $query = "
-            INSERT INTO utente (username, nome, cognome, datadiNascita, immagineProfilo, gruppoappartenenza, mail, password, salt, bio, fazzolettone, specialita, totem)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ";
-        //insert a new user
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sssssssssssss", $username, $name, $surname, $dateofbirth, $profileimage, $group, $email, $password, $salt, $bio, $fazzolettone, $specialita, $totem);
-        $stmt->execute();
-
-        return $username;
-    }
+    
 
 }
 ?>
