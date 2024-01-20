@@ -42,22 +42,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getSeguitiByUsername($username) {
-        $query = "
-            SELECT u.username_Seguito, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
-            WHERE s.username_Follower = ?
-        ";
-        //search for the followed users of a user by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
     public function getFollowerByUsername($username) {
         $query = "
             SELECT u.username, u.immagineProfilo
@@ -141,7 +125,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getSeguitiById($username) {
+    public function getSeguitiByUsername($username) {
         $query = "
             SELECT u.username_Seguito, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
@@ -215,7 +199,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function isReadNotification($idNotifica) {
+    public function ReadNotification($idNotifica) {
         $query = "
             UPDATE notifica
             SET letta = true
@@ -228,6 +212,22 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->execute();
+    }
+
+    public function isReadNotification($idNotifica) {
+        $query = "
+            SELECT letta
+            FROM notifica
+            WHERE idNotifica = ?
+        ";
+        //check if a notification is read by idNotification
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idNotifica);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {

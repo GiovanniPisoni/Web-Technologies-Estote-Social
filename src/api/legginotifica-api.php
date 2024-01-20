@@ -9,7 +9,7 @@
     $idNotifica = $_POST["idNotifica"];
     
     //disabilita la visualizzazione di una particolare notifica
-    $result = $dbh->leggiNotifica($idNotifica);
+    $result = $dbh->ReadNotification($idNotifica);
 
     header('Content-Type: application/json');
     echo json_encode($result);
