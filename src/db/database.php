@@ -93,10 +93,10 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function updateUser($email, $name, $surname, $image, $bio, $fazzolettone, $specialita, $totem, $group, $dateofbirth, $username) {
+    public function updateUser($email, $name, $surname, $bio, $totem, $group, $dateofbirth, $username) {
         $query = "
             UPDATE utente
-            SET mail = ?, nome = ?, cognome = ?, immagineProfilo = ?, bio = ?, fazzolettone = ?, specialita = ?, totem = ?, gruppoappartenenza = ?, datadiNascita = ?
+            SET mail = ?, nome = ?, cognome = ?, bio = ?, totem = ?, gruppoappartenenza = ?, datadiNascita = ?
             WHERE username = ?
         ";
         //update the user's data by username
@@ -274,10 +274,6 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    
-
-    
 
     public function insertPost($image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3) {
         // Inserimento del post
@@ -494,8 +490,6 @@ class DatabaseHelper {
     /**
      * Comments CRUD
      */
-    //also this function is useless, because the number of comments is already calculated in the getPostById function and also
-    //the list of comments is already given in the getPostById function
     public function getCommentsById($idPost) {
         $query = "
             SELECT u.username, u.immagineprofilo, c.idCommento, c.data, c.testo
@@ -545,8 +539,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-
-    
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
             SELECT COUNT(*) AS numeroLike
@@ -644,8 +636,6 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
-    
-
     public function getLoginAttempt($username, $timeThd){
         $query = "
                 SELECT dataora 
@@ -660,13 +650,6 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    /**
-     * Register
-     */
-
-
-    
 
 }
 ?>
