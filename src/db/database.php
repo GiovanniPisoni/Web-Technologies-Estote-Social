@@ -399,9 +399,41 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->execute();
-    } 
+    }
 
-    public function getImageIdUser($username) {
+    public function getSpecialita($username) {
+        $query = "
+            SELECT specialita
+            FROM utente
+            WHERE username = ?
+        ";
+        //get the user image by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getFazzolettone($username) {
+        $query = "
+            SELECT fazzolettone
+            FROM utente
+            WHERE username = ?
+        ";
+        //get the user image by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getImageUser($username) {
         $query = "
             SELECT immagine
             FROM utente
