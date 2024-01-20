@@ -39,7 +39,7 @@
                 } else {
                     //Password is not correct
                     $now = time();
-                    $dbh->loginAttempt($username, $now); //We record this attempt in the database
+                    $dbh->insertLoginAttempt($username, $now); //We record this attempt in the database
                     return false;
                 }
             }
