@@ -275,130 +275,52 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostById($idPost) {
-        $query = "
-        SELECT 
-        u.username, u.immagineProfilo, 
-        p.idPost, p.data, p.testo, p.immagine,
-        GROUP_CONCAT(DISTINCT h.nometipo ORDER BY h.nometipo ASC) AS hashtag_list,
-        COUNT(DISTINCT l.username) AS num_like,
-        COUNT(DISTINCT c.idCommento) AS num_commenti,
-        GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
-        FROM 
-            post p 
-        INNER JOIN 
-            utente u ON p.username = u.username 
-        LEFT JOIN 
-            like l ON p.idPost = l.idPost
-        LEFT JOIN 
-            commenti c ON p.idPost = c.idPost
-        LEFT JOIN 
-            appartenere ph ON p.idPost = ph.idPost
-        LEFT JOIN 
-            hashtag h ON ph.nometipo = h.nometipo
-        WHERE 
-            p.idPost = ?
-        GROUP BY 
-            u.username, u.immagineProfilo,
-            p.idPost, p.data, p.testo, p.immagine;
-        ";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-    //get all the post's data by idPost
-
-    public function getPostByHashtag ($hashtagName) {
-        $query = "
-        SELECT 
-        u.username, u.immagineProfilo, 
-        p.idPost, p.data, p.testo, p.immagine,
-        GROUP_CONCAT(DISTINCT h.nome ORDER BY h.nometipo ASC) AS hashtag_list,
-        COUNT(DISTINCT l.username) AS num_like,
-        COUNT(DISTINCT c.idCommento) AS num_commenti,
-        GROUP_CONCAT(DISTINCT c.testo ORDER BY c.data ASC) AS commenti_list
-        FROM 
-            post p 
-        INNER JOIN 
-            utente u ON p.username = u.username 
-        LEFT JOIN 
-            like l ON p.idPost = l.idPost
-        LEFT JOIN 
-            commenti c ON p.idPost = c.idPost
-        LEFT JOIN 
-            appartenere ph ON p.idPost = ph.idPost
-        LEFT JOIN 
-            hashtag h ON ph.nometipo = h.nometipo
-        WHERE 
-            h.nometipo = ?
-        GROUP BY 
-            u.username, u.immagineProfilo, 
-            p.idPost, p.data, p.testo, p.immagine;
     
-        ";
 
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $hashtagName);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    
 
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-    //get all the post's data by hashtag
-
-    public function insertPost($image, $username, $date, $text, $hashtagArray) {
+    public function insertPost($image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3) {
         // Inserimento del post
         $queryPost = "
-        INSERT INTO post (immagine, username, data, testo) VALUES (?, ?, ?, ?)
+        INSERT INTO post (immagine, username, data, testo) VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
         $stmtPost = $this->db->prepare($queryPost);
-        $stmtPost->bind_param("ssss", $image, $username, $date, $text);
+        $stmtPost->bind_param("sssssss", $image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3);
         $stmtPost->execute();
-    
-        // Recupero dell'ID del post appena inserito
-        $idPostInserito = $stmtPost->insert_id;
-    
-        // Inserimento degli hashtag
-        $queryHashtag = "
-        INSERT INTO hashtag (nometipo) VALUES (?) ON DUPLICATE KEY UPDATE nometipo = nometipo
-        ";
-        $stmtHashtag = $this->db->prepare($queryHashtag);
-        $stmtHashtag->bind_param("s", $hashtag);
-    
-        foreach ($hashtagArray as $hashtag) {
-            $stmtHashtag->execute();
-    
-            // Associazione dell'hashtag al post
-            $queryPostHashtag = "
-            INSERT INTO appartenere (idPost, nometipo) VALUES (?, ?)
-            ";
-            $stmtPostHashtag = $this->db->prepare($queryPostHashtag);
-            $stmtPostHashtag->bind_param("is", $idPostInserito, $hashtag);
-            $stmtPostHashtag->execute();
-            $stmtPostHashtag->close();
-        }
-    
-        // Restituisci l'ID del post appena inserito
-        return $idPostInserito;
     }
+    
 
-    public function updatePost($idPost, $text, $image) {
+    public function updatePostText($idPost, $text, $image, $hashtag1, $hashtag2, $hashtag3) {
         $query = "
             UPDATE post
-            SET testo = ?, immagine = ?
+            SET testo = ?, immagine = ?, hashtag1 = ?, hashtag2 = ?, hashtag3 = ?
             WHERE idPost = ?
         ";
         //update the post's data by idPost
+        //WARNING: none of the parameters can be NULL, if you want to update only one of them, you have to pass the old value, or if
+        //you want to delete the image, you have to use the deletePostImage function
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssi", $text, $image, $idPost);
+        $stmt->bind_param("ssisss", $text, $image, $idPost, $hashtag1, $hashtag2, $hashtag3);  
         $stmt->execute();
 
         return $stmt->execute();
+    }
+
+    public function getPostByHashtag($hashtag) {
+        $query = "
+            SELECT Idpost
+            FROM post
+            WHERE hashtag1 = ? OR hashtag2 = ? OR hashtag3 = ?
+        ";
+        //get all the posts that have a certain hashtag
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sss", $hashtag, $hashtag, $hashtag);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getSpecialita($username) {
@@ -417,6 +339,21 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function deleteSpecialita($username) {
+        $query = "
+            UPDATE utente
+            SET specialita = NULL
+            WHERE username = ?
+        ";
+        //delete the user's specialita by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
     public function getFazzolettone($username) {
         $query = "
             SELECT fazzolettone
@@ -431,6 +368,21 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteFazzolettone($username) {
+        $query = "
+            UPDATE utente
+            SET fazzolettone = NULL
+            WHERE username = ?
+        ";
+        //delete the user's fazzolettone by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+        return $stmt->execute();
     }
 
     public function getImageUser($username) {
