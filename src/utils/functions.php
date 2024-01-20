@@ -150,4 +150,12 @@ function uploadImage($path, $image){
         return array($result, $msg);
     }
 
+    function deleteFile($path) {
+        if (file_exists($path)) {
+            return unlink($path); // Il file esiste, lo elimino
+        } else {
+            return false; // Il file non esiste
+        }
+    }
+
 ?>
