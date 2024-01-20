@@ -92,6 +92,7 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
     public function updateUser($email, $name, $surname, $image, $bio, $fazzolettone, $specialita, $totem, $group, $dateofbirth, $username) {
         $query = "
             UPDATE utente
@@ -416,7 +417,21 @@ class DatabaseHelper {
     } 
 
     
+    public function PostImage($idPost) {
+        $query = "
+            SELECT immagine
+            FROM post
+            WHERE idPost = ?
+        ";
+        //get the post's image by idPost
 
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idPost);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     
 
     public function deletePostImage($idPost) {
@@ -501,6 +516,8 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+
     
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
