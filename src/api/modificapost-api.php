@@ -10,10 +10,6 @@
     $testo = $_POST["testo"];
     
     //modifica un post già esistente
-    if(isset($_POST["immagine"])) {
-        $immagine = $_POST["immagine"];
-        $dbh->updatePostWithImage($idPost, $testo, $immagine);
-    } else {
-        $dbh->updatePostWithoutImage($idPost, $testo);
-    }
+    $immagine = $_POST["immagine"];
+    $dbh->updatePost($idPost, $testo, $immagine);
 ?>
