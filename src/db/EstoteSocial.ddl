@@ -83,43 +83,43 @@ create table UTENTE (
 
 alter table COMMENTI add constraint FKavere
      foreign key (IDPost)
-     references POST (IDPost);
+     references POST (IDPost) on delete cascade;
 
 alter table COMMENTI add constraint FKcommentare
      foreign key (Username)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table LIKE add constraint FKlasciare
      foreign key (Username)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table LIKE add constraint FKappartenere2
      foreign key (IDPost)
-     references POST (IDPost);
+     references POST (IDPost) on delete cascade;
 
 alter table LOGINATTEMPT add constraint FKaccesso
      foreign key (Username)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table NOTIFICA add constraint FKricevere
      foreign key (Username_receiver)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table NOTIFICA add constraint FKinviare
      foreign key (Username_sender)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table POST add constraint FKpostare
      foreign key (Username)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table seguire add constraint FKUTENTE_1
      foreign key (Username_seguito)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 alter table seguire add constraint FKseg_UTE
      foreign key (Username_follower)
-     references UTENTE (Username);
+     references UTENTE (Username) on delete cascade;
 
 
 -- Index Section
