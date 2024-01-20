@@ -1,6 +1,6 @@
 <form action="#" method="POST" id="login-Form" class="position-relative">
     <div class="d-flex justify-content-center">
-        <img src="img/LoginPhoto.png" alt="Login photo" width="275"/>
+        <img src="img/LoginPhoto.png" alt="Login photo" width="275" class="rounded-4"/>
     </div>
     <div class="d-flex justify-content-center mt-3"> 
         <label for="username" class="me-2">Username</label>
