@@ -259,12 +259,6 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
-
-
-
-
-    
-
     public function getUsernameByIdPost($idPost) {
         $query = "
             SELECT username
@@ -280,11 +274,6 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    
-    
-
-   
 
     public function getPostById($idPost) {
         $query = "
@@ -361,7 +350,6 @@ class DatabaseHelper {
     }
     //get all the post's data by hashtag
 
-
     public function insertPost($image, $username, $date, $text, $hashtagArray) {
         // Inserimento del post
         $queryPost = "
@@ -397,9 +385,6 @@ class DatabaseHelper {
         // Restituisci l'ID del post appena inserito
         return $idPostInserito;
     }
-    //insert a new post
-    
-    
 
     public function updatePost($idPost, $text, $image) {
         $query = "
@@ -416,8 +401,23 @@ class DatabaseHelper {
         return $stmt->execute();
     } 
 
-    
-    public function PostImage($idPost) {
+    public function getImageIdUser($username) {
+        $query = "
+            SELECT immagine
+            FROM utente
+            WHERE username = ?
+        ";
+        //get the user image by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getImageIdPost($idPost) {
         $query = "
             SELECT immagine
             FROM post
@@ -433,7 +433,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-
     public function deletePostImage($idPost) {
         $query = "
             UPDATE post

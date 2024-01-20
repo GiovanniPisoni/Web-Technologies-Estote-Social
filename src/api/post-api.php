@@ -11,6 +11,16 @@
     $hashtag1 = isset($_POST['hashtag1']) ? $_POST['hashtag1'] : null;
     $hashtag2 = isset($_POST['hashtag2']) ? $_POST['hashtag2'] : null;
     $hashtag3 = isset($_POST['hashtag3']) ? $_POST['hashtag3'] : null;
+    if(isset($hashtag1) && isset($hashtag2) && $hashtag1 === $hashtag2){
+        $hashtag2 = null;
+    }
+    if(isset($hashtag1) && isset($hashtag3) && $hashtag1 === $hashtag3){
+        $hashtag3 = null;
+    }
+    if(isset($hashtag2) && isset($hashtag3) && $hashtag2 === $hashtag3){
+        $hashtag3 = null;
+    }
+
     $hashtag=array($hashtag1,$hashtag2,$hashtag3);
     //inserisce nuovo post (con immagine nullable)
     if(isset($_POST['immagine'])) {
