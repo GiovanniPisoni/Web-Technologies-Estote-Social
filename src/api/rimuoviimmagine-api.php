@@ -11,7 +11,7 @@
    //elimina una determinata immagine dal post e dal file system (img post)
    $path = $dbh->getImageIdPost($idPost);
    $dbh->deletePostImage($idPost);
-   deleteFile("../img/", $path);
+   deleteFile($path);
 
    header('Content-Type: application/json');
    echo json_encode($result);
