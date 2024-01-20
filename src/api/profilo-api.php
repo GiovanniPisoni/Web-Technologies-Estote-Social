@@ -5,20 +5,44 @@
     if(!userIsAlreadyIn($dbh->db)){
         header('Location: ./../index.php');
     }
-//dobbiamo fare si che se uno non inserisce nulla, nell'update non vengano modificati i campi che non ha inserito
+
     // Recupera i dati dal post
     $email = $_POST["email"];
-    $nome = isset($_POST["nome"]) ? $_POST["nome"] : NULL;
-    $cognome = isset($_POST["cognome"]) ? $_POST["cognome"] : NULL;
+    $nome = $_POST["nome"];
+    $cognome = $_POST["cognome"];
     $bio = $_POST["bio"];
-    $gruppo = isset($_POST["gruppo"]) ? $_POST["gruppo"] : NULL;
-    $immagine = isset($_POST["immagine"]) ? $_POST["immagine"] : NULL;
-    $fazzolettone = isset($_POST["fazzolettone"]) ? $_POST["fazzolettone"] : NULL;
-    $specialita = isset($_POST["specialita"]) ? $_POST["specialita"] : NULL;
-    $totem = isset($_POST["totem"]) ? $_POST["totem"] : NULL;
+    $gruppo = $_POST["gruppo"];
+    $totem = $_POST["totem"];
+    $dateofbirth = $_POST["dateofbirth"];
+    $image = $_POST["image"];
+    $fazzolettone = $_POST["fazzolettone"];
+    $specialita = $_POST["specialita"];
 
     // Effettua l'aggiornamento dell'utente
-    $dbh->updateUser($email, $nome, $cognome, $image, $bio, $fazzolettone, $specialita, $totem, $gruppo, $dateofbirth, $username);
+    $dbh->updateUser($email, $nome, $cognome, $bio, $totem, $gruppo, $dateofbirth, $username);
+    $oldImage = $dbh->getImageUser($username);
+    if($image !== $oldImage){
+        $dbh->updateImgProfilo($username, $image);
+        deleteFile($oldImage);
+    }
+
+    $oldfazzolettone = $dbh->getFazzolettone($username);
+    if($fazzolettone === null) {
+        $dbh->deleteFazzolettone($username);
+        deleteFile($oldfazzolettone);
+    } else if($fazzolettone !== $oldfazzolettone){
+        $dbh->updateFazzolettone($username, $fazzolettone);
+        deleteFile($oldfazzolettone);
+    }
+
+    $oldSpecialita = $dbh->getSpecialita($username);
+    if($specialita === null) {
+        $dbh->deleteSpecialita($username);
+        deleteFile($oldSpecialita);
+    } else if($specialita !== $oldSpecialita){
+        $dbh->updateSpecialita($username, $specialita);
+        deleteFile($oldSpecialita);
+    }
 
     // Risponde in formato JSON
     header('Content-Type: application/json');
