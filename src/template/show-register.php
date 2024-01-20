@@ -31,9 +31,6 @@
         <label for="password_confirm" hidden>Conferma Password</label>
         <input class="form-control" type="password" name="password_confirm" id="password_confirm" placeholder="Conferma Password*" required>
     </div>
-    <!--<div class="mx-4 mb-2">
-        <label for="image">Immagine profilo*</label>
-    </div>-->
     <div class="mx-4 mb-2">
         <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required style="display: none;">
         <label for="image" class="btn btn-success mt-1">Seleziona Immagine Profilo*</label>
@@ -41,7 +38,7 @@
     <div>
         <label for="register" hidden>Registrati</label>
         <input class="btn btn-success w-40 mt-3 mb-2" type="submit" name="register" id="register" value="Registrati">
-        <p class="small">Sei già registrato? Allora <a href="index.php" class="text-success">ACCEDI</a>!</p>
+        <p class="small">Sei già registrato? Allora <a href="index.php" class="text-dark">ACCEDI</a>!</p>
     </div>
     <div class="text-body-secondary text-start">
         <label for="clarification" class="small">*Campi obbligatori</label>
