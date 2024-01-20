@@ -5,7 +5,7 @@
     $templateParams["title"] = "Login";
     $templateParams["name"] = "login.php";
     $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/login.js");
-    require 'template/login_base.php';
+    require 'template/base_access.php';
   } else {
     $templateParams["title"] = "Homepage";
     $templateParams["name"] = "homepage.php";
