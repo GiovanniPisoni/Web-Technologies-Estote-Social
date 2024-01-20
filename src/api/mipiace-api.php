@@ -10,20 +10,20 @@
     //però se un utente vuole aggiungere un like dove il like c'è già, non succede nulla, perchè nel db 
     //l'entità like ha come chiave primaria la coppia (idPost, idUtente), quindi un certo utente può mettere
     //like ad un post una sola volta
-    $idPost = $_POST["postId"];
+    $idPost = $_POST["idPost"];
     $remove = false;
     if(isset($_POST["remove"])) {
         $remove = $_POST["remove"];
     }
 
     if($remove){
-        $dbh->removeLike($idPost, $_SESSION["user_id"]);
+        $dbh->removeLike($idPost, $_SESSION["username"]);
     } else {
-        $dbh->insertLike($idPost, $_SESSION["user_id"]);
+        $dbh->insertLike($idPost, $_SESSION["username"]);
     }
     $result["likes"] = $dbh->getLikesByPostId($idPost);
-    $result["senderId"] = $_SESSION["user_id"];
-    $result["receiverId"] = $dbh->getPostById($idPost)[0]["userId"];
+    $result["senderId"] = $_SESSION["username"];
+    $result["receiverId"] = $dbh->getPostById($idPost)[0]["username"];
 
     header('Content-Type: application/json');
     echo json_encode($result);

@@ -1,10 +1,10 @@
 <?php
     require_once("db_config.php");
 
-    $idPost = $_POST["idPost"];
+    $testo = $_POST["testo"];
 
-    //ritorna i commenti di un determinato post
-    $result = $dbh->getCommentsById($idPost);
+    //controlla se esiste un particolare utente, in caso esista ritorna i dati dell'utente
+    $result = $dbh->searchUser($testo);
 
     if(empty($result)){
         $result = false;

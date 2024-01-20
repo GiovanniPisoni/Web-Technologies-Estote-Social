@@ -6,10 +6,10 @@
         header('Location: ./../index.php');
     }
 
-    $postId = $_POST["postId"];
+    $postId = $_POST["idPost"];
     
     //rimuove un particolare post
-    $result = $dbh->deletePostById($postId);
+    $result = $dbh->deletePostById($idPost);
     
     header('Content-Type: application/json');
     echo json_encode($result);

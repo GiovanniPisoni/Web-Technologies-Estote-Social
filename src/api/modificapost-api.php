@@ -6,7 +6,7 @@
         header('Location: ./../index.php');
     }
 
-    $idPost = $_POST["postId"];
+    $idPost = $_POST["idPost"];
     $testo = $_POST["testo"];
     
     //modifica un post già esistente

@@ -4,8 +4,8 @@
    $result["upload-completed"] = false;
 
    //carico img nel filesystem
-   if(isset($_FILES['image'])) { 
-    $uploadResult = uploadImage("../img/", $_FILES["image"]);
+   if(isset($_FILES['immagine'])) { 
+    $uploadResult = uploadImage("../img/", $_FILES["immagine"]);
     if($uploadResult[0]) {
         $result["uploadEseguito"] = true;
         $result["fileName"] = $uploadResult[1];

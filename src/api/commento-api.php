@@ -11,10 +11,10 @@
     $idCommento = $_POST["idCommento"];
     $idPost = $_POST["idPost"];
     $date = $_POST["date"];
-    $result["status"] = $dbh->insertComment($testo, $_SESSION["user_id"], $idPost, $date);
+    $result["status"] = $dbh->insertComment($testo, $_SESSION["username"], $idPost, $date);
    
-    $result["senderId"] = $_SESSION["user_id"];
-    $result["receiverId"] = $dbh->getPostById($postId)[0]["userId"];
+    $result["senderId"] = $_SESSION["username"];
+    $result["receiverId"] = $dbh->getPostById($postId)[0]["username"];
 
     header('Content-Type: application/json');
     echo json_encode($result);
