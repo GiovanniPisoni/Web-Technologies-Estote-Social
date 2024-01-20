@@ -4,8 +4,8 @@
    $result["signin-result"] = false;
 
    //inserisco l'utente nel db se non esiste già
-   if(isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['nome'], $_POST['cognome'],
-            $_POST['email'], $_POST['immagine'], $_POST['datanascita'], $_POST['gruppoappartenenza'])) {
+   if(isset($_POST['username'], $_POST['password'], $_POST['password_confirm'], $_POST['name'], $_POST['surname'],
+            $_POST['email'], $_POST['image'], $_POST['birthday'], $_POST['group'])) {
         //controllo che le password coincidano
         if($_POST['password'] == $_POST['password_confirm']) {
             //eseguo l'hash della password e genero il sale
@@ -15,8 +15,8 @@
             //controllo se esiste un utente con lo stesso user, altrimenti esegui l'inserimento
             if($dbh->getUsersByUsername($_POST["username"])) {
                 $result["erroreSignin"] = "Username già in uso";
-            } else if($dbh->insertUser($_POST['username'], $_POST['nome'], $_POST["cognome"], $_POST["datanascita"],
-                        $_POST['immagine'], $_POST['gruppo'], $_POST['email'], $password, $salt, null,
+            } else if($dbh->insertUser($_POST['username'], $_POST['name'], $_POST["surname"], $_POST["birthday"],
+                        $_POST['image'], $_POST['group'], $_POST['email'], $password, $salt, null,
                         null, null, null)) {
                 $result["signin-result"] = true;
             }
