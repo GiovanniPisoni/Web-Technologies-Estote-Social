@@ -151,8 +151,8 @@ function uploadImage($path, $image){
     }
 
     function deleteFile($path) {
-        if (file_exists($path)) {
-            return unlink($path); // Il file esiste, lo elimino
+        if (file_exists("../img/" . $path)) {
+            return unlink("../img/" . $path); // Il file esiste, lo elimino
         } else {
             return false; // Il file non esiste
         }
