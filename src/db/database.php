@@ -323,6 +323,21 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function updateImgProfilo($username, $image) {
+        $query = "
+            UPDATE utente
+            SET immagineProfilo = ?
+            WHERE username = ?
+        ";
+        //update the user's image by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $image, $username);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
     public function getSpecialita($username) {
         $query = "
             SELECT specialita
@@ -337,6 +352,21 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateSpecialita($username, $specialita) {
+        $query = "
+            UPDATE utente
+            SET specialita = ?
+            WHERE username = ?
+        ";
+        //update the user's specialita by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $specialita, $username);
+        $stmt->execute();
+
+        return $stmt->execute();
     }
 
     public function deleteSpecialita($username) {
@@ -368,6 +398,21 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateFazzolettone($username, $fazzolettone) {
+        $query = "
+            UPDATE utente
+            SET fazzolettone = ?
+            WHERE username = ?
+        ";
+        //update the user's fazzolettone by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $fazzolettone, $username);
+        $stmt->execute();
+
+        return $stmt->execute();
     }
 
     public function deleteFazzolettone($username) {
