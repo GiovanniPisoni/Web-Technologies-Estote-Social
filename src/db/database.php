@@ -264,7 +264,21 @@ class DatabaseHelper {
 
     
 
-    
+    public function getUsernameByIdPost($idPost) {
+        $query = "
+            SELECT username
+            FROM post
+            WHERE idPost = ?
+        ";
+        //get the username of the user that has posted a post by idPost
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idPost);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     
     
