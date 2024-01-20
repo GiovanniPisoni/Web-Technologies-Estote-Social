@@ -558,7 +558,7 @@ class DatabaseHelper {
 
     public function checkLogin($username, $password) {
         $query = "
-            SELECT *
+            SELECT username, password, salt
             FROM utente
             WHERE username = ? AND password = ?
         ";
@@ -575,11 +575,11 @@ class DatabaseHelper {
     //funzione che inserisce un tentativo di login
     public function insertLoginAttempt($username, $time){
         $query = "
-                INSERT INTO tentativoLogin (username, dataora)
+                INSERT INTO loginattempt (username, dataora)
                 VALUES (?, ?)
                 ";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $dataora);
+        $stmt->bind_param("ss", $username, $time);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -589,7 +589,7 @@ class DatabaseHelper {
 
     public function deleteLoginAttemptByTime($timeThd){
         $query = "
-                DELETE FROM tentativoLogin
+                DELETE FROM loginattempt
                 WHERE dataora < ?
                 ";
         $stmt = $this->db->prepare($query);
@@ -603,8 +603,8 @@ class DatabaseHelper {
 
     public function getLoginAttempt($username, $timeThd){
         $query = "
-                SELECT time 
-                FROM tentativoLogin 
+                SELECT dataora 
+                FROM loginattempt 
                 WHERE username = ? AND dataora > ?
                 ";
                 //prendo tutti i tentativi di login di un utente che sono stati fatti dopo un certo tempo
