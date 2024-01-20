@@ -31,9 +31,6 @@
         <label for="password_confirm" hidden>Conferma Password</label>
         <input class="form-control" type="password" name="password_confirm" id="password_confirm" placeholder="Conferma Password*" required>
     </div>
-    <!--<div class="mx-4 mb-2">
-        <label for="image">Immagine profilo*</label>
-    </div>-->
     <div class="mx-4 mb-2">
         <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required style="display: none;">
         <label for="image" class="btn btn-success mt-1">Seleziona Immagine Profilo*</label>
