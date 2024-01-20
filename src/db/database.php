@@ -286,7 +286,7 @@ class DatabaseHelper {
     }
     
 
-    public function updatePostText($idPost, $text, $image, $hashtag1, $hashtag2, $hashtag3) {
+    public function updatePost($idPost, $text, $image, $hashtag1, $hashtag2, $hashtag3) {
         $query = "
             UPDATE post
             SET testo = ?, immagine = ?, hashtag1 = ?, hashtag2 = ?, hashtag3 = ?
