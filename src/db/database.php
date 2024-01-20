@@ -286,18 +286,17 @@ class DatabaseHelper {
     }
     
 
-    public function updatePost($idPost, $text, $image, $hashtag1, $hashtag2, $hashtag3) {
+    public function updatePost($idPost, $text, $hashtag1, $hashtag2, $hashtag3) {
         $query = "
             UPDATE post
-            SET testo = ?, immagine = ?, hashtag1 = ?, hashtag2 = ?, hashtag3 = ?
+            SET testo = ?, hashtag1 = ?, hashtag2 = ?, hashtag3 = ?
             WHERE idPost = ?
         ";
         //update the post's data by idPost
-        //WARNING: none of the parameters can be NULL, if you want to update only one of them, you have to pass the old value, or if
-        //you want to delete the image, you have to use the deletePostImage function
+        //WARNING: none of the parameters can be NULL, if you want to update only one of them, you have to pass the old value
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssisss", $text, $image, $idPost, $hashtag1, $hashtag2, $hashtag3);  
+        $stmt->bind_param("ssisss", $text, $hashtag1, $hashtag2, $hashtag3, $idPost);  
         $stmt->execute();
 
         return $stmt->execute();
@@ -471,7 +470,23 @@ class DatabaseHelper {
 
         return $stmt->execute();
     }
+
     //delete the post's image by idPost
+
+    public function updatePostImage($idPost, $image) {
+        $query = "
+            UPDATE post
+            SET immagine = ?
+            WHERE idPost = ?
+        ";
+        //update the post's image by idPost
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $image, $idPost);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
 
     public function deletePostById($idPost) {
         $query = "
