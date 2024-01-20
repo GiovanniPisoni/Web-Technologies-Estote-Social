@@ -21,18 +21,14 @@
         $hashtag3 = null;
     }
 
-    $hashtag=array($hashtag1,$hashtag2,$hashtag3);
+
     //inserisce nuovo post (con immagine nullable)
     if(isset($_POST['immagine'])) {
         $immagine = $_POST['immagine'];
-        if(isset($testo)){
-            $dbh->insertPost($immagine, $username, $currDay, $hashtag, $testo);
-        } else {
-            $dbh->insertPost($immagine, $username, $currDay, $hashtag, null);
-        }
+        $dbh->insertPost($immagine, $username, $currDay, $testo, $hashtag1, $hashtag2, $hashtag3);
         //testo non può essere null nel nostro db 
     } else if($testo != null) {
-        $dbh->insertPost(null, $username, $currDay, $hashtag, $testo);
+        $dbh->insertPost(null, $username, $currDay, $testo, $hashtag1, $hashtag2, $hashtag3);
     }
 
     header('Content-Type: application/json');

@@ -502,6 +502,23 @@ class DatabaseHelper {
         return true;
     }
 
+    public function getAllPostOfFollowedUsers($username) {
+        $query = "
+            SELECT p.idPost, p.immagine, p.username, p.data, p.testo, p.hashtag1, p.hashtag2, p.hashtag3
+            FROM post p INNER JOIN seguire s ON p.username = s.username_seguito
+            WHERE s.username_follower = ?
+            ORDER BY p.data DESC
+        ";
+        //get all the posts of the followed users by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     /**
      * Comments CRUD
      */
