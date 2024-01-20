@@ -5,7 +5,7 @@
     if(!userIsAlreadyIn($dbh->db)){
         header('Location: ./../index.php');
     }
-
+//dobbiamo fare si che se uno non inserisce nulla, nell'update non vengano modificati i campi che non ha inserito
     // Recupera i dati dal post
     $email = $_POST["email"];
     $nome = isset($_POST["nome"]) ? $_POST["nome"] : NULL;
