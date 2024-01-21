@@ -1,3 +1,6 @@
+<head>
+    <script src="./js/register.js" defer></script>
+</head>
 <form action="#" method="POST" id="register-Form">
     <div class="mx-4 mb-2">
         <label for="name" hidden>Nome</label>
@@ -32,14 +35,14 @@
         <input class="form-control" type="password" name="password_confirm" id="password_confirm" placeholder="Conferma Password*" required>
     </div>
     <div class="mx-4 mb-2">
-        <label for="image" hidden>Immagine Profilo</label>
-        <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required style="display: none;">
-        <label for="image" class="btn btn-success mt-1">Seleziona Immagine Profilo*</label>
+        <label for="image">Immagine Profilo*</label>
+        <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required>
     </div>
     <div>
         <label for="register" hidden>Registrati</label>
         <input class="btn btn-success w-40 mt-3 mb-2" type="submit" name="register" id="register" value="Registrati">
-        <p class="small">Sei già registrato? Allora <a href="../index.php" class="text-dark">ACCEDI</a>!</p>
+        <p class="small">Sei già registrato? Allora <a href="./index.php" class="text-dark">ACCEDI</a>!</p>
+        <p id="register-error" class="text-center fw-bold text-danger-emphasis"></p>
     </div>
     <div class="text-body-secondary text-start">
         <label for="clarification" class="small">*Campi obbligatori</label>

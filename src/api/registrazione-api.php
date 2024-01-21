@@ -26,7 +26,7 @@
         }
    } else { 
       // Le variabili corrette non sono state inviate a questa pagina dal metodo POST.
-      $result["erroreSignin"] = "Richiesta non valida";
+      $result["erroreSignin"] = "Registrazione fallita";
    }
 
    header('Content-Type: application/json');

@@ -4,8 +4,8 @@
    $result["upload-completed"] = false;
 
    //upload the image to the filesystem
-   if(isset($_FILES['immagine'])) { 
-        $uploadResult = uploadImage("../img/", $_FILES["immagine"]);
+   if(isset($_FILES['image'])) { 
+        $uploadResult = uploadImage("../img/", $_FILES["image"]);
         if($uploadResult[0]) {
             $result["uploadEseguito"] = true;
             $result["fileName"] = $uploadResult[1];
@@ -13,7 +13,7 @@
             $result["erroreUpload"] = "Upload immagine non riuscito";
         }
    } else { //The correct POST variables were not sent to this page.
-      $result["erroreUpload"] = "Richiesta non valida";
+      $result["erroreUpload"] = "Richiesta per l'upload fallito";
    }
 
    header('Content-Type: application/json');
