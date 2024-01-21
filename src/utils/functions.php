@@ -34,7 +34,7 @@
                     $user_browser = $_SERVER['HTTP_USER_AGENT']; //Get the user-agent string of the user.
                     $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username);
                     $_SESSION['username'] = $username;
-                    $_SESSION['login_string'] = hash('sha256', $password . $user_browser);
+                    $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
                     return true;
                 } else {
                     //Password is not correct
@@ -157,7 +157,4 @@ function uploadImage($path, $image){
             return false; // Il file non esiste
         }
     }
-
-    
-
 ?>
