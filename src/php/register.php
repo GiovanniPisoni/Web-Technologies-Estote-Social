@@ -1,6 +1,6 @@
 <?php
     $templateParams["title"] = "Registrazione";
-    $templateParams["name"] = "template/show-register.php";
+    $templateParams["name"] = "../template/show-register.php";
 
-    require("template/base-access.php");
+    require("../template/base-access.php");
 ?>
