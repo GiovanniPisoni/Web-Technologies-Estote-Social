@@ -22,12 +22,12 @@ function register() {
     const formDBImage = new FormData();
     formDBImage.append('image', document.querySelector('#image').files[0]);
 
-    axios.post('./api/immagine-api.php', formDBImage).then(responseImage => {
+    axios.post('./api/image-api.php', formDBImage).then(responseImage => {
         if (!responseImage.data["uploadEseguito"]) {
             document.getElementById("register-error").innerText = responseImage.data["erroreUpload"];
         } else {
             formDB.append('image', responseImage.data["fileName"]);
-            axios.post('./api/registrazione-api.php', formDB).then(responseSignIn => {
+            axios.post('./api/sign-up-api.php', formDB).then(responseSignIn => {
                 console.log(responseSignIn);
                 if (responseSignIn.data["signin-result"]) {
                     window.location.href = '../php/login.php';
