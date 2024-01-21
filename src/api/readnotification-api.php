@@ -13,12 +13,7 @@
     //qui dobbiamo mettere una funzione che controlla se l'utente clicca sopra la notifica allora
     //la notifica deve essere disabilitata
 
-    
-
     $result = $dbh->isReadNotification($_POST["id"]);
-    
-    
-    
 
     header('Content-Type: application/json');
     echo json_encode($result);

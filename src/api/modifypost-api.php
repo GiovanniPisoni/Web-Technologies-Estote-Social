@@ -12,9 +12,6 @@
     $hashtag2 = $_POST["hashtag2"];
     $hashtag3 = $_POST["hashtag3"];
 
-    
-    //modifica un post già esistente
-    //prima modifica l'immagine se è stata cambiata, poi modifica il resto
     $immagine = $_POST["immagine"];
     $oldImage = $dbh->getImageIdPost($idPost);
     if($immagine !== $oldImage){

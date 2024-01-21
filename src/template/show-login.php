@@ -7,7 +7,7 @@
     </div>
     <div class="d-flex justify-content-center mt-3"> 
         <label for="username" hidden>Username</label>
-        <input class="form-control ms-4 me-4" type="text" name="username" id="username" placeholder="Username" required>
+        <input class="form-control ms-4 me-4" type="text" name="username" id="username" placeholder="Username" autocomplete="username" required>
     </div>
     <div class="d-flex justify-content-center mt-3">
         <label for="password" hidden>Password</label>

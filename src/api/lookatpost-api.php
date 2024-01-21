@@ -3,7 +3,6 @@
 
     $username = $_SESSION["username"];
 
-    
     $result = $dbh->getAllPostOfFollowedUsers($username);
 
     header('Content-Type: application/json');

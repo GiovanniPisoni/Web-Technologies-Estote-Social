@@ -22,12 +22,12 @@ use db_estotesocial;
 create table COMMENTI (
      Username char(25) not null,
      IDPost bigint not null,
-     IDCommento bigint not null auto-increment,
+     IDCommento bigint not null auto_increment,
      Testo char(250) not null,
      Data date not null,
      constraint IDCOMMENTI primary key (IDCommento, IDPost, Username));
 
-create table LIKE (
+create table MIPIACE (
      IDPost bigint not null,
      Username char(25) not null,
      constraint IDLIKE primary key (Username, IDPost));
@@ -38,7 +38,7 @@ create table LOGINATTEMPT (
      constraint IDLOGINATTEMPT primary key (Username, DataOra));
 
 create table NOTIFICA (
-     IDNotifica int not null auto-increment,
+     IDNotifica int not null auto_increment,
      Tipo char(30) not null,
      Letta char not null,
      Username_receiver char(25) not null,
@@ -46,7 +46,7 @@ create table NOTIFICA (
      constraint IDNOTIFICA primary key (IDNotifica));
 
 create table POST (
-     IDPost bigint not null auto-increment,
+     IDPost bigint not null auto_increment,
      Testo char(250) not null,
      Immagine char(100),
      Data date not null,
@@ -89,11 +89,11 @@ alter table COMMENTI add constraint FKcommentare
      foreign key (Username)
      references UTENTE (Username) on delete cascade;
 
-alter table LIKE add constraint FKlasciare
+alter table MIPIACE add constraint FKlasciare
      foreign key (Username)
      references UTENTE (Username) on delete cascade;
 
-alter table LIKE add constraint FKappartenere2
+alter table MIPIACE add constraint FKappartenere2
      foreign key (IDPost)
      references POST (IDPost) on delete cascade;
 
