@@ -53,7 +53,7 @@ function login(username, password) {
         if (response.data["login-result"]) {
           window.location.href = "../php/showhomepage.php";
         } else {
-          document.getElementById("error-text").innerText = response.data["login-error"];
+          document.getElementById("login-error").innerText = response.data["login-error"];
         }
     });
   }
