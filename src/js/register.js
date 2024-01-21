@@ -14,6 +14,7 @@ function register() {
     formDB.append('group', document.querySelector('#group').value);
     //Required fields
     formDB.append('email', document.querySelector('#email').value);
+    formDB.append('bio', document.querySelector('#bio').value);
     formDB.append('username', document.querySelector('#username').value);
     formDB.append('password', document.querySelector('#password').value); 
     formDB.append('password_confirm', document.querySelector('#password_confirm').value);
