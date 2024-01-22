@@ -27,10 +27,10 @@ function register() {
             document.getElementById("register-error").innerText = responseImage.data["erroreUpload"];
         } else {
             formDB.append('image', responseImage.data["fileName"]);
-            axios.post('./api/sign-up-api.php', formDB).then(responseSignIn => {
+            axios.post('./api/signup-api.php', formDB).then(responseSignIn => {
                 console.log(responseSignIn);
                 if (responseSignIn.data["signin-result"]) {
-                    window.location.href = '../php/login.php';
+                    window.location.href = './php/login.php';
                 } else {
                     document.getElementById("register-error").innerText = responseSignIn.data["erroreSignin"];
                 }
