@@ -7,6 +7,15 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <title>EstoteSocial: <?php echo $templateParams["title"]; ?></title>
         <link rel="icon" type="image/x-icon" href="img/miniLogo.png">
+        <?php
+            if(isset($templateParams["js"])):
+                foreach($templateParams["js"] as $script):
+        ?>
+        <script defer src="<?php echo $script; ?>"></script>
+        <?php
+            endforeach;
+            endif;
+        ?>
     </head>
     <body class="d-flex justify-content-center py-4 bg-success-subtle">
         <div class="border border-dark-subtle rounded-4 mw-75 p-3 m-2 text-center">

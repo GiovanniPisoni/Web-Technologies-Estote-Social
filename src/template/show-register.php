@@ -1,6 +1,3 @@
-<head>
-    <script src="./js/register.js" defer></script>
-</head>
 <form action="#" method="POST" id="register-Form">
     <div class="mx-4 mb-2">
         <label for="name" hidden>Nome</label>
