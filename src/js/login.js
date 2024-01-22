@@ -10,49 +10,10 @@ function login() {
     formDB.append('password', document.querySelector('#password').value);
     axios.post('./api/login-api.php', formDB).then(response => {
         if (response.data["login_result"]) {
-            document.getElementById('login-error').innerText = "Login effettuato con successo!"
-            setTimeout(() => document.location.href = "../php/base-homepage.php", 2000);
+            document.getElementById('result').innerText = response.data["login_result"];
+            document.location.href = "./template/base-homepage.php";
         } else {
-            document.getElementById('login-error').innerText = "Risposta dal server NON valida.";
+            document.getElementById('result').innerText =  response.data["login_error"];
         }
     });
 }
-
-/*function login() {
-    const formDB = new FormData();
-    formDB.append('username', document.querySelector('#username').value);
-    formDB.append('password', document.querySelector('#password').value);
-
-    axios.post('../src/api/login-api.php', formDB)
-        .then(response => {
-            console.log("Risposta dal server:", response.data);
-
-            if (response.data && response.data.login_result) {
-                document.querySelector('#login-Form > p').innerText = "Login effettuato con successo!";
-                setTimeout(() => document.location.href = "", 2000);
-            } else if (response.data && response.data.erroreLogin) {
-                document.querySelector('#login-Form > p').innerText = response.data.erroreLogin;
-            } else {
-                document.querySelector('#login-Form > p').innerText = "";
-            }
-        })
-        .catch(error => {
-            console.error("Errore nella richiesta:", error);
-            document.querySelector('#login-Form > p').innerText = "Errore nella richiesta al server.";
-        });
-}*/
-
-/*function login(username, password) {
-    const formData = new FormData();
-  
-    formData.append('username', username);
-    formData.append('password', password);
-  
-    axios.post('./api/login-api.php', formData).then(response => {
-        if (response.data["login-result"]) {
-          window.location.href = "../template/base-homepage.php";
-        } else {
-          document.getElementById("login-error").innerText = response.data["login-error"];
-        }
-    });
-  }*/

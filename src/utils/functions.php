@@ -25,10 +25,10 @@
 
             $password = hash('sha512', $password . $salt); //Hash with SHA512 algorithm the password with the unique salt.
 
-            if(checkBruteForce($username, $dbh) == true) {
+            /*if(checkBruteForce($username, $dbh) == true) {
                 //ritorno false siccome l'account è bloccato
                 return false;
-            } else {
+            } else {*/
                 if($passwordDB == $password) {
                     //Password is correct
                     $user_browser = $_SERVER['HTTP_USER_AGENT']; //Get the user-agent string of the user.
@@ -42,7 +42,7 @@
                     $dbh->insertLoginAttempt($username, $now); //We record this attempt in the database
                     return false;
                 }
-            }
+            /*}*/
         } else {
             //Username doesn't exist
              return false;
@@ -50,7 +50,7 @@
     }
 
     //Function that check if there was some brute force attack
-    function checkBruteForce($username, $dbh) {
+    /*function checkBruteForce($username, $dbh) {
         
         $now = time();//Get the current time
         $valid_attempts = $now - (60 * 60); //Set the valid attempts to 1 hours ago
@@ -61,7 +61,7 @@
         } else {
             return false;
         }
-    }
+    }*/
 
     //Function that check if the user is already logged in
     function userIsAlreadyIn($mysqli) {

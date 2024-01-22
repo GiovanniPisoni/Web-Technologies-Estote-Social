@@ -1,19 +1,20 @@
 <?php
 require_once("../db_config.php");
+require_once("./utils/functions.php");
 
-$result["login-result"] = false;
-$result["login-error"] = "";
+$result["login_result"] = false;
+$result["login_error"] = "";
 
 if(isset($_POST["username"]) && isset($_POST["password"])) {
-  $login_result = login($_POST["username"], $_POST["password"], $dbh);
-  if($login_result) {
-    $result["login-result"] = true;
-    $result["login-error"] = "Login riuscito!";
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+  if(login($username, $password, $dbh) == true) {
+    $result["login_result"] = true;
   } else {
-    $result["login-error"] = "Username o Password errati!";
+    $result["login_error"] = "Username o Password errati!";
   }
 } else {
-    $result["login-error"] = "Username o Password non inseriti!";
+    $result["login_error"] = "Username o Password non inseriti!";
 }
 
 header('Content-Type: application/json');
