@@ -4,7 +4,7 @@
     $username = $_POST["username"];
 
     //controllo il follow dell'utente loggato ad un particolare utente
-    $followed = $dbh->checkFollow($_SESSION["user_id"], $username);
+    $followed = $dbh->checkFollow($_SESSION["username"], $username);
 
     if(empty($followed)){
         $result["followed"] = false;

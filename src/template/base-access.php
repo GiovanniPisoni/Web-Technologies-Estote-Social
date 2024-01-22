@@ -8,13 +8,13 @@
         <title>EstoteSocial: <?php echo $templateParams["title"]; ?></title>
         <link rel="icon" type="image/x-icon" href="img/miniLogo.png">
         <?php
-            if(isset($templateParams["js"])):
-                foreach($templateParams["js"] as $script):
+        if(isset($templateParams["js"])):
+            foreach($templateParams["js"] as $script):
         ?>
-        <script defer src="<?php echo $script; ?>"></script>
+            <script defer src="<?php echo $script; ?>"></script>
         <?php
             endforeach;
-            endif;
+        endif;
         ?>
     </head>
     <body class="d-flex justify-content-center py-4 bg-success-subtle">

@@ -1,9 +1,7 @@
 <?php
 require_once("../db_config.php");
-require_once("./utils/functions.php");
 
 $result["login_result"] = false;
-$result["login_error"] = "";
 
 if(isset($_POST["username"]) && isset($_POST["password"])) {
   $username = $_POST["username"];
