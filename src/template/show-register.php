@@ -43,7 +43,7 @@
         <label for="register" hidden>Registrati</label>
         <input class="btn btn-success w-40 mt-3 mb-2" type="submit" name="register" id="register" value="Registrati">
         <p class="small">Sei già registrato? Allora <a href="./index.php" class="text-dark">ACCEDI</a>!</p>
-        <p id="register-error" class="text-center fw-bold text-danger-emphasis"></p>
+        <p id="result" class="text-center fw-bold text-danger-emphasis"></p>
     </div>
     <div class="text-body-secondary text-start">
         <p class="small" name="clarification" id="clarification">*Campi obbligatori</p>

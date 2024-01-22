@@ -24,15 +24,16 @@ function register() {
 
     axios.post('./api/image-api.php', formDBImage).then(responseImage => {
         if (!responseImage.data["uploadEseguito"]) {
-            document.getElementById("register-error").innerText = responseImage.data["erroreUpload"];
+            document.getElementById("result").innerText = responseImage.data["erroreUpload"];
         } else {
             formDB.append('image', responseImage.data["fileName"]);
             axios.post('./api/signup-api.php', formDB).then(responseSignIn => {
                 console.log(responseSignIn);
                 if (responseSignIn.data["signin-result"]) {
-                    window.location.href = './php/login.php';
+                    document.getElementById("result").innerText = "Registrazione avvenuta con successo!!";
+                    setTimeout(() => document.location.href = "index.php", 2000);
                 } else {
-                    document.getElementById("register-error").innerText = responseSignIn.data["erroreSignin"];
+                    document.getElementById("result").innerText = responseSignIn.data["erroreSignin"];
                 }
             });
         }
