@@ -625,16 +625,15 @@ class DatabaseHelper {
      * Login
      */
 
-    public function checkLogin($username, $password) {
+    public function checkLogin($username) {
         $query = "
             SELECT username, password, salt
             FROM utente
-            WHERE username = ? AND password = ?
+            WHERE username = ? LIMIT 1
         ";
-        //check if the username and the password are correct
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("sss", $username, $password, $salt);
         $stmt->execute();
         $result = $stmt->get_result();
 

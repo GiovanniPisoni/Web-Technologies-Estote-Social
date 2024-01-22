@@ -8,8 +8,9 @@
     require 'template/base-access.php';
   } else {
     $templateParams["title"] = "Homepage";
-    $templateParams["name"] = "homepage.php";
+    $templateParams["name"] = "show-homepage.php";
     $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "js/homepage.js");
+    require 'template/base-homepage.php';
     header("Location:homepage.php");
   }
 

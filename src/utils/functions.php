@@ -15,7 +15,7 @@
 
     //Function to check if the user login is correct
     function login($username, $password, $dbh) {
-        $checkLogin = $dbh->checkLogin($username, $password);
+        $checkLogin = $dbh->checkLogin($username);
 
         if($checkLogin) {
 
