@@ -4,20 +4,19 @@ document.querySelector('#login-Form').addEventListener('submit', function (event
     event.target.reset();
 });
 
-/*function login() {
+function login() {
     const formDB = new FormData();
     formDB.append('username', document.querySelector('#username').value);
     formDB.append('password', document.querySelector('#password').value);
     axios.post('./api/login-api.php', formDB).then(response => {
         if (response.data["login_result"]) {
-            console.log("Il file JavaScript funziona");
-            document.querySelector('#login-Form > p').innerText = "Login effettuato con successo!"
-            setTimeout(() => document.location.href = "", 2000);
+            document.getElementById('login-error').innerText = "Login effettuato con successo!"
+            setTimeout(() => document.location.href = "../php/base-homepage.php", 2000);
         } else {
-            document.querySelector('#login-Form > p').innerText = "Risposta dal server NON valida.";
+            document.getElementById('login-error').innerText = "Risposta dal server NON valida.";
         }
     });
-}*/
+}
 
 /*function login() {
     const formDB = new FormData();
@@ -43,7 +42,7 @@ document.querySelector('#login-Form').addEventListener('submit', function (event
         });
 }*/
 
-function login(username, password) {
+/*function login(username, password) {
     const formData = new FormData();
   
     formData.append('username', username);
@@ -56,4 +55,4 @@ function login(username, password) {
           document.getElementById("login-error").innerText = response.data["login-error"];
         }
     });
-  }
+  }*/
