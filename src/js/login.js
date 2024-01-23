@@ -11,7 +11,7 @@ function login() {
     axios.post('./api/login-api.php', formDB).then(response => {
         if (response.data["login_result"]) {
             document.getElementById("result").innerText = "Login avvenuto con successo!!";
-            document.location.href = "./template/base-homepage.php";
+            document.location.href = "./";
         } else {
             document.getElementById("result").innerText = response.data["login_error"];
         }
