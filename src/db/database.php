@@ -318,6 +318,22 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostByUsername($username) {
+        $query = "
+            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
+            FROM post
+            WHERE username = ?
+        ";
+        //get all the posts of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function updateImgProfilo($username, $image) {
         $query = "
             UPDATE utente
