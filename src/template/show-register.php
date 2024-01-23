@@ -17,7 +17,7 @@
     </div>
     <div class="mx-4 mb-2">
         <label for="bio" hidden>Bio</label>
-        <textarea class="form-control" type="bio" name="bio" id="bio" placeholder="Bio*" rows="3" style="resize: none; overflow-y: auto;" required></textarea>
+        <textarea class="form-control no-resize overflow-y-auto" type="bio" name="bio" id="bio" placeholder="Bio*" rows="3" required></textarea>
     </div>
     <div class="mx-4 mb-2">
         <label for="email" hidden>Email</label>

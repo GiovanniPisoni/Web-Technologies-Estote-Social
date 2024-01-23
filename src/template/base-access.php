@@ -7,6 +7,7 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <title>EstoteSocial: <?php echo $templateParams["title"]; ?></title>
         <link rel="icon" type="image/x-icon" href="img/miniLogo.png">
+        <link rel="stylesheet" href="css/style.css">
         <?php
         if(isset($templateParams["js"])):
             foreach($templateParams["js"] as $script):
