@@ -1,3 +1,9 @@
+nav {
+    /*background: #567c5f;*/
+    background: #936d5d;
+    box-shadow: 0px 10px 20px rgba(54, 54, 54, 0.25);
+}
+
 .no-resize {
     resize: none;
 }

@@ -11,7 +11,6 @@
     $templateParams["name"] = "show-homepage.php";
     $templateParams["js"] = array("js/homepage.js");
     require 'template/base-homepage.php';
-    header("Location:homepage.php");
   }
 
 ?>
