@@ -25,19 +25,21 @@
                <div class="row">
                     <div class="col text-start d-flex justify-content-center align-items-center me-3">
                         <?php
-                            $templateParams["notification"]= $dbh->getNotificationsByUsername($_SESSION["username"]);
-                            if (!empty($templateParams["notification"])) {
-                                $iconPath = "./img/backpack_notify.png";
-                            } else {
-                                $iconPath = "./img/backpack.png";
-                            }
+                        $templateParams["notification"]= $dbh->getNotificationsByUsername($_SESSION["username"]);
+                        if (!empty($templateParams["notification"])):
+                            $iconPath = "./img/backpack_notify.png";
+                        ?>
+                            <span class="badge bg-danger">new</span>
+                        <?php else:
+                            $iconPath = "./img/backpack.png";
+                            endif;
                         ?>
                         <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
                             <image href="<?php echo $iconPath; ?>" height="35" width="35"/>
                         </svg>
                     </div>
                     <div class="col text-center pos-relative d-flex justify-content-center align-items-center">
-                        <img src="./img/miniLogo_white.png" alt="EstoteSocial" height="35">
+                        <img src="./img/logo_white.png" alt="EstoteSocial" height="30">
                     </div>
                     <div class="col text-end pos-realtive d-flex justify-content-center align-items-center ms-3">
                         <svg data-bs-toggle="modal" data-bs-target="#new-post-modal" width="35" height="35" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
