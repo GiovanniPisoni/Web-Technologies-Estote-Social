@@ -18,7 +18,7 @@
     } else {
         $dbh->follow($_SESSION["username"], $usernameSeguito); 
     }
-    $result["seguaci"] = count($dbh->getFollowerByUsername($usernameSeguito));
+    $result["follower"] = count($dbh->getFollowerByUsername($usernameSeguito));
     $result["senderId"] = $_SESSION["username"];
 
     header('Content-Type: application/json');
