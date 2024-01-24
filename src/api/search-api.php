@@ -1,10 +1,10 @@
 <?php
     require_once("db_config.php");
 
-    $username = $_POST["username"];
+    $input = $_POST["username"];
 
     //controlla se esiste un particolare utente, in caso esista ritorna i dati dell'utente
-    $result = $dbh->searchUser($username);
+    $result = $dbh->searchUser($input);
 
     if(empty($result)){
         $result = false;
