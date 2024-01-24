@@ -26,7 +26,7 @@ class DatabaseHelper {
         return $username;
     }
 
-    public function getUsersByUsername($username) {
+    public function getUserByUsername($username) {
         $query = "
             SELECT username, immagineProfilo, nome, cognome, bio, fazzolettone, specialita, totem, gruppoappartenenza, datadiNascita, mail
             FROM utente 
