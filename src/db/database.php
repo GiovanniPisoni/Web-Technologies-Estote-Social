@@ -64,13 +64,11 @@ class DatabaseHelper {
             SELECT username, immagineProfilo, nome, cognome, bio, fazzolettone, specialita, totem, gruppoappartenenza, datadiNascita, mail, 
             FROM utente 
             WHERE username LIKE CONCAT(?, '%') 
-            OR nome LIKE CONCAT(?, '%') 
-            OR cognome LIKE CONCAT(?, '%')
         "; 
         //get username's data of all the users that match the input
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sss", $input, $input, $input);
+        $stmt->bind_param("s", $input);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -334,6 +332,22 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function orderPostByDate() {
+        $query = "
+            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
+            FROM post
+            ORDER BY data DESC
+        ";
+        //get all the posts ordered by date
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
     public function updateImgProfilo($username, $image) {
         $query = "
             UPDATE utente
@@ -543,6 +557,7 @@ class DatabaseHelper {
             SELECT u.username, u.immagineprofilo, c.idCommento, c.data, c.testo
             FROM commento c INNER JOIN utente u ON c.username = u.username
             WHERE c.idPost = ?
+            ORDER BY c.data DESC
         ";
 
         $stmt = $this->db->prepare($query);
@@ -575,7 +590,7 @@ class DatabaseHelper {
         $query = "
             SELECT COUNT(*) AS numeroLike
             FROM like
-            WHERE idPost = ?;
+            WHERE idPost = ?
         
         ";
 //return the number of likes of a post by idPost
