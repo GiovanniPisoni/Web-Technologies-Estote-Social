@@ -310,14 +310,18 @@ class DatabaseHelper {
     
 
     public function insertPost($image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3) {
-        // Inserimento del post
         $queryPost = "
-        INSERT INTO post (immagine, username, data, testo) VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO post (immagine, username, data, testo, hashtag1, hashtag2, hashtag3) VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
+    
         $stmtPost = $this->db->prepare($queryPost);
         $stmtPost->bind_param("sssssss", $image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3);
-        $stmtPost->execute();
+        $success = $stmtPost->execute();
+    
+        // Restituisci un indicatore di successo o errore
+        return $success;
     }
+    
     
 
     public function updatePost($idPost, $text, $hashtag1, $hashtag2, $hashtag3) {
@@ -331,9 +335,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssisss", $text, $hashtag1, $hashtag2, $hashtag3, $idPost);  
-        $stmt->execute();
+        $success = $stmt->execute();
 
-        return $stmt->execute();
+        return $success;
     }
 
     public function searchByHashtag($hashtag) {
@@ -384,20 +388,25 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function orderPostByDate() {
+    public function showPostorderByDate($username) {
         $query = "
-            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
-            FROM post
+            SELECT *
+            FROM post p, seguire s, utente u
+            WHERE p.username = u.username AND u.username = s.username_seguito AND s.username_follower = ?
+            WHERE username = ?
             ORDER BY data DESC
         ";
-        //get all the posts ordered by date
+        //get all the posts ordered by date of the followed users by the username
 
         $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    
 
 
     public function updateImgProfilo($username, $image) {
@@ -421,15 +430,19 @@ class DatabaseHelper {
             FROM utente
             WHERE username = ?
         ";
-        //get the user image by username
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci direttamente il valore della specialità
+        return ($row !== null) ? $row["specialita"] : null;
     }
+    
 
     public function updateSpecialita($username, $specialita) {
         $query = "
@@ -467,15 +480,19 @@ class DatabaseHelper {
             FROM utente
             WHERE username = ?
         ";
-        //get the user image by username
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci direttamente il valore della specialità
+        return ($row !== null) ? $row["fazzolettone"] : null;
     }
+    
 
     public function updateFazzolettone($username, $fazzolettone) {
         $query = "
@@ -513,15 +530,19 @@ class DatabaseHelper {
             FROM utente
             WHERE username = ?
         ";
-        //get the user image by username
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci direttamente il valore dell'immagine
+        return $row["immagine"];
     }
+    
 
     public function getImageIdPost($idPost) {
         $query = "
@@ -529,15 +550,19 @@ class DatabaseHelper {
             FROM post
             WHERE idPost = ?
         ";
-        //get the post's image by idPost
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci il valore dell'immagine se esiste, altrimenti null
+        return ($row !== null) ? $row['immagine'] : null;
     }
+    
     
     public function deletePostImage($idPost) {
         $query = "
@@ -579,27 +604,10 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
-        var_dump($stmt->error); //is used for debugging purposes. It will output any error message from the last operation on $stmt.
-
-        return true;
+        return $stmt->execute();
     }
 
-    public function getAllPostOfFollowedUsers($username) {
-        $query = "
-            SELECT p.idPost, p.immagine, p.username, p.data, p.testo, p.hashtag1, p.hashtag2, p.hashtag3
-            FROM post p INNER JOIN seguire s ON p.username = s.username_seguito
-            WHERE s.username_follower = ?
-            ORDER BY p.data DESC
-        ";
-        //get all the posts of the followed users by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+   
 
     /**
      * Comments CRUD
@@ -638,26 +646,30 @@ class DatabaseHelper {
      * Likes CRUD
      */
 
-    public function getLikesByPostId($idPost) {
+     public function getLikesByPostId($idPost) {
         $query = "
             SELECT COUNT(*) AS numeroLike
-            FROM like
+            FROM mipiace
             WHERE idPost = ?
-        
         ";
-//return the number of likes of a post by idPost
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci il valore del numero di like se esiste, altrimenti 0
+        return ($row !== null) ? (int)$row['numeroLike'] : 0;
     }
+    
 
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
             SELECT COUNT(*) AS numeroLike
-            FROM like
+            FROM mipiace
             WHERE username = ? AND idPost = ?
         ";
 
@@ -667,8 +679,9 @@ class DatabaseHelper {
         $stmt->bind_param("si", $username, $idPost);
         $stmt->execute();
         $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $row;
     }
 
     public function insertLike($idPost, $username_sender) {
@@ -712,15 +725,16 @@ class DatabaseHelper {
         $query = "
             SELECT username, password, salt
             FROM utente
-            WHERE username = ? LIMIT 1
+            WHERE username = ? 
         ";
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $row;
     }
 
     //funzione che inserisce un tentativo di login

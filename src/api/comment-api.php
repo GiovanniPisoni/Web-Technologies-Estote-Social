@@ -14,7 +14,7 @@
     $result["status"] = $dbh->insertComment($testo, $_SESSION["username"], $idPost, $date);
    
     $result["senderUsername"] = $_SESSION["username"];
-    $result["receiverUsername"] = $dbh->getUsernameByIdPost($idPost)[0]["username"];
+    $result["receiverUsername"] = $dbh->getUsernameByIdPost($idPost)["username"];
 
     header('Content-Type: application/json');
     echo json_encode($result);

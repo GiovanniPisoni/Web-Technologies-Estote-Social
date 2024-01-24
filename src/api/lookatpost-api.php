@@ -3,7 +3,7 @@
 
     $username = $_SESSION["username"];
 
-    $result = $dbh->getAllPostOfFollowedUsers($username);
+    $result = $dbh->showPostorderByDate($username);
 
     if(empty($result)){
         $result = false;
