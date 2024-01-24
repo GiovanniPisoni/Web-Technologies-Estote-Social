@@ -1,2 +1,16 @@
-//qui devo scrivere una funzione che controlli se l'utente ha cliccato su una notifica, 
-//se si prendo l'id della notifica e lo passo alla funzione che la legge
+document.addEventListener("DOMContentLoaded", function () {
+    const notifications = document.querySelectorAll(".notification");
+    notifications.forEach((n) => {
+        n.addEventListener("click", function () {
+            if (!this.classList.contains("seen")) {
+                const id = n.id;
+                const curr = document.getElementById(id);
+                curr.style.opacity = "0.5";
+                const formData = new FormData();
+                formData.append("id", id);
+                axios.post("api/readnotifications.php", formData);
+                this.classList.add("seen");
+            }
+        });
+    });
+});
