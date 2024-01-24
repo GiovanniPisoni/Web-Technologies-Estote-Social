@@ -186,7 +186,7 @@ class DatabaseHelper {
         $query = "
             SELECT *
             FROM Notifica
-            WHERE username_receiver = ? AND letta = false
+            WHERE username_receiver = ?
         ";
         //search for the notifications of a user by username
 
@@ -197,6 +197,24 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+
+    public function getUnreadNotificationsByUsername($username) {
+        $query = "
+            SELECT *
+            FROM Notifica
+            WHERE username_receiver = ? AND letta = false
+        ";
+        //search for the unread notifications of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 
     public function readNotification($idNotifica) {
         $query = "
@@ -277,15 +295,19 @@ class DatabaseHelper {
             FROM post
             WHERE idPost = ?
         ";
-        //get the username of the user that has posted a post by idPost
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Utilizza fetch_assoc per ottenere un'associazione chiave-valore
+        $row = $result->fetch_assoc();
+    
+        // Restituisci direttamente il valore dell'username
+        return $row["username"];
     }
+    
 
     public function insertPost($image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3) {
         // Inserimento del post

@@ -24,7 +24,7 @@ create table COMMENTI (
      IDPost bigint not null,
      IDCommento bigint not null auto_increment,
      Testo char(250) not null,
-     Data date not null,
+     Data datetime not null,
      constraint IDCOMMENTI primary key (IDCommento, IDPost, Username));
 
 create table MIPIACE (
@@ -34,13 +34,13 @@ create table MIPIACE (
 
 create table LOGINATTEMPT (
      Username char(25) not null,
-     DataOra char(1) not null,
+     DataOra datetime not null,
      constraint IDLOGINATTEMPT primary key (Username, DataOra));
 
 create table NOTIFICA (
      IDNotifica int not null auto_increment,
      Tipo char(30) not null,
-     Letta bool not null,
+     Letta boolean not null,
      Username_receiver char(25) not null,
      Username_sender char(25) not null,
      constraint IDNOTIFICA primary key (IDNotifica));
@@ -49,7 +49,7 @@ create table POST (
      IDPost bigint not null auto_increment,
      Testo char(250) not null,
      Immagine char(100),
-     Data date not null,
+     Data datetime not null,
      Hashtag1 char(50),
      Hashtag2 char(50),
      Hashtag3 char(50),
