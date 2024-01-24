@@ -9,7 +9,7 @@ function getComments(idPost) {
     const formData = new FormData();
     formData.append('idPost', idPost);
 
-    axios.post('./api/commentsgroup-api.php', formData).then(response => {
+    axios.post('../api/commentsgroup-api.php', formData).then(response => {
         const ul = document.getElementById("commentsList");
         createList(ul, response);
     });

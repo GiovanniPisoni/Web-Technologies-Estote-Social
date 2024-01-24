@@ -11,3 +11,7 @@ nav {
 .overflow-y-auto {
     overflow-y: auto;
 }
+
+.opacity-50 {
+    opacity: 0.5;
+}
