@@ -13,7 +13,7 @@
             // Crea una password usando la chiave appena creata.
             $password = hash('sha512', $_POST["password"] . $salt);
             //controllo se esiste un utente con lo stesso user, altrimenti esegui l'inserimento
-            if($dbh->getUsersByUsername($_POST["username"])) {
+            if($dbh->getUserByUsername($_POST["username"])) {
                 $result["erroreSignin"] = "Username già in uso";
             } else if($dbh->insertUser($_POST['username'], $_POST['name'], $_POST["surname"], $_POST["birthday"],
                         $_POST['image'], $_POST['group'], $_POST['email'], $password, $salt, $_POST['bio'],
