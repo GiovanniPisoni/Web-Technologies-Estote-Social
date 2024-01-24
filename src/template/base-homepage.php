@@ -34,15 +34,17 @@
                             $iconPath = "./img/backpack.png";
                             endif;
                         ?>
-                        <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
-                            <image href="<?php echo $iconPath; ?>" height="35" width="35"/>
-                        </svg>
+                        <a data-bs-toggle="modal" data-bs-target="#notification-banner">
+                            <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
+                                <image href="<?php echo $iconPath; ?>" height="35" width="35"/>
+                            </svg>
+                        </a>
                     </div>
                     <div class="col text-center pos-relative d-flex justify-content-center align-items-center">
                         <img src="./img/logo_white.png" alt="EstoteSocial" height="30">
                     </div>
                     <div class="col text-end pos-realtive d-flex justify-content-center align-items-center ms-3">
-                        <svg data-bs-toggle="modal" data-bs-target="#new-post-modal" width="35" height="35" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                        <svg data-bs-toggle="modal" data-bs-target="#new-post-banner" width="35" height="35" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
                             <g id="SVGRepo_iconCarrier">    
@@ -72,7 +74,7 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="col text-start d-flex justify-content-center align-items-center me-3">
+                        <div class="col text-start d-flex justify-content-center align-items-center ms-3">
                             <a href="profile.php?id=<?php echo $_SESSION["username"]; ?>" class="link-underline link-underline-opacity-0">
                                 <svg width="32.5" height="32.5" xmlns="http://www.w3.org/2000/svg">
                                     <image href="./img/user.png" height="32.5" width="32.5"/>
@@ -85,5 +87,6 @@
         </div>
 
         <!-- Modal to add: Post, Notifiacation? -->
+        <?php require_once("./components/notification-banner.php"); ?>
     </body>
 </html>
