@@ -14,7 +14,7 @@ function login() {
         console.log(response.data);
         if (response.data["login_result"]) {
             document.getElementById("result").innerText = "Login avvenuto con successo!!";
-            document.location.href = "./template/base-homepage.php";
+            document.location.href = "./index.php";
         } else {
             document.getElementById("result").innerText = response.data["login_error"];
         }
