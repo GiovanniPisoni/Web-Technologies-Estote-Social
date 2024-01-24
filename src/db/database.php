@@ -304,7 +304,7 @@ class DatabaseHelper {
         $query = "
             SELECT Idpost
             FROM post
-            WHERE hashtag1 = ? OR hashtag2 = ? OR hashtag3 = ?
+            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 = (?, '%')
         ";
         //get all the posts that have a certain hashtag
 
