@@ -257,6 +257,19 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    public function deleteReadNotifications() {
+        $query = "
+            DELETE FROM notifica
+            WHERE letta = true
+        ";
+        //delete all the read notifications
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->execute();
+    }
+
     public function getUsernameByIdPost($idPost) {
         $query = "
             SELECT username
@@ -300,11 +313,27 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
-    public function getPostByHashtag($hashtag) {
+    public function searchByHashtag($hashtag) {
         $query = "
             SELECT Idpost
             FROM post
-            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 = (?, '%')
+            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 (?, '%')
+        ";
+        //get all the posts that have a certain hashtag
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sss", $hashtag, $hashtag, $hashtag);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPostByHashtag($hashtag) {
+        $query = "
+            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
+            FROM post
+            WHERE hashtag1 = ? OR hashtag2 = ? OR hashtag3 = ?
         ";
         //get all the posts that have a certain hashtag
 
