@@ -201,7 +201,7 @@ class DatabaseHelper {
     public function readNotification($idNotifica) {
         $query = "
             UPDATE notifica
-            SET letta = true
+            SET letta = 1
             WHERE idNotifica = ?
         ";
         //update the notification's letta by idNotification
@@ -215,19 +215,20 @@ class DatabaseHelper {
 
     public function isReadNotification($idNotifica) {
         $query = "
-            SELECT letta
-            FROM notifica
-            WHERE idNotifica = ?
+            SELECT Letta
+            FROM NOTIFICA
+            WHERE IDNotifica = ?
         ";
-        //check if a notification is read by idNotification
-
+    
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idNotifica);
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->bind_result($letta);
+        $stmt->fetch();
+    
+        return (bool) $letta;
     }
+    
 
     public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
         $query = "

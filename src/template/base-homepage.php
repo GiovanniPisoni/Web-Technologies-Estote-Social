@@ -86,7 +86,7 @@
             </nav> 
         </div>
 
-        <!-- Modal to add: Post, Notifiacation? -->
+        <!-- Modal to add: Post, Notification? -->
         <?php require_once("./components/notification-banner.php"); ?>
     </body>
 </html>

@@ -40,7 +40,7 @@ create table LOGINATTEMPT (
 create table NOTIFICA (
      IDNotifica int not null auto_increment,
      Tipo char(30) not null,
-     Letta char not null,
+     Letta bool not null,
      Username_receiver char(25) not null,
      Username_sender char(25) not null,
      constraint IDNOTIFICA primary key (IDNotifica));
