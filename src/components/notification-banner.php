@@ -8,7 +8,7 @@
                 <h1 class="modal-title h5" id="notification">Notifiche</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.reload()"></button>
             </div>
-            <div class="modal-body"
+            <div class="modal-body">
                 <?php
                     require("./template/show-notification.php");
                 ?>

@@ -25,9 +25,9 @@
                <div class="row">
                     <div class="col text-start d-flex justify-content-center align-items-center me-3">
                         <?php
-                        $templateParams["notificationUnread"]= $dbh->getNotificationsUnread($_SESSION["username"]);
+                        $templateParams["notificationUnread"]= $dbh->getUnreadNotificationsByUsername($_SESSION["username"]);
                         $templateParams["notification"]= $dbh->getNotificationsByUsername($_SESSION["username"]);
-                        if (!empty($templateParams["notification"])):
+                        if (!empty($templateParams["notificationUnread"])):
                             $iconPath = "./img/backpack_notify.png";
                         ?>
                             <span class="badge bg-danger">new</span>
