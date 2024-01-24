@@ -1,9 +1,9 @@
 document.getElementById("commentForm").addEventListener("submit", event => {
     event.preventDefault()
     const formData = new FormData();
-    const postId = document.getElementById("postHidden").value;
-    formData.append('input', document.getElementById("commentText").value)
-    formData.append('postId', postId)
+    const idPost = document.getElementById("postHidden").value;
+    formData.append('text', document.getElementById("commentText").value)
+    formData.append('idPost', idPost)
 
     axios.post('./api/comment-api.php', formData).then(response => {
         
@@ -12,10 +12,9 @@ document.getElementById("commentForm").addEventListener("submit", event => {
         notificationFormData.append("type", "comment")
         notificationFormData.append("sender", response.data.senderUsername)
         notificationFormData.append("receiver", response.data.receiverUsername)
-        notificationFormData.append("post", postId)
         axios.post('./api/createnotification-api.php', notificationFormData)
         
-        getComments(postId);
+        getComments(idPost);
     });
 
     document.getElementById("commentForm").reset()

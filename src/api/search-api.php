@@ -4,7 +4,7 @@
     $username = $_POST["username"];
 
     //controlla se esiste un particolare utente, in caso esista ritorna i dati dell'utente
-    $result = $dbh->getUsersByUsername($username);
+    $result = $dbh->searchUser($username);
 
     if(empty($result)){
         $result = false;

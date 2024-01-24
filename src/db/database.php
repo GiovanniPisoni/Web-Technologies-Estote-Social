@@ -200,7 +200,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function ReadNotification($idNotifica) {
+    public function readNotification($idNotifica) {
         $query = "
             UPDATE notifica
             SET letta = true

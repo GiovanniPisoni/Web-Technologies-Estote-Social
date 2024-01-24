@@ -1,13 +1,13 @@
 document.querySelectorAll(".comment")
     .forEach((element) => element.addEventListener("click", function() {
-        const postId = element.getAttribute("data-postid");
-        getComments(postId);
+        const idPost = element.getAttribute("idPost");
+        getComments(idPost);
     }));
 
 
-function getComments(postId) {
+function getComments(idPost) {
     const formData = new FormData();
-    formData.append('postId', postId);
+    formData.append('idPost', idPost);
 
     axios.post('./api/commentsgroup-api.php', formData).then(response => {
         const ul = document.getElementById("commentsList");

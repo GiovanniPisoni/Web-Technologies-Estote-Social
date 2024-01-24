@@ -1,4 +1,3 @@
-//const photoElem = document.querySelector("#photoElem");
 const imgInput = document.getElementById('photoElem');
 const camera = document.getElementById("cameraIcon");
 const postImg = document.getElementById("img");
