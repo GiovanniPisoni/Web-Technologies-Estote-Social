@@ -5,6 +5,10 @@
 
     $result = $dbh->getAllPostOfFollowedUsers($username);
 
+    if(empty($result)){
+        $result = false;
+    }
+
     header('Content-Type: application/json');
     echo json_encode($result);
 ?>
