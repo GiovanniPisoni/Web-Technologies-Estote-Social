@@ -9,15 +9,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <title>EstoteSocial: <?php echo $templateParams["title"]; ?></title>
         <link rel="icon" type="image/x-icon" href="./img/miniLogo.png">
-        <!--<?php
-        /*if(isset($templateParams["js"])):
-            foreach($templateParams["js"] as $script):*/
+        <?php
+        if(isset($templateParams["js"])):
+            foreach($templateParams["js"] as $script):
         ?>
             <script defer src="<?php echo $script; ?>"></script>
         <?php
-            /*endforeach;
-        endif;*/
-        ?>-->
+            endforeach;
+        endif;
+        ?>
     </head>
     <body class="container justify-content-center py-4 bg-success-subtle">
         <nav class="nav p-1 fixed-top">
