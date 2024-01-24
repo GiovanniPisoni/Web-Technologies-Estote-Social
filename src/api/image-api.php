@@ -1,5 +1,5 @@
 <?php 
-   include '../utils/functions.php';
+   require_once("../db_config.php");
 
    $result["upload-completed"] = false;
 

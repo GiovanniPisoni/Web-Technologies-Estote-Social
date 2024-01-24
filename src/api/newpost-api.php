@@ -1,5 +1,5 @@
 <?php 
-    require_once("db_config.php");
+    require_once("../db_config.php");
 
     $username = $_SESSION["username"];
     $testo = $_POST['testo'];

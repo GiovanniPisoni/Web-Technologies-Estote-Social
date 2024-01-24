@@ -1,5 +1,5 @@
 <?php 
-    require_once("db_config.php");
+    require_once("../db_config.php");
 
     //redirect if not auth
     if(!userIsAlreadyIn($dbh->db)){

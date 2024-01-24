@@ -1,5 +1,5 @@
 <?php 
-    require_once '../db_config.php';
+    require_once("../db_config.php");
 
     // Elimina tutti i valori della sessione.
     $_SESSION = array();

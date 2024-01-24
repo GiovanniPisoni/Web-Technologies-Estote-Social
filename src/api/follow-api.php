@@ -1,9 +1,9 @@
 <?php 
-    require_once("db_config.php");
+    require_once("../db_config.php");
 
     //redirect if not auth
     if(!userIsAlreadyIn($dbh->db)){
-        header('Location: ./../index.php');
+        header('Location: ../index.php');
     }
 
     //rimuove il follow se già presente, o aggiunge il follow ad un particolare utente (da parte dell'utente loggato)

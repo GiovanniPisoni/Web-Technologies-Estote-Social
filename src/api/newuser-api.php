@@ -1,9 +1,9 @@
 <?php 
-    require_once("db_config.php");
+    require_once("../db_config.php");
 
     // Redirect if not authenticated
     if(!userIsAlreadyIn($dbh->db)){
-        header('Location: ./../index.php');
+        header('Location: ../index.php');
     }
 
     // Recupera i dati dal post
