@@ -3,7 +3,7 @@
 
     $username = $_POST["username"];
 
-    $result = $dbh->getUsersByUsername($username);
+    $result = $dbh->getUserByUsername($username);
 
     header('Content-Type: application/json');
     echo json_encode($result);
