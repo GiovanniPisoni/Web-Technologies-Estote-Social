@@ -23,10 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    deleteButtons.forEach((button) => {
-        button.addEventListener("click", function (event) {
+    document.addEventListener("click", function (event) {
+        const deleteButton = event.target.closest(".delete-notification");
+        if (deleteButton) {
             event.stopPropagation(); // Prevents click on the notification text
-            const id = button.dataset.id;
+            const id = deleteButton.dataset.id;
             const formData = new FormData();
             formData.append("idNotifica", id);
             axios.post("./api/deletenotification-api.php", formData)
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Handle error
                     console.error(error);
                 });
-        });
+        }
     });
     
 });

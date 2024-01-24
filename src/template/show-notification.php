@@ -2,7 +2,7 @@
     <?php foreach($templateParams["notification"] as $notification): ?>
         <article id="<?php echo $notification["IDNotifica"]; ?>" class="notification d-flex p-2 mt-2 border <?php echo in_array($notification, $templateParams["notificationUnread"]) ? '' : 'opacity-50'; ?>">
             <div class="row">
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-auto d-flex align-items-left">
                     <?php if($notification["Tipo"] == "follow"): ?>
                         <img src="./img/follow.png" width="25" height="25">
                     <?php elseif($notification["Tipo"] == "like"): ?>
@@ -19,13 +19,13 @@
                             echo $notification["Username_sender"];
                             if ($notification["Tipo"] == "follow"): echo " ha cominciato a seguirti";
                             elseif ($notification["Tipo"] == "like"): echo " ha messo mi piace al tuo post";
-                            else: echo " ha commentato il tuo post";
+                            elseif ($notification["Tipo"] == "commento"): echo " ha commentato il tuo post";
                             endif;
                         ?>
                     </p>
                 </div>
                 <div class="col-auto d-flex align-items-right">
-                    <img src="./img/delete.png" width="15" height="15" class="delete-notification" data-id="<?php echo $notification["IDNotifica"]; ?>" alt="Delete">
+                    <img src="./img/delete.png" width="20" height="20" class="delete-notification" data-id="<?php echo $notification["IDNotifica"]; ?>" alt="Delete">
                 </div>
             </div>
         </article>
