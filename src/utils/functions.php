@@ -70,7 +70,7 @@
             $login_string = $_SESSION['login_string']; //Get the login string of the user
             $user_browser = $_SERVER['HTTP_USER_AGENT']; //Get the user-agent string of the user.
             
-            if ($stmt = $mysqli->prepare("SELECT password FROM users WHERE username = ? LIMIT 1")) {
+            if ($stmt = $mysqli->prepare("SELECT password FROM utente WHERE username = ? LIMIT 1")) {
                 $stmt->bind_param('s', $username); //Bind "$username" to parameter.
                 $stmt->execute(); //Execute the prepared query.
                 $stmt->store_result();

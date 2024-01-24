@@ -9,7 +9,7 @@
   } else {
     $templateParams["title"] = "Homepage";
     $templateParams["name"] = "show-homepage.php";
-    $templateParams["js"] = array("./js/read-notifications.js", "./utils/functions.js");
+    $templateParams["js"] = array("js/read-notifications.js", "utils/function.js");
     require 'template/base-homepage.php';
   }
 
