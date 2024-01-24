@@ -7,7 +7,7 @@ if(!$templateParams["isAuth"]){
 }
 
 $templateParams["titolo"] = "Estote Social - Aggiungi Post";
-$templateParams["contenuto"] = "addpost.php";
+$templateParams["contenuto"] = "newpost.php";
 
 
 require 'template/base.php';
