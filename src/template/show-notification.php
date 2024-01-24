@@ -1,6 +1,6 @@
 <?php if(!empty($templateParams["notification"])): ?>
     <?php foreach($templateParams["notification"] as $notification): ?>
-        <article id="<?php echo $notification["IDNotifica"]; ?>" class="notification d-flex p-2 mt-2 border">
+        <article id="<?php echo $notification["IDNotifica"]; ?>" class="notification d-flex p-2 mt-2 border <?php echo in_array($notification, $templateParams["notificationUnread"]) ? '' : 'opacity-50'; ?>">
             <div class="row">
                 <div class="col-2 d-flex align-items-center">
                     <?php if($notification["Tipo"] == "follow"): ?>
