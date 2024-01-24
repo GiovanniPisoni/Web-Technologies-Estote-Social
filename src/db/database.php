@@ -730,11 +730,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
-        $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
 
-        return $row;
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     //funzione che inserisce un tentativo di login
