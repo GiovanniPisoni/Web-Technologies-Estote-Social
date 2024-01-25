@@ -60,7 +60,7 @@ document.querySelector("#addPostForm").addEventListener("submit", function (even
                     alert("Post aggiunto con successo!");     
                     window.location.href = "./index.php";
                 });
-            }    
+            }
         });
     }else{
         if(text.length === 0){
