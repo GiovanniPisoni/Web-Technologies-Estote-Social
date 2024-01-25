@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const notifications = document.querySelectorAll(".notification-text");
-    const deleteButtons = document.querySelectorAll(".delete-notification");
 
     notifications.forEach((n) => {
         n.addEventListener("click", function (event) {

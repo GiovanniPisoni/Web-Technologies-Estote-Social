@@ -1,7 +1,7 @@
 <?php 
    require_once("../db_config.php");
 
-   $result["upload-completed"] = false;
+   $result["uploadEseguito"] = false;
 
    //upload the image to the filesystem
    if(isset($_FILES['image'])) { 

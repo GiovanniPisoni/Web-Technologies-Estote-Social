@@ -36,36 +36,41 @@ document.querySelector("#addPostForm").addEventListener("submit", function (even
     
     const formData = new FormData();
     const img = imgInput.files[0];
-    const text = document.getElementById("textElem").value;
-    const topic = document.getElementById('title').innerText;
+    const text = document.getElementById('text').innerText;
+    const hashtag1 = document.getElementById('hashtag1').innerText;
+    const hashtag2 = document.getElementById('hashtag2').innerText;
+    const hashtag3 = document.getElementById('hashtag3').innerText;
 
-    formData.append('tema', topic);
     formData.append('testo', text);
+    formData.append('hashtag1', hashtag1);
+    formData.append('hashtag2', hashtag2);
+    formData.append('hashtag3', hashtag3);
+
     
     if(img != null) {
         const formDataImage = new FormData();
         formDataImage.append('image', img);
-        axios.post('./api/uploadImage.php', formDataImage).then((responseUpload) => {
+        axios.post('../api/image-api.php', formDataImage).then((responseUpload) => {
             if (!responseUpload.data["uploadEseguito"]) {
                 alert("Qualcosa è andato storto :/");
-                window.location.href = "./insert-post.php";
+                window.location.href = "../insert-post.php";
             }else{
-                formData.append('image', responseUpload.data["fileName"]);
-                axios.post('./api/post-api.php', formData).then((response) => {
+                formData.append('immagine', responseUpload.data["fileName"]);
+                axios.post('../api/newpost-api.php', formData).then((response) => {
                     alert("Post aggiunto con successo!");     
-                    window.location.href = "./user.php?id=" + response.data;
+                    window.location.href = "../profile.php";
                 });
             }    
         });
     }else{
         if(text.length === 0){
             alert("Parametri assenti!");
-            window.location.href = "./insert-post.php";
+            window.location.href = "../insert-post.php";
         }else{
-            axios.post('./api/post-api.php', formData).then((response) => {
+            axios.post('../api/newpost-api.php', formData).then((response) => {
                 alert("Post aggiunto con successo!");
                 console.log(response.data);
-                window.location.href = "./user.php?id=" + response.data;
+                window.location.href = "../profile.php";
             });
         }
     }

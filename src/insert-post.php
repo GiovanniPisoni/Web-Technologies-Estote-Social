@@ -1,5 +1,5 @@
 <?php
-require_once 'base-without-posts.php';
+require_once ("db_config.php");
 
 //redirect if not auth
 if(!$templateParams["isAuth"]){
@@ -7,8 +7,8 @@ if(!$templateParams["isAuth"]){
 }
 
 $templateParams["titolo"] = "Estote Social - Aggiungi Post";
-$templateParams["contenuto"] = "newpost.php";
+$templateParams["contenuto"] = "template/add-post.php";
 
 
-require 'template/base.php';
+require 'template/base-homepage.php';
 ?>
