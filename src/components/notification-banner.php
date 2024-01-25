@@ -1,6 +1,3 @@
-<head>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
 <div class="modal fade" id="notification-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="notifications" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">

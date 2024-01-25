@@ -15,7 +15,7 @@ image.addEventListener('change', (e) => {
         imgContainer.style.display = "block";
         removeImgButton.style.display = "block";
         camera.style.display = "none";
-        var output = document.getElementById('img');
+        var output = document.getElementById('container');
         output.src = URL.createObjectURL(e.target.files[0]);
         output.onload = function() {
             URL.revokeObjectURL(output.src)
