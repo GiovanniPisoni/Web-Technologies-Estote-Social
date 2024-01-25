@@ -50,27 +50,27 @@ document.querySelector("#addPostForm").addEventListener("submit", function (even
     if(img != null) {
         const formDataImage = new FormData();
         formDataImage.append('image', img);
-        axios.post('../api/image-api.php', formDataImage).then((responseUpload) => {
+        axios.post('./api/image-api.php', formDataImage).then((responseUpload) => {
             if (!responseUpload.data["uploadEseguito"]) {
                 alert("Qualcosa è andato storto :/");
-                window.location.href = "../insert-post.php";
+                window.location.href = "./index.php";
             }else{
                 formData.append('immagine', responseUpload.data["fileName"]);
-                axios.post('../api/newpost-api.php', formData).then((response) => {
+                axios.post('./api/newpost-api.php', formData).then((response) => {
                     alert("Post aggiunto con successo!");     
-                    window.location.href = "../profile.php";
+                    window.location.href = "./index.php";
                 });
             }    
         });
     }else{
         if(text.length === 0){
             alert("Parametri assenti!");
-            window.location.href = "../insert-post.php";
+            window.location.href = "./index.php";
         }else{
-            axios.post('../api/newpost-api.php', formData).then((response) => {
+            axios.post('./api/newpost-api.php', formData).then((response) => {
                 alert("Post aggiunto con successo!");
                 console.log(response.data);
-                window.location.href = "../profile.php";
+                window.location.href = "./index.php";
             });
         }
     }
