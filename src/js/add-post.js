@@ -1,18 +1,18 @@
-const imgInput = document.getElementById('photoElem');
+const image = document.getElementById('imgpost');
 const camera = document.getElementById("cameraIcon");
-const postImg = document.getElementById("img");
+const imgContainer = document.getElementById("container");
 const removeImgButton = document.getElementById("removeImgButton");
 
-postImg.style.display = "none";
+imgContainer.style.display = "none";
 removeImgButton.style.display = "none";
 
-imgInput.addEventListener('change', (e) => {
-    if(imgInput.files[0] == null) {
-        postImg.style.display = "none";
+image.addEventListener('change', (e) => {
+    if(image.files[0] == null) {
+        imgContainer.style.display = "none";
         removeImgButton.style.display = "none";
         camera.style.display = "block";
     } else {
-        postImg.style.display = "block";
+        imgContainer.style.display = "block";
         removeImgButton.style.display = "block";
         camera.style.display = "none";
         var output = document.getElementById('img');
@@ -24,8 +24,8 @@ imgInput.addEventListener('change', (e) => {
 });
 
 removeImgButton.addEventListener("click", event => {
-    imgInput.value = "";
-    postImg.style.display = "none";
+    image.value = "";
+    imgContainer.style.display = "none";
     removeImgButton.style.display = "none";
     camera.style.display = "block";
 });
@@ -35,7 +35,7 @@ document.querySelector("#addPostForm").addEventListener("submit", function (even
     event.preventDefault()
     
     const formData = new FormData();
-    const img = imgInput.files[0];
+    const img = image.files[0];
     const text = document.getElementById('text').innerText;
     const hashtag1 = document.getElementById('hashtag1').innerText;
     const hashtag2 = document.getElementById('hashtag2').innerText;
