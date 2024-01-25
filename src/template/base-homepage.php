@@ -89,5 +89,6 @@
 
         <!-- Modal to add: Post, Notification? -->
         <?php require_once("./components/notification-banner.php"); ?>
+        <?php require_once("./components/addpost-banner.php"); ?>
     </body>
 </html>
