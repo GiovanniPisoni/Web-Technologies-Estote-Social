@@ -3,7 +3,7 @@
 
     //redirect if not auth
     if(!userIsAlreadyIn($dbh->db)){
-        header('Location: ./../index.php');
+        header('Location: ../index.php');
     }
     
     //rimuove un mi piace ad un post se già presente, o ne aggiunge uno

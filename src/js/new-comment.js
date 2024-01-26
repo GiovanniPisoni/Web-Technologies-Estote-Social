@@ -6,14 +6,14 @@ document.getElementById("commentForm").addEventListener("submit", event => {
     formData.append('idPost', idPost)
 
     axios.post('./api/comment-api.php', formData).then(response => {
-        
+
         //send notification
         let notificationFormData = new FormData();
-        notificationFormData.append("type", "comment")
+        notificationFormData.append("type", "commento")
         notificationFormData.append("sender", response.data.senderUsername)
         notificationFormData.append("receiver", response.data.receiverUsername)
         axios.post('./api/createnotification-api.php', notificationFormData)
-        
+
         getComments(idPost);
     });
 

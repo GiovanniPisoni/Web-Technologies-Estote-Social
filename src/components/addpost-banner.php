@@ -25,15 +25,15 @@
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <label for="hashtag1" hidden>Hashtag 1</label>
-                        <input class="form-control" type="text" id="hashtag1" name="hashtag1" placeholder="Aggiungi un hastag per facilitare la ricerca agli altri utenti">
+                        <input class="form-control" type="text" id="hashtag1" name="hashtag1" placeholder="Aggiungi un hashtag per facilitare la ricerca agli altri utenti">
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <label for="hashtag2" hidden>Hashtag 2</label>
-                        <input class="form-control" type="text" id="hashtag2" name="hashtag2" placeholder="Aggiungi un hastag per facilitare la ricerca agli altri utenti">
+                        <input class="form-control" type="text" id="hashtag2" name="hashtag2" placeholder="Aggiungi un hashtag per facilitare la ricerca agli altri utenti">
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <label for="hashtag3" hidden>Hashtag 3</label>
-                        <input class="form-control" type="text" id="hashtag3" name="hashtag3" placeholder="Aggiungi un hastag per facilitare la ricerca agli altri utenti">
+                        <input class="form-control" type="text" id="hashtag3" name="hashtag3" placeholder="Aggiungi un hashtag per facilitare la ricerca agli altri utenti">
                     </div>
                     <div class="text-body-secondary text-start">
                          <p class="small" name="clarification" id="clarification">Max image dimension: 10Mb</p>

@@ -39,6 +39,9 @@
         <label for="image">Immagine Profilo*</label>
         <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required>
     </div>
+    <div class="text-body-secondary text-start">
+        <p class="small text-center" name="imgdimension" id="imgdimension">Max image dimension: 10Mb</p>
+    </div>
     <div>
         <label for="register" hidden>Registrati</label>
         <input class="btn btn-success w-40 mt-3 mb-2" type="submit" name="register" id="register" value="Registrati">

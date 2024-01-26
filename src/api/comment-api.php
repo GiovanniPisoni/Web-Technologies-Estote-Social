@@ -9,8 +9,8 @@
     //inserisce un commento ad un post in base all'id
     $testo = $_POST["testo"];
     $idCommento = $_POST["idCommento"];
-    $idPost = $_POST["date"];
-    $date = $_POST["idPost"];
+    $idPost = $_POST["idPost"];
+    $date = date("Y-m-d H:i:s");
     $result["status"] = $dbh->insertComment($testo, $_SESSION["username"], $idPost, $date);
    
     $result["senderUsername"] = $_SESSION["username"];
