@@ -37,13 +37,9 @@ document.querySelector("#addPostForm").addEventListener("submit", function (even
     const formData = new FormData();
     const img = image.files[0];
     const text = document.getElementById('description').value;
-    console.log(text);
     const hashtag1 = document.getElementById('hashtag1').value;
-    console.log(hashtag1);
     const hashtag2 = document.getElementById('hashtag2').value;
-    console.log(hashtag2);
     const hashtag3 = document.getElementById('hashtag3').value;
-    console.log(hashtag3);
 
     formData.append('testo', text);
     formData.append('hashtag1', hashtag1);
