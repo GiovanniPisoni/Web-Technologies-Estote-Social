@@ -1,9 +1,9 @@
-<div class="modal fade" id="addpost-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addPost" aria-hidden="true">
+<div class="modal fade" id="addpost-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Aggiungi post" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title h5" id="addPost">Aggiungi un nuovo post</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.reload()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
             <div class="modal-body">
                 <form action="#" method="POST" id="addPostForm" enctype="multipart/form-data">
