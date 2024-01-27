@@ -388,6 +388,22 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostById($idPost) {
+        $query = "
+            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
+            FROM post
+            WHERE idPost = ?
+        ";
+        //get all the posts of a user by idPost
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $idPost);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function showPostorderByDate($username) {
         $query = "
             SELECT *
