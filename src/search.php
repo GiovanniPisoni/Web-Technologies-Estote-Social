@@ -18,7 +18,7 @@ if(!$templateParams["isAuth"]){
 
 $templateParams["titolo"] = "Cerca";
 $templateParams["contenuto"] = "show-search.php";
-$templateParams["js"] = array("js/notificationsHandle.js", "utils/functions.js, js/search.js");
+$templateParams["js"] = array("js/read-notifications.js", "utils/functions.js", "js/add-post.js", "js/search.js");
 
 require 'template/base-homepage.php';
 ?>

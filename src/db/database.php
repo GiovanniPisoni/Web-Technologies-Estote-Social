@@ -126,9 +126,9 @@ class DatabaseHelper {
 
     public function getSeguitiByUsername($username) {
         $query = "
-            SELECT u.username_Seguito, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.username_Seguito = u.username
-            WHERE s.username_Follower = ?
+            SELECT s.Username_seguito, u.immagineProfilo
+            FROM seguire s INNER JOIN utente u ON s.Username_seguito = u.username
+            WHERE s.Username_follower = ?
         ";
         //search for the followed users of a user by username
 
@@ -408,8 +408,7 @@ class DatabaseHelper {
         $query = "
             SELECT *
             FROM post p, seguire s, utente u
-            WHERE p.username = u.username AND u.username = s.username_seguito AND s.username_follower = ?
-            WHERE username = ?
+            WHERE p.username = u.username AND u.username = s.Username_seguito AND s.Username_follower = ?
             ORDER BY data DESC
         ";
         //get all the posts ordered by date of the followed users by the username
@@ -662,7 +661,7 @@ class DatabaseHelper {
      * Likes CRUD
      */
 
-     public function getLikesByPostId($idPost) {
+    public function getLikesByPostId($idPost) {
         $query = "
             SELECT COUNT(*) AS numeroLike
             FROM mipiace

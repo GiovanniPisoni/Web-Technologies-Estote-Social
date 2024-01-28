@@ -21,7 +21,7 @@
     } else {
         $dbh->insertLike($idPost, $_SESSION["username"]);
     }
-    $result["likes"] = $dbh->getLikesByUserAndPostId($_SESSION["username"], $idPost);
+    $result["liked"] = $dbh->getLikesByUserAndPostId($_SESSION["username"], $idPost);
     $result["senderUsername"] = $_SESSION["username"];
     $result["receiverUsername"] = $dbh->getUsernameByIdPost($idPost);
 

@@ -42,7 +42,7 @@
                         </a>
                     </div>
                     <div class="col text-center pos-relative d-flex justify-content-center align-items-center">
-                        <img src="./img/logo_white.png" alt="EstoteSocial" height="30">
+                        <img src="./img/logo_white.png" id="EstoteSocialLogo" alt="EstoteSocial" class="img-fluid">
                     </div>
                     <div class="col text-end pos-realtive d-flex justify-content-center align-items-center ms-3">
                         <a data-bs-toggle="modal" data-bs-target="#addpost-banner">
@@ -88,6 +88,8 @@
                 </div>
             </nav> 
         </div>
+
+        <?php require $templateParams["name"]; ?>
 
         <!-- Modal to add: Post, Notification? -->
         <?php require_once("./components/notification-banner.php"); ?>
