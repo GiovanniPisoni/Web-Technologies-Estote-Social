@@ -1,75 +1,66 @@
 <?php if(!empty($templateParams["posts"])): ?>
     <?php foreach ($templateParams["posts"] as $post): ?>
-        <section class="bg-light border border-dark my-4 px-4 pt-3 pb-1 rounded">
+        <article class="bg-light border border-dark my-4 px-4 pt-3 pb-1 rounded">
             <!-- Profile image -->
             <div class="row">
-                <div id="<?php echo $post['IDPost'] ?>" class="col text-start">
+                <div class="col text-start" id="<?php echo $post['IDPost'] ?>">
                     <a href="profile-api.php?id=<?php echo $post['Username_seguito'] ?>" class="text-decoration-none">
                         <img src="./img/<?php echo $post['ImmagineProfilo'] ?>" alt="Profile image" class="rounded-circle" height="40" width="40">
                     </a>
+                    <!-- Profile name -->
                     <a href="profile.php?id=<?php echo $post['Username_seguito'] ?>" class="username usernameStyle" id="<?php echo $post["Username_seguito"]; ?>">@<?php echo $post["Username_seguito"]; ?></a>
+                    <!-- Post date -->
+                    <p class="ms-1 mt-1 mb-0 smaller-font">
+                        <?php 
+                            $date = new DateTime($post["Data"]);
+                            echo $date->format('d-m-Y');
+                        ?>
+                    </p>
                 </div>
             </div>
+            <!-- Post image -->
+            <?php if(isset($post['Immagine'])): ?>
+                <img src="./img/<?php echo $post['Immagine'] ?>" alt="Post image" class="img-fluid rounded max-size-image">
+            <?php endif; ?>
+            <!-- Post text -->
+            <p class="mt-1 mb-0 fst-italic"><?php echo $post["Testo"]; ?></p>
             <div class="row mt-2">
-                <!-- Post image -->
-                <?php if(isset($post['Immagine'])): ?>
-                    <div class="col text-center">
-                        <img src="./img/<?php echo $post['Immagine'] ?>" alt="Post image" class="img-fluid rounded max-size-image">
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="row mt-2">
-                <!-- Post data -->
-                <div class="col text-start">
-                    <p class="mb-0"><?php echo $post["Data"]; ?></p>
-                </div>
-                <!-- Comment button -->
-                <div class="col text-end">
-                    <button class="comment" type="button" data-bs-toogle="modal" data-bs-target="#comments-modal" data-postid=<?php echo $post["IDPost"]; ?>>
-                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" class="bi bi-chat" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                <!-- Buttons -->
+                <div class="col text-end mb-2">
+                    <button class="btn btn-success border-dark me-2" type="button" data-bs-toogle="modal" data-bs-target="#comments-modal" data-postid=<?php echo $post["IDPost"]; ?>>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat" viewBox="0 1 16 16">
+                            <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
                         </svg>
                     </button>
-                </div>
-                <!-- Like button -->
-                <div class="col text-end">
-                    <button class="like" type="button" data-postid=<?php echo $post["IDPost"]; ?>>
-                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-                            <image href="./img/symbol.png" height="20" width="20"/>
+                    <button class="btn btn-success border-dark" type="button" data-postid=<?php echo $post["IDPost"]; ?>>
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="1 1 16 16">
+                            <image href="./img/symbol.png" height="17.5" width="17.5"/>
                         </svg>
                     </button>
-                </div>
-                <div class="col text-end">
                     <a href="#" class="like" data-postid="<?php echo $post["IDPost"]; ?>" id="like-<?php echo $post["IDPost"]; ?>"></a>
                 </div>
-                    <script>
-                        window.addEventListener('DOMContentLoaded', (event) => {
-                            var postId = document.querySelector('#like-<?php echo $post["IDPost"]; ?>').dataset.postid;
-                            fetch('./api/likenumber-api.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ id: postId }),
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                document.querySelector('#like-' + postId).textContent = data.likes;
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            });
+                <!--<script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        var postId = document.querySelector('#like-<?php echo $post["IDPost"]; ?>').dataset.postid;
+                        fetch('./api/likenumber-api.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ id: postId }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.querySelector('#like-' + postId).textContent = data.likes;
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
                         });
-                    </script>
+                    });
+                </script>-->
             </div>
-            <div class="row mt-2">
-                <!-- Post text -->
-                <div class="col text-start">
-                    <p class="mb-0"><?php echo $post["Testo"]; ?></p>
-                </div>
-            </div>
-        </section>
+        </article>
     <?php endforeach; ?>
 <?php else: ?>
-    <p class="text-center">Non ci sono post da mostrare, per vederli inizia a seguire i tuoi amici</p>
+    <p class="text-center mt-5">Non ci sono post.. inizia a seguire i tuoi amici per vederli!!</p>
 <?php endif; ?>
