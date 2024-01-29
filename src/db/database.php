@@ -701,7 +701,7 @@ class DatabaseHelper {
 
     public function insertLike($idPost, $username_sender) {
         $query = "
-            INSERT INTO like (idPost, username)
+            INSERT INTO mipiace (idPost, username)
             VALUES (?, ?)
         ";
         //insert a new like
@@ -716,7 +716,7 @@ class DatabaseHelper {
 
     public function removelike($idPost, $username) {
         $query = "
-            DELETE FROM like
+            DELETE FROM mipiace
             WHERE idPost = ? AND username = ?
         ";
 

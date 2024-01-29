@@ -1,26 +1,24 @@
 <?php
-require_once 'home-post.php';
+require_once("db_config.php");
 
-//redirect if not auth
-if(!$templateParams["isAuth"] || !isset($_GET["id"])){
+//check user auth
+$templateParams["isAuth"] = userIsAlreadyIn($dbh->db);
+
+if ($templateParams["isAuth"]) {
+    $loggedUserId = $_SESSION["username"];
+    $templateParams["userposts"] = $dbh->getPostByUsername($loggedUserId);
+    $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);
+    $templateParams["loggedUserSeguiti"] = $dbh->getSeguitiByUsername($loggedUserId);
+    $templateParams["loggedUserSeguaci"] = $dbh->getFollowerByUsername($loggedUserId);
+    $templateParams["utente"] = $dbh->getUserByUsername($loggedUserId);
+} else{
     header('Location: index.php');
 }
 
-$currentUserId = $_GET["id"];
-
-$templateParams["titolo"] = "OnTopic - Profilo";
-$templateParams["contenuto"] = "profilo-template.php";
-
-/* Controllo se il qp è corretto*/
-$templateParams["utenteProfilo"] = $dbh->getUserByUsername($currentUserId);
-if(!$templateParams["utenteProfilo"]) {
-    header('Location: index.php');
-}
-
-$templateParams["posts"] = $dbh->getPostByUsername($currentUserId);
-$templateParams["seguaci"] = $dbh->getFollowerByUsername($currentUserId);
-$templateParams["seguiti"] = $dbh->getSeguitiByUsername($currentUserId);
-array_push($templateParams["js"], "js/follow.js", "js/usersList.js");
+$templateParams["titolo"] = "Profilo";
+$templateParams["nome"] = "show-profile.php";
+$templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js",
+                                "js/add-post.js", "js/post-management.js", "js/modify-post.js");
 
 require 'template/base-homepage.php';
 ?>

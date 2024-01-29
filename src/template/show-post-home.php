@@ -33,11 +33,11 @@
                         </svg>
                     </button>
                     <button class="btn btn-success border-dark" type="button" data-postid=<?php echo $post["IDPost"]; ?>>
-                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="1 1 16 16">
-                            <image href="./img/symbol.png" height="17.5" width="17.5"/>
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="1 1 16 16">
+                            <image xlink:href="./img/symbol.png" height="17.5" width="17.5"/>
                         </svg>
                     </button>
-                    <a href="#" class="like" data-postid="<?php echo $post["IDPost"]; ?>" id="like-<?php echo $post["IDPost"]; ?>"></a>
+                    <a href="#" class="likenumber" data-postid="<?php echo $post["IDPost"]; ?>" id="like-<?php echo $post["IDPost"]; ?>"></a>
                 </div>
                 <!--<script>
                     window.addEventListener('DOMContentLoaded', (event) => {

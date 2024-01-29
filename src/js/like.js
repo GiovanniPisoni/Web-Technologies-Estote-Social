@@ -1,8 +1,8 @@
-let flower = document.querySelectorAll(".flower");
+let like = document.querySelectorAll(".btn.btn-success.border-dark");
 
 const callBackFunctionLike = () => {
-    flower.forEach(element => {
-        const idPost = element.dataset.idPost;
+    like.forEach(element => {
+        const idPost = element.getAttribute("data-postid");
         const formData = new FormData();
         formData.append('idPost', idPost);
 
@@ -16,27 +16,27 @@ const callBackFunctionLike = () => {
     });
 }
 
-flower.forEach((element) => element.addEventListener("click", function() {
-    const idPost = element.getAttribute("idPost");
-    miPiace(this, idPost);
-}));
-
-function miPiace(button, idPost){
+Array.from(like).forEach((button) => button.addEventListener("click", function() {
+    const idPost = button.getAttribute("data-postid");
     const formData = new FormData();
     formData.append('idPost', idPost);
 
     if(button.classList.contains("liked")){
         button.classList.remove("liked");
         formData.append('remove', true);
-        like(formData, true);
+        miPiace(formData, true);
     }
     else if(!button.classList.contains("liked")){
         button.classList.add("liked");
-        like(formData, false);
+        miPiace(formData, false);
     }
-}
 
-function like(formData, isRemoved) {
+    const isLiked = button.classList.contains("liked");
+    const imageSrc = isLiked ? 'symbol_liked.png' : 'symbol.png';
+    button.querySelector('image').setAttribute('xlink:href','./img/' + imageSrc);
+}));
+
+function miPiace(formData, isRemoved) {
     axios.post('./api/like-api.php', formData).then(response => {
 
         //send notification if like not removed
@@ -50,16 +50,3 @@ function like(formData, isRemoved) {
 
     });
 }
-
-/**
- * Observer to check updatePost container changes and then trigger callback 
- *
-const postContainerLike = document.getElementById('postContainer');
-callBackFunctionLike()
-
-var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-var observerLike = new MutationObserver(callBackFunctionLike);
-observerLike.observe(postContainerLike, {
-    childList: true
-});
-*/

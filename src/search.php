@@ -9,15 +9,12 @@ if ($templateParams["isAuth"]) {
     $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);
     $templateParams["loggedUserSeguiti"] = $dbh->getSeguitiByUsername($loggedUserId);
     $templateParams["utente"] = $dbh->getUserByUsername($loggedUserId);
-}
-
-//redirect if not auth
-if(!$templateParams["isAuth"]){
+} else{
     header('Location: index.php');
 }
 
 $templateParams["titolo"] = "Cerca";
-$templateParams["contenuto"] = "show-search.php";
+$templateParams["name"] = "show-search.php";
 $templateParams["js"] = array("js/read-notifications.js", "utils/functions.js", "js/add-post.js", "js/search.js");
 
 require 'template/base-homepage.php';
