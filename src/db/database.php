@@ -250,13 +250,13 @@ class DatabaseHelper {
 
     public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
         $query = "
-            INSERT INTO notifica (tipo, username_receiver, username_sender, Letta)
+            INSERT INTO notifica (tipo, letta, username_receiver, username_sender)
             VALUES (?, ?, ?, ?)
         ";
         //insert a new notification
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issb", $tipo, $usernameReceiver, $usernameSender, $letta);
+        $stmt->bind_param("siss", $tipo, $letta, $usernameReceiver, $usernameSender);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -696,7 +696,7 @@ class DatabaseHelper {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
-        return $row;
+        return $row["numeroLike"];
     }
 
     public function insertLike($idPost, $username_sender) {

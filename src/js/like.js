@@ -8,7 +8,7 @@ const callBackFunctionLike = () => {
 
         axios.post('./api/checklike-api.php', formData).then(response => {
             if(response.data["isLiked"] == true){
-                if(!element.classList.contains("liked")){
+                if (!element.classList.contains("liked")) {
                     element.classList.add("liked");
                 }
             }
