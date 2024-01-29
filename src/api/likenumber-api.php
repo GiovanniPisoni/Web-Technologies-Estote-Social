@@ -1,9 +1,11 @@
 <?php 
     require_once("./db_config.php");
 
-    //conta il numero di like
-    $idPost = $_POST["postId"];
+    // Decodifica l'input JSON
+    $data = json_decode(file_get_contents('php://input'), true);
+    $idPost = $data["postId"];
 
+    // Conta il numero di like
     $result["likes"] = $dbh->getLikesByPostId($idPost);
 
     header('Content-Type: application/json');

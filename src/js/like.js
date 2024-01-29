@@ -33,7 +33,7 @@ Array.from(like).forEach((button) => button.addEventListener("click", function()
 
     const isLiked = button.classList.contains("liked");
     const imageSrc = isLiked ? 'symbol_liked.png' : 'symbol.png';
-    button.querySelector('image').setAttribute('xlink:href','./img/' + imageSrc);
+    button.querySelector('button svg image').setAttribute('xlink:href','./img/' + imageSrc);
 }));
 
 function miPiace(formData, isRemoved) {
