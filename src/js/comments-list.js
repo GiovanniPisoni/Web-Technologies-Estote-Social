@@ -1,8 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const comment = document.querySelectorAll(".comment.btn.btn-success.border-dark.me-2");
-    
-    comment.forEach((element) => element.addEventListener("click", function() {
-            console.log("click comment");
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll(".comment.btn.btn-success.border-dark.me-2")
+        .forEach((element) => element.addEventListener("click", function () {
             const idPost = element.getAttribute("data-postid");
             getComments(idPost);
         }));
@@ -12,15 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
         formData.append('idPost', idPost);
 
         axios.post('./api/commentsgroup-api.php', formData).then(response => {
-            console.log("creating comments list");
             const ul = document.getElementById("commentsList");
             createList(ul, response);
         });
     }
 
     function createList(ul, response) {
-        ul.value = "";
-        if(response.data == false) {
+        ul.innerHTML = "";
+        if (response.data == false) {
             const li = document.createElement("li");
 
             li.appendChild(document.createTextNode("Nessun risultato"));
@@ -30,17 +27,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
                 const span = document.createElement("span");
+                const row = " " + element.nome + " " + element.cognome;
 
                 span.appendChild(document.createTextNode(element.username));
                 li.appendChild(span);
 
-                if(element.testo != null) {
+                if (element.testo != null) {
                     li.appendChild(document.createTextNode(" " + element.data));
                     const p = li.appendChild(document.createElement("p"));
                     p.appendChild(document.createTextNode(element.testo));
-                    li.appendChild(p);
                     a.setAttribute("href", "profilo.php?id=" + element.username);
                 } else {
+                    li.appendChild(document.createTextNode(row));
                     a.setAttribute("href", "profilo.php?id=" + element.username);
                 }
                 a.appendChild(li);

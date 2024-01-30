@@ -17,7 +17,7 @@ if ($templateParams["isAuth"]) {
 
 $templateParams["titolo"] = "Profilo";
 $templateParams["nome"] = "show-profile.php";
-$templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js",
+$templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js", "components/comments-list.php",
                                 "js/add-post.js", "js/post-management.js", "js/modify-post.js");
 
 require 'template/base-homepage.php';

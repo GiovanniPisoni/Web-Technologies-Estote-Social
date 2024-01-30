@@ -43,3 +43,8 @@ nav {
 .smaller-font {
     font-size: 65%;
 }
+
+.modal-body-comment {
+    height: 60vh;
+    overflow-y: auto;
+}

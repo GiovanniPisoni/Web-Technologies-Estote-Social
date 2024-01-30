@@ -15,6 +15,7 @@
                             <div class="d-flex col-10 justify-content">
                                 <input type="text" class="form-control w-100" id="commentText" name="commentText" aria-label="Commenta" placeholder="Aggiungi qui un commento" required>
                             </div>
+                            <input type="hidden" id="postHidden" value=""/>
                             <div class="col-2">
                                 <button type="submit" class="btn btn-success" id="sendComment">Invia</button>
                             </div>
