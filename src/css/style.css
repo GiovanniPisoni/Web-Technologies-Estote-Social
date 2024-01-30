@@ -18,7 +18,7 @@ nav {
     max-width: 70%; /* La larghezza massima sarà il 100% del suo contenitore */
     max-height: 400px; /* Altezza massima desiderata */
     height: auto; /* Imposta l'altezza in modo da mantenere le proporzioni originali */
-    display: block; /* Imposta la visualizzazione su "block" per gestire il margin-auto */
+    display: block; /* Imposta la visualizzazione su "block" per gestire margin-auto */
     margin: auto; /* Centra l'immagine orizzontalmente */
 }
 
