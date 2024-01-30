@@ -630,7 +630,7 @@ class DatabaseHelper {
     public function getCommentsById($idPost) {
         $query = "
             SELECT u.username, u.immagineprofilo, c.idCommento, c.data, c.testo
-            FROM commento c INNER JOIN utente u ON c.username = u.username
+            FROM commenti c INNER JOIN utente u ON c.username = u.username
             WHERE c.idPost = ?
             ORDER BY c.data DESC
         ";
