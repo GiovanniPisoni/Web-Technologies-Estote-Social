@@ -46,6 +46,7 @@
             </div>
         </article>
     <?php endforeach; ?>
+    <?php require_once("./components/comments-banner.php"); ?>
 <?php else: ?>
     <p class="text-center mt-5">Non ci sono post.. inizia a seguire i tuoi amici per vederli!!</p>
 <?php endif; ?>
