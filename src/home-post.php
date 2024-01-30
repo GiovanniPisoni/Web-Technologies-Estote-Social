@@ -14,7 +14,7 @@ if ($templateParams["isAuth"]) {
     header('Location: index.php');
 }
 
-$templateParams["js"] = array("js/read-notifications.js", "js/like.js", "js/comments-list.js", "components/comments-list.php",
+$templateParams["js"] = array("js/read-notifications.js", "js/like.js", "js/comments-list.js", "components/comments-banner.php",
                                 "utils/function.js", "js/add-post.js", "js/like-number.js");
 require 'template/base-homepage.php';
 ?>
