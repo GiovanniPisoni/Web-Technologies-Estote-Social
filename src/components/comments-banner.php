@@ -1,8 +1,8 @@
-<div class="modal fade" id="comments-modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Commenti" aria-hidden="true">
+<div class="modal fade" id="comments-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Commenti" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title h5" id="comments-modal-title">Commenti</h1>
+                <h1 class="modal-title h5" id="comments">Commenti</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
             <div class="modal-footer">
