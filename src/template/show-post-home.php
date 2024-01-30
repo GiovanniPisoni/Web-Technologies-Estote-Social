@@ -41,34 +41,7 @@
                             <image xlink:href="./img/<?php echo $likedClass == 'liked' ? 'symbol_liked.png' : 'symbol.png'; ?>" height="17.5" width="17.5"/>
                         </svg>
                     </button>
-                    <a href="#" class="likenumber" data-postid="<?php echo $post["IDPost"]; ?>" id="like-<?php echo $post["IDPost"]; ?>"></a>
-                    <!-- <script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                        // Seleziona tutti gli elementi con la classe 'likenumber'
-                        var likeElements = document.querySelectorAll('.likenumber');
-
-                        // Per ogni elemento, invia una richiesta al server per ottenere il numero di "likes"
-                        likeElements.forEach((element) => {
-                            var postId = element.dataset.postid;
-
-                            fetch('./api/likenumber-api.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({ postId: postId }),
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                // Stampa il numero di "likes" nell'elemento
-                                element.textContent = data.likes;
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            });
-                        });
-                    });
-                    </script> -->
+                    <p class="likenumber" data-postid="<?php echo $post["IDPost"]; ?>" id="like-<?php echo $post["IDPost"]; ?>"></p>
                 </div>
             </div>
         </article>

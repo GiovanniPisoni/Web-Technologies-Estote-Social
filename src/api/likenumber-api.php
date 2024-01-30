@@ -1,12 +1,13 @@
 <?php 
-    require_once("./db_config.php");
+    require_once '../db/database.php';
+    require_once '../utils/functions.php';
+    $dbh = new DatabaseHelper("localhost", "root", "", "db_estotesocial", "3306");
 
-    // Decodifica l'input JSON
-    $data = json_decode(file_get_contents('php://input'), true);
-    $idPost = $data["postId"];
 
-    // Conta il numero di like
-    $result["likes"] = $dbh->getLikesByPostId($idPost);
+    //conta il numero di like
+    $idPost = $_POST["idPost"];
+
+    $result["likes"] = (int) $dbh->getLikesByPostId($idPost);
 
     header('Content-Type: application/json');
     echo json_encode($result);
