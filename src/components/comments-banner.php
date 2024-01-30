@@ -5,6 +5,9 @@
                 <h1 class="modal-title h5" id="comments">Commenti</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
+            <div class="modal-body modal-body-comment">
+                <ul id="commentsList"></ul>
+            </div>
             <div class="modal-footer">
                 <div class="container">
                     <form action="#" id="commentForm" method="POST">

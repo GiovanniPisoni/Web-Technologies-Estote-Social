@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const comment = document.querySelectorAll(".comment");
+    const comment = document.querySelectorAll(".comment.btn.btn-success.border-dark.me-2");
     
     comment.forEach((element) => element.addEventListener("click", function() {
             console.log("click comment");
@@ -7,20 +7,19 @@ document.addEventListener("DOMContentLoaded", function() {
             getComments(idPost);
         }));
 
-
     function getComments(idPost) {
         const formData = new FormData();
         formData.append('idPost', idPost);
 
         axios.post('./api/commentsgroup-api.php', formData).then(response => {
             console.log("creating comments list");
-            const ul = document.getElementById("commentForm");
+            const ul = document.getElementById("commentsList");
             createList(ul, response);
         });
     }
 
     function createList(ul, response) {
-        ul.innerHTML = "";
+        ul.value = "";
         if(response.data == false) {
             const li = document.createElement("li");
 
