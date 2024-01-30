@@ -1,5 +1,7 @@
 <?php
-    require_once("../db_config.php");
+    require_once '../db/database.php';
+    require_once '../utils/functions.php';
+    $dbh = new DatabaseHelper("localhost", "root", "", "db_estotesocial", "3306");
 
     $idPost = $_POST["idPost"];
 

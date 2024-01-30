@@ -15,6 +15,6 @@ if ($templateParams["isAuth"]) {
 }
 
 $templateParams["js"] = array("js/read-notifications.js", "js/like.js", "js/comments-list.js",
-                                "utils/function.js", "js/add-post.js");
+                                "utils/function.js", "js/add-post.js", "js/like-number.js");
 require 'template/base-homepage.php';
 ?>

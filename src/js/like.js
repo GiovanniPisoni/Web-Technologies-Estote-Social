@@ -1,4 +1,4 @@
-let like = document.querySelectorAll(".btn.btn-success.border-dark");
+let like = document.querySelectorAll(".like.btn.btn-success.border-dark");
 
 const callBackFunctionLike = () => {
     like.forEach(element => {
