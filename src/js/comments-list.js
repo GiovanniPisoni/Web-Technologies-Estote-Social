@@ -1,9 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll(".comment.btn.btn-success.border-dark.me-2")
-        .forEach((element) => element.addEventListener("click", function () {
-            const idPost = element.getAttribute("data-postid");
+        .forEach((element) => element.addEventListener("click", event => {
+            const idPost = event.currentTarget.getAttribute("data-postid");
+            document.getElementById("postHidden").value = idPost;
             getComments(idPost);
-        }));
+        })
+    );
+
+    document.getElementById("commentForm").addEventListener("submit", event => {
+        event.preventDefault()
+        const formData = new FormData();
+        const idPost = document.getElementById("postHidden").value;
+        formData.append('text', document.getElementById("commentText").value)
+        formData.append('idPost', idPost)
+    
+        axios.post('./api/comment-api.php', formData).then(response => {
+    
+            //send notification
+            let notificationFormData = new FormData();
+            notificationFormData.append("type", "commento")
+            notificationFormData.append("sender", response.data.senderUsername)
+            notificationFormData.append("receiver", response.data.receiverUsername)
+            axios.post('./api/createnotification-api.php', notificationFormData)
+    
+            getComments(idPost);
+        });
+    
+        document.getElementById("commentForm").reset()
+    });
 
     function getComments(idPost) {
         const formData = new FormData();
@@ -20,29 +44,33 @@ document.addEventListener('DOMContentLoaded', function () {
         if (response.data == false) {
             const li = document.createElement("li");
 
-            li.appendChild(document.createTextNode("Nessun risultato"));
+            li.appendChild(document.createTextNode("Aggiungi tu il primo commento!"));
             ul.appendChild(li);
         } else {
             response.data.forEach(element => {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
                 const span = document.createElement("span");
-                const row = " " + element.nome + " " + element.cognome;
 
-                span.appendChild(document.createTextNode(element.username));
+                a.appendChild(document.createTextNode(element.username));
+                a.setAttribute("href", "profile.php?id=" + element.username);
+                a.setAttribute("class", "user-comment");
+                span.appendChild(a);
                 li.appendChild(span);
 
                 if (element.testo != null) {
-                    li.appendChild(document.createTextNode(" " + element.data));
+                    const date = new Date(element.data);
+                    const formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+                    const formattedTime = date.getHours() + ":" + date.getMinutes();
+                    const small = document.createElement("small");
+                    small.appendChild(document.createTextNode(" " + formattedDate + " alle " + formattedTime));
+                    small.setAttribute("class", "small-date");
+                    li.appendChild(small);
                     const p = li.appendChild(document.createElement("p"));
                     p.appendChild(document.createTextNode(element.testo));
-                    a.setAttribute("href", "profilo.php?id=" + element.username);
-                } else {
-                    li.appendChild(document.createTextNode(row));
-                    a.setAttribute("href", "profilo.php?id=" + element.username);
+                    p.setAttribute("class", "comment-text");
                 }
-                a.appendChild(li);
-                ul.appendChild(a);
+                ul.appendChild(li);
             });
         }
     }

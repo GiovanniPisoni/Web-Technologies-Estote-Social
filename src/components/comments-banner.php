@@ -11,12 +11,12 @@
             <div class="modal-footer">
                 <div class="container">
                     <form action="#" id="commentForm" method="POST">
-                        <div class="row">
-                            <div class="d-flex col-10 justify-content">
+                        <div class="row d-flex justify-content">
+                            <div class="col-9">
                                 <input type="text" class="form-control w-100" id="commentText" name="commentText" aria-label="Commenta" placeholder="Aggiungi qui un commento" required>
                             </div>
                             <input type="hidden" id="postHidden" value=""/>
-                            <div class="col-2">
+                            <div class="col-1">
                                 <button type="submit" class="btn btn-success" id="sendComment">Invia</button>
                             </div>
                         </div>

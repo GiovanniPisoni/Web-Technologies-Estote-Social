@@ -22,12 +22,6 @@ nav {
     margin: auto; /* Centra l'immagine orizzontalmente */
 }
 
-#EstoteSocialLogo {
-    max-height: 30px;
-    min-width: 100px;
-    height: auto;
-}
-
 .no-resize {
     resize: none;
 }
@@ -41,10 +35,40 @@ nav {
 }
 
 .smaller-font {
-    font-size: 65%;
+    font-size: 80%;
 }
 
 .modal-body-comment {
     height: 60vh;
     overflow-y: auto;
+}
+
+.small-date {
+    font-size: 70%;
+    font-style: italic;
+}
+
+.user-comment {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    margin-right: 7px;
+}
+
+.comment-text {
+    font-size: 90%;
+}
+
+#commentsList{
+    list-style: none;
+}
+
+#EstoteSocialLogo {
+    max-height: 30px;
+    min-width: 100px;
+    height: auto;
+}
+
+#commentText {
+    resize: vertical;
 }

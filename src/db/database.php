@@ -643,15 +643,15 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertComment($text, $username, $idPost, $date) {
+    public function insertComment($text, $idPost, $username, $date) {
         $query = "
-            INSERT INTO commento (testo, username, idPost, data)
+            INSERT INTO commenti (testo, idpost, username, data)
             VALUES (?, ?, ?, ?)
         ";
         //insert a new comment
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssis", $text, $username, $idPost, $date);
+        $stmt->bind_param("siss", $text, $idPost, $username, $date);
         $stmt->execute();
 
         return $stmt->insert_id;

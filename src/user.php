@@ -12,7 +12,7 @@ $templateParams["titolo"] = "Estote Social - Profilo";
 $templateParams["contenuto"] = "user-template.php";
 
 /* Controllo se il qp è corretto*/
-$templateParams["utenteProfilo"] = $dbh->getUsersByUsername($currentUsername);
+$templateParams["utenteProfilo"] = $dbh->getUserByUsername($currentUsername);
 if(!$templateParams["utenteProfilo"]) {
     header('Location: index.php');
 }
