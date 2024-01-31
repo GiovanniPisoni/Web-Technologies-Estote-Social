@@ -12,7 +12,7 @@ if ($templateParams["isAuth"]) {
     header('Location: index.php');
 }
 
-$templateParams["titolo"] = "Cerca";
+$templateParams["title"] = "Cerca";
 $templateParams["name"] = "show-search.php";
 $templateParams["js"] = array("js/read-notifications.js", "utils/functions.js", "js/add-post.js", "js/search.js");
 

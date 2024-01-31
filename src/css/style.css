@@ -59,6 +59,11 @@ nav {
     font-size: 90%;
 }
 
+.profileHead{
+    font-size: 97%;
+    color: #000;
+}
+
 #commentsList{
     list-style: none;
 }

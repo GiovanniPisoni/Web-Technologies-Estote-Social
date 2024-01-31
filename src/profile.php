@@ -21,8 +21,8 @@ if($templateParams["utente"] == null){
     $templateParams["currentUserSeguaci"] = $dbh->getFollowerByUsername($currentUsername);
 }
 
-$templateParams["titolo"] = "Profilo";
-$templateParams["nome"] = "show-profile.php";
+$templateParams["title"] = "Profilo";
+$templateParams["name"] = "show-profile.php";
 $templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js",
                                 "js/add-post.js", "js/post-management.js", "js/modify-post.js");
 
