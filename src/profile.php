@@ -24,7 +24,7 @@ if($templateParams["utente"] == null){
 $templateParams["title"] = "Profilo";
 $templateParams["name"] = "show-profile.php";
 $templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js",
-                                "js/add-post.js", "js/post-management.js", "js/modify-post.js");
+                                "js/add-post.js", "js/post-management.js", "js/modify-post.js", "js/userList.js");
 
 require 'template/base-homepage.php';
 ?>

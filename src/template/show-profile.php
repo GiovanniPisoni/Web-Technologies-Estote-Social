@@ -2,8 +2,8 @@
     <section class ="bg-white p-4 shadow-sm rounded-5" id="<?php echo $profile["user_id"]; ?>">
         <div class="row ms-1 mb-3 align-items-center">
             <div class="col-6">
-                <?php if(isset($templateParams["utente"][0]["imgProfilo"])): ?>
-                    <img src = "img/<?= $templateParams["utente"][0]["imgProfilo"] ?>" width="70" heigth="70" class="fluid-img rounded-circle overflow-hidden" alt = "Profile picture">
+                <?php if(isset($templateParams["utente"][0]["immagineProfilo"])): ?>
+                    <img src = "img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>" width="70" heigth="70" class="fluid-img rounded-circle overflow-hidden" alt = "Profile picture">
                 <?php else: ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="70" heigth="70" fill="currentColor" class="bi bi-person-circle ms-6" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -45,25 +45,25 @@
                     </div>
                     <div class="row">
                         <div class="col-4 align-self-center d-flex justify-content-center">
-                            <!--<?php if(isset($templateparam["utente"][0][$fazzolettone])): ?>
+                            <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
                                 <img src = "img/<?= $templateParams["utente"][0]["fazzolettone"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Fazzolettone">
-                            <?php else: ?>-->
+                            <?php else: ?>
                                 <img src="img/fazzolettone.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Fazzolettone">
-                            <!--<?php endif; ?>-->
+                            <?php endif; ?>
                         </div>
                         <div class="col-4 align-self-center d-flex justify-content-center">
-                            <!--<?php if(isset($templateparam["utente"][0][$specialita])): ?>
+                            <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
                                 <img src = "img/<?= $templateParams["utente"][0]["specialita"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Specialita">
-                            <?php else: ?>-->
+                            <?php else: ?>
                                 <img src="img/badge.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Specialita">
-                            <!--<?php endif; ?>-->
+                            <?php endif; ?>
                         </div>
                         <div class="col-4 align-self-center d-flex justify-content-center">
-                            <!--<?php if(isset($templateparam["utente"][0][$totem])): ?>
+                            <?php if(isset($templateParams["utente"][0]["totem"])): ?>
                                 <img src = "img/<?= $templateParams["utente"][0]["totem"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Totem">
-                            <?php else: ?>-->
+                            <?php else: ?>
                                 <img src="img/totem.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Totem">
-                            <!--<?php endif; ?>-->
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -85,8 +85,8 @@
                 require($templateParams["post"]);
             endforeach; ?>
     </section>
-    <?php require_once("./components/userList-banner.php"); ?>
 </div>
+<?php require_once("./components/userList-banner.php"); ?>
 
 
                     
