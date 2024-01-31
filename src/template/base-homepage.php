@@ -78,7 +78,7 @@
                             </a>
                         </div>
                         <div class="col text-start d-flex justify-content-center align-items-center ms-3">
-                            <a href="profile.php?id=<?php echo $_SESSION["username"]; ?>" class="link-underline link-underline-opacity-0">
+                            <a href="profile.php?username=<?php echo $_SESSION["username"]; ?>" class="link-underline link-underline-opacity-0">
                                 <svg width="32.5" height="32.5" xmlns="http://www.w3.org/2000/svg">
                                     <image href="./img/user.png" height="32.5" width="32.5"/>
                                 </svg>
