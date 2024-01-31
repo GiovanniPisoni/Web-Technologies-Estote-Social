@@ -1,9 +1,6 @@
 <?php
 require_once("db_config.php");
 
-//check user auth
-$templateParams["isAuth"] = userIsAlreadyIn($dbh->db);
-
 if ($templateParams["isAuth"]) {
     $loggedUserId = $_SESSION["username"];
     $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);

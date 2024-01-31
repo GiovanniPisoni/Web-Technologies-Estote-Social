@@ -1,18 +1,22 @@
 <?php
 require_once("db_config.php");
 
-//check user auth
-$templateParams["isAuth"] = userIsAlreadyIn($dbh->db);
-
 if ($templateParams["isAuth"]) {
     $loggedUserId = $_SESSION["username"];
-    $templateParams["userposts"] = $dbh->getPostByUsername($loggedUserId);
     $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);
-    $templateParams["loggedUserSeguiti"] = $dbh->getSeguitiByUsername($loggedUserId);
-    $templateParams["loggedUserSeguaci"] = $dbh->getFollowerByUsername($loggedUserId);
-    $templateParams["utente"] = $dbh->getUserByUsername($loggedUserId);
 } else{
     header('Location: index.php');
+}
+
+$currentUsername = $_GET["username"];
+$templateParams["utente"] = $dbh->getUserByUsername($currentUsername);
+
+if($templateParams["utente"] == null){
+    header('Location: index.php');
+} else {
+    $templateParams["userposts"] = $dbh->getPostByUsername($currentUsername);
+    $templateParams["currentUserSeguiti"] = $dbh->getSeguitiByUsername($currentUsername);
+    $templateParams["currentUserSeguaci"] = $dbh->getFollowerByUsername($currentUsername);
 }
 
 $templateParams["titolo"] = "Profilo";
