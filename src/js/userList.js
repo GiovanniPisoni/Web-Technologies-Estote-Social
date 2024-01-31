@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('listType', type);
 
         axios.post('./api/userslist-api.php', formData).then((response) => {
-            const ul = document.getElementById(type);
+            const ul = document.getElementById("usersList");
             createList(ul, response);
         });
     }
@@ -32,19 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
             response.data.forEach(element => {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
-                const img = document.createElement("img");
+                const imgDiv = document.createElement("div");
 
-                img.setAttribute("src", "./img/" + element.immagineProfilo);
-                img.setAttribute("class", "fluid-img rounded-circle overflow-hidden");
-                img.setAttribute("width", "30");
-                img.setAttribute("height", "30");
-                li.appendChild(img);
+                imgDiv.style.width = "30px";
+                imgDiv.style.height = "30px";
+                imgDiv.style.borderRadius = "50%";
+                imgDiv.style.backgroundImage = "url('./img/" + element.immagineProfilo + "')";
+                imgDiv.style.backgroundSize = "cover";
+                imgDiv.style.marginRight = "10px";
+                li.style.display = "flex";
+                li.style.alignItems = "center";
+
+                li.appendChild(imgDiv);
+
                 if(element.username == null) {
-                    a.appendChild(document.createTextNode(element.Username_seguito));
+                    a.appendChild(document.createTextNode(element.username_seguito));
+                    a.setAttribute("href", "profile.php?username=" + element.username_seguito);
                 } else {
                     a.appendChild(document.createTextNode(element.username));
+                    a.setAttribute("href", "profile.php?username=" + element.username);
                 }
-                a.setAttribute("href", "profile.php?username=" + element.username);
+
                 a.setAttribute("class", "user-comment");
                 li.appendChild(a);
                 

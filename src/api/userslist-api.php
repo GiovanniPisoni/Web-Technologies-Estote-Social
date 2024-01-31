@@ -9,6 +9,8 @@
         $result = $dbh->getFollowerByUsername($username);
     } else if($type == "seguiti"){
         $result = $dbh->getSeguitiByUsername($username);
+    } else {
+        $result["error"] = "Errore nella richiesta";
     }
 
     if(empty($result)){

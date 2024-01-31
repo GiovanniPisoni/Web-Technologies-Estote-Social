@@ -126,7 +126,7 @@ class DatabaseHelper {
 
     public function getSeguitiByUsername($username) {
         $query = "
-            SELECT s.Username_seguito, u.immagineProfilo
+            SELECT s.username_seguito, u.immagineProfilo
             FROM seguire s INNER JOIN utente u ON s.Username_seguito = u.username
             WHERE s.Username_follower = ?
         ";
