@@ -81,12 +81,9 @@
             </div>
         </div>
         <div id="postContainer">
-            <?php foreach($templateParams["userposts"] as $post):
-                require($templateParams["post"]);
-            endforeach; ?>
+            <?php /* foreach($templateParams["userposts"] as $post):
+                require($templateParams["userposts"]);
+            endforeach; */?>
     </section>
 </div>
 <?php require_once("./components/userList-banner.php"); ?>
-
-
-                    

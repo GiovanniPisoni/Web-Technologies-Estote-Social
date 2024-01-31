@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('listType', type);
 
         axios.post('./api/userslist-api.php', formData).then((response) => {
-            const ul = document.getElementById("userList");
+            const ul = document.getElementById(type);
             createList(ul, response);
         });
     }
@@ -34,13 +34,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 const a = document.createElement("a");
                 const img = document.createElement("img");
 
-                img.setAttribute("src", "./img/" + element.img);
+                img.setAttribute("src", "./img/" + element.immagineProfilo);
                 img.setAttribute("class", "fluid-img rounded-circle overflow-hidden");
                 img.setAttribute("width", "30");
                 img.setAttribute("height", "30");
                 li.appendChild(img);
-                a.appendChild(document.createTextNode(element.username));
+                if(element.username == null) {
+                    a.appendChild(document.createTextNode(element.Username_seguito));
+                } else {
+                    a.appendChild(document.createTextNode(element.username));
+                }
                 a.setAttribute("href", "profile.php?username=" + element.username);
+                a.setAttribute("class", "user-comment");
                 li.appendChild(a);
                 
                 ul.appendChild(li);

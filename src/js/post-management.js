@@ -1,4 +1,4 @@
-document.getElementById("elimina").addEventListener("click", () => {
+/*document.getElementById("elimina").addEventListener("click", () => {
     if(confirm("Sei sicuro di voler eliminare il post?")) {
         const formData = new FormData();
         const idPost = document.getElementById("elimina").value;
@@ -12,4 +12,4 @@ document.getElementById("elimina").addEventListener("click", () => {
 
 document.getElementById("modifica").addEventListener("click", () => {
     window.location.href = "./modifica-post.php?idPost=" + document.getElementById("modifica").value;
-});
+});*/

@@ -68,6 +68,10 @@ nav {
     list-style: none;
 }
 
+#usersList{
+    list-style: none;
+}
+
 #EstoteSocialLogo {
     max-height: 30px;
     min-width: 100px;

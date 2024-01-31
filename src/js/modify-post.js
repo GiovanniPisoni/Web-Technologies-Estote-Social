@@ -1,4 +1,4 @@
-const params = new URLSearchParams(window.location.search);
+/*const params = new URLSearchParams(window.location.search);
 const idPost = params.get("idPost");
 const noImgLabel = document.getElementById("noImg");
 const postImg = document.getElementById("img");
@@ -108,4 +108,4 @@ document.getElementById("modifyPostForm").addEventListener("submit", (event) => 
             window.location.href = "./profilo.php?id=" + username;
         });
     }
-});
+});*/
