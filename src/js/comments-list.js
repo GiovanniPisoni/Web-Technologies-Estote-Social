@@ -50,13 +50,11 @@ document.addEventListener('DOMContentLoaded', function () {
             response.data.forEach(element => {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
-                const span = document.createElement("span");
 
                 a.appendChild(document.createTextNode(element.username));
-                a.setAttribute("href", "profile.php?id=" + element.username);
+                a.setAttribute("href", "profile.php?username=" + element.username);
                 a.setAttribute("class", "user-comment");
-                span.appendChild(a);
-                li.appendChild(span);
+                li.appendChild(a);
 
                 if (element.testo != null) {
                     const date = new Date(element.data);
