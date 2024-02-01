@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     formData.append('immagine', responseUpload.data["fileName"]);
                     axios.post('./api/newpost-api.php', formData).then((response) => {
                         alert("Post aggiunto con successo!");     
-                        window.location.href = "./index.php";
+                        location.reload();
                     });
                 }
             });
@@ -70,8 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }else{
                 axios.post('./api/newpost-api.php', formData).then((response) => {
                     alert("Post aggiunto con successo!");
-                    console.log(response.data);
-                    window.location.href = "./index.php";
+                    location.reload();
                 });
             }
         }
