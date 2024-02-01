@@ -21,7 +21,7 @@
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <label for="description" hidden>Descrizione</label>
-                        <textarea class="form-control no-resize overflow-y-auto" id="description" name="description" placeholder="Aggiungi una descrizione*" rows="3" required></textarea>
+                        <textarea class="form-control no-resize overflow-y-auto" id="description" name="description" placeholder="Aggiungi una descrizione" rows="3" required></textarea>
                     </div>
                     <div class="d-flex justify-content-center mb-3">
                         <label for="hashtag1" hidden>Hashtag 1</label>
