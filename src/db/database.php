@@ -409,7 +409,7 @@ class DatabaseHelper {
             SELECT *
             FROM post p, seguire s, utente u
             WHERE p.username = u.username AND u.username = s.Username_seguito AND s.Username_follower = ?
-            ORDER BY data DESC
+            ORDER BY data ASC
         ";
         //get all the posts ordered by date of the followed users by the username
 
