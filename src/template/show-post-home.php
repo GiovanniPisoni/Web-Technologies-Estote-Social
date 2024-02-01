@@ -4,9 +4,7 @@
             <!-- Profile image -->
             <div class="row">
                 <div class="col text-start" id="<?php echo $post['IDPost'] ?>">
-                    <a href="profile-api.php?username=<?php echo $post['Username_seguito'] ?>" class="text-decoration-none">
-                        <img src="./img/<?php echo $post['ImmagineProfilo'] ?>" alt="Profile image" class="rounded-circle" height="40" width="40">
-                    </a>
+                    <img src="./img/<?php echo $post['ImmagineProfilo'] ?>" alt="Profile image" class="rounded-circle" height="40" width="40">
                     <!-- Profile name -->
                     <a href="profile.php?username=<?php echo $post['Username_seguito'] ?>" class="username usernameStyle" id="<?php echo $post["Username_seguito"]; ?>">@<?php echo $post["Username_seguito"]; ?></a>
                     <!-- Post date -->
