@@ -151,10 +151,11 @@ function uploadImage($path, $image){
     }
 
     function deleteFile($path) {
-        if (file_exists("../img/" . $path)) {
-            return unlink("../img/" . $path); // Il file esiste, lo elimino
+        if (file_exists($path)) {
+            unlink($path);
+            return "file not eliminated"; // Il file esiste, lo elimino
         } else {
-            return false; // Il file non esiste
+            return "file not exist;"; // Il file non esiste
         }
     }
 ?>

@@ -4,8 +4,8 @@
    $img = $_POST["removeimage"];
 
    //elimina una determinata immagine dal post e dal file system (img post)
-   $path = "./img/" + $img;
-   deleteFile($path);
+   $path = "./img/" . $img;
+   $result["eliminazione"] = deleteFile($path);
 
    header('Content-Type: application/json');
    echo json_encode($result);

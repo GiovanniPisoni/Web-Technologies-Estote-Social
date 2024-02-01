@@ -26,7 +26,10 @@ if($templateParams["utente"] == null){
 $templateParams["title"] = "Profilo";
 $templateParams["name"] = "show-profile.php";
 $templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js", "js/like.js",
-                                "js/add-post.js", "js/post-management.js", "js/modify-post.js", "js/userList.js", "js/like-number.js");
+                                "js/add-post.js", "js/userList.js", "js/like-number.js");
+if($currentUsername == $_SESSION["username"]) {
+    array_push($templateParams["js"], "js/post-management.js", "js/modify-post.js", "js/modify-profile.js");
+}
 
 require 'template/base-homepage.php';
 ?>
