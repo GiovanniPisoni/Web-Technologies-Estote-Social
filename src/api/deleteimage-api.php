@@ -6,11 +6,10 @@
         header('Location: ../index.php');
     }
 
-   $idPost = $_POST["idPost"];
+   $img = $_POST["removeimage"];
 
    //elimina una determinata immagine dal post e dal file system (img post)
-   $path = $dbh->getImageIdPost($idPost);
-   $dbh->deletePostImage($idPost);
+   $path = "./img/" + $img;
    deleteFile($path);
 
    header('Content-Type: application/json');

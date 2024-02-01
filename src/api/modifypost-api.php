@@ -16,7 +16,6 @@
     $oldImage = $dbh->getImageIdPost($idPost);
     if($immagine !== $oldImage){
         $dbh->updatePostImage($idPost, $immagine);
-        deleteFile($oldImage);
     }
     $dbh->updatePost($idPost, $testo, $hashtag1, $hashtag2, $hashtag3);
 ?>

@@ -8,8 +8,4 @@
             location.reload();
         });
     }
-});
-
-document.getElementById("modifica").addEventListener("click", () => {
-    window.location.href = "./modifica-post.php?idPost=" + document.getElementById("modifica").value;
 });*/
