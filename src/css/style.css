@@ -72,6 +72,10 @@ nav {
     background-size: cover;
 }
 
+.eliminaPost{
+    color:black
+}
+
 #commentsList{
     list-style: none;
 }
