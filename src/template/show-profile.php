@@ -156,4 +156,5 @@
             <?php endif; ?>
         </div>
     </section>
+    <?php require_once("./components/userList-banner.php"); ?>
 </div>
