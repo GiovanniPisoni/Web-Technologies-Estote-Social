@@ -334,7 +334,7 @@ class DatabaseHelper {
         //WARNING: none of the parameters can be NULL, if you want to update only one of them, you have to pass the old value
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssisss", $text, $hashtag1, $hashtag2, $hashtag3, $idPost);  
+        $stmt->bind_param("ssssi", $text, $hashtag1, $hashtag2, $hashtag3, $idPost);  
         $success = $stmt->execute();
 
         return $success;
