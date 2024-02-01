@@ -2,14 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('#postContainer').addEventListener('click', function(event) {
         const linkElement = event.target.closest('a');
         if (linkElement) {
-            console.log("trovato modal");
             const idPost = linkElement.getAttribute('data-postid');
-            console.log(idPost);
             const noImgLabel = document.getElementById("cameraIcon");
             const postImg = document.getElementById('imgpost');
             let oldImageName = "";
             let newImgName = "";
-            const imgContainer = document.getElementById("container");
+            const imgContainer = document.getElementById("containerModify");
             const removeImgButton = document.getElementById("removeImgButton");
             let removeOldImg = false;
             let username;
@@ -55,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     imgContainer.style.display = "block";
                     removeImgButton.style.display = "block";
                     noImgLabel.style.display = "none";
-                    let output = document.getElementById('container');
+                    let output = document.getElementById('containerModify');
                     output.src = URL.createObjectURL(event.target.files[0]);
                     output.onload = function() {
                         URL.revokeObjectURL(output.src)
