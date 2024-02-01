@@ -7,9 +7,7 @@ document.querySelector('#postContainer').addEventListener('click', function(even
         const imgContainer = document.getElementById("containerModify");
         const removeImgButton = document.getElementById("removeImgButtonModify");
         let oldImageName = "";
-        let newImgName = "";
         let currImgName = "";
-        let imgChanged = false;
         let removeOldImg = false;
         let username;
 
@@ -19,17 +17,13 @@ document.querySelector('#postContainer').addEventListener('click', function(even
         axios.post('./api/getpost-api.php', formData).then(response => {
             if(response != null) {
                 if(response.data[0].immagine != null) {
-                    console.log("Immagine presente nel post");
                     noImgLabel.style.display = "none";
                     imgContainer.style.display = "block";
                     removeImgButton.style.display = "block";
                     imgContainer.setAttribute("src", "./img/" + response.data[0].immagine);
                     oldImageName = response.data[0].immagine;
-                    console.log("Settato oldimage name:" + oldImageName);
                     currImgName = response.data[0].immagine;
-                    console.log("Settato currimage name:" + currImgName);
                 } else {
-                    console.log("Immagine non presente nel post");
                     imgContainer.style.display = "none";
                     removeImgButton.style.display = "none";
                     noImgLabel.style.display = "block";
@@ -45,11 +39,8 @@ document.querySelector('#postContainer').addEventListener('click', function(even
         removeImgButton.addEventListener("click", event => {
             if(oldImageName != "") {
                 removeOldImg = true;
-                console.log("Settato remove old image perchè c'era un'immagine vecchia: " + removeOldImg);
             }
-            console.log("Non c'era un'immagine vecchia, non cambio remove old image: " + removeOldImg)
             currImgName = "";
-            console.log("Settato currimage name vuoto poichè rimuovo l'immagine: " + currImgName);
             imgContainer.style.display = "none";
             removeImgButton.style.display = "none";
             noImgLabel.style.display = "block";
@@ -71,7 +62,6 @@ document.querySelector('#postContainer').addEventListener('click', function(even
                     URL.revokeObjectURL(output.src)
                 }
                 currImgName = postImg.files[0].name;
-                console.log("Immagine cambiata, nuova immagine caricata: " + currImgName);
                 if(oldImageName != "") {
                     removeOldImg = true;
                     console.log("Settato remove old image perchè c'era un'immagine vecchia (" + oldImageName + ") a: "+ removeOldImg);
@@ -86,7 +76,6 @@ document.querySelector('#postContainer').addEventListener('click', function(even
             formData.append('idPost', idPost);
 
             if(removeOldImg) {
-                console.log("Elimino l'immagine vecchia poichè era a true remove: " + oldImageName);
                 axios.post('./api/deletepostimage-api.php', formData);
                 //delete post image from file system
                 const formDataDelete = new FormData()
@@ -106,9 +95,6 @@ document.querySelector('#postContainer').addEventListener('click', function(even
                 const formDataImage = new FormData();
                 let newimg = postImg.files[0];
                 formDataImage.append('image', newimg);
-                console.log("Carico l'immagine nuova: " + currImgName);
-                console.log(postImg.files[0]);
-                console.log(formDataImage.get('image'));
 
                 axios.post('./api/image-api.php', formDataImage).then(responseUpload => {
                     if (!responseUpload.data["uploadEseguito"]) {
@@ -124,7 +110,6 @@ document.querySelector('#postContainer').addEventListener('click', function(even
                     }
                 });
             } else {
-                console.log("Non carico l'immagine nuova in quanto nulla, modifico solo testo");
                 axios.post('./api/modifypost-api.php', formData).then(() => {
                     alert("Post modificato con successo!");
                     window.location.href = "./profile.php?username=" + username;
