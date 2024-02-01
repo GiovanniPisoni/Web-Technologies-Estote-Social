@@ -377,6 +377,7 @@ class DatabaseHelper {
             SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
             FROM post
             WHERE username = ?
+            ORDER BY data DESC
         ";
         //get all the posts of a user by username
 
@@ -409,7 +410,7 @@ class DatabaseHelper {
             SELECT *
             FROM post p, seguire s, utente u
             WHERE p.username = u.username AND u.username = s.Username_seguito AND s.Username_follower = ?
-            ORDER BY data ASC
+            ORDER BY data DESC
         ";
         //get all the posts ordered by date of the followed users by the username
 
