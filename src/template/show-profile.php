@@ -1,4 +1,4 @@
-<div class="container my-2 mt-5">
+<div class="container my-2 mt-5 mb-5">
     <section class ="bg-white p-4 shadow-sm rounded-5" id="<?php echo $profile["user_id"]; ?>">
         <div class="row ms-1 mb-3 align-items-center">
             <div class="d-flex align-items-center justify-content-end me-2">
@@ -82,7 +82,6 @@
         <div class = "d-flex justify-content-center col-12">
             <hr class="text-dark w-100"/>
         </div>
-
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
