@@ -22,8 +22,20 @@
             <?php endif; ?>
             <!-- Post text -->
             <p class="mt-1 mb-0 fst-italic"><?php echo $post["Testo"]; ?></p>
+            <!-- Hashtags -->
+            <div class="row">
+                <div class="col">
+                    <?php if(isset($post['Hashtag1']) || isset($post['Hashtag2']) || isset($post['Hashtag3'])): ?>
+                        <p class="smaller-font">
+                            <?php if(isset($post['Hashtag1'])) echo $post['Hashtag1'] . ' '; ?>
+                            <?php if(isset($post['Hashtag2'])) echo $post['Hashtag2'] . ' '; ?>
+                            <?php if(isset($post['Hashtag3'])) echo $post['Hashtag3']; ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <!-- Buttons like and comments-->
             <div class="row mt-2">
-                <!-- Buttons -->
                 <div class="col d-flex justify-content-end align-items-center mb-2">
                     <button class="comment btn btn-success border-dark me-2" type="button" data-bs-toggle="modal" data-bs-target="#comments-banner" data-postid=<?php echo $post["IDPost"]; ?>>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat" viewBox="0 1 16 16">

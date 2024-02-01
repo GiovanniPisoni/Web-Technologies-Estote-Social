@@ -10,6 +10,7 @@
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                     </svg>
                 <?php endif; ?>
+                
                 <div>
                     <p class="profileHead fw-bold h4 mt-1 mb-1"><?php echo $templateParams["utente"][0]["username"]; ?></p>
                 </div>
@@ -102,8 +103,20 @@
                         <?php endif; ?>
                         <!-- Post text -->
                         <p class="mt-1 mb-0 fst-italic"><?php echo $post["testo"]; ?></p>
+                        <!-- Hashtags -->
+                        <div class="row">
+                            <div class="col">
+                                <?php if(isset($post['hashtag1']) || isset($post['hashtag2']) || isset($post['hashtag3'])): ?>
+                                    <p class="smaller-font">
+                                        <?php if(isset($post['hashtag1'])) echo $post['hashtag1'] . ' '; ?>
+                                        <?php if(isset($post['hashtag2'])) echo $post['hashtag2'] . ' '; ?>
+                                        <?php if(isset($post['hashtag3'])) echo $post['hashtag3']; ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <!-- Buttons like and comments -->
                         <div class="row mt-2">
-                            <!-- Buttons -->
                             <div class="col d-flex justify-content-end align-items-center mb-2">
                                 <button class="comment btn btn-success border-dark me-2" type="button" data-bs-toggle="modal" data-bs-target="#comments-banner" data-postid=<?php echo $post["idPost"]; ?>>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat" viewBox="0 1 16 16">
