@@ -1,7 +1,9 @@
 <?php
   require_once 'db_config.php';
 
-  if(!isset($_SESSION["username"])) {
+  $templateParams["isAuth"] = userIsAlreadyIn($dbh->db);
+
+  if(!$templateParams["isAuth"]) {
     $templateParams["title"] = "Login";
     $templateParams["name"] = "show-login.php";
     $templateParams["js"] = array("js/login.js");

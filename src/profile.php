@@ -6,8 +6,9 @@ $templateParams["isAuth"] = userIsAlreadyIn($dbh->db);
 if ($templateParams["isAuth"]) {
     $loggedUserId = $_SESSION["username"];
     $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);
-} else{
+} else if (!$templateParams["isAuth"]){
     header('Location: index.php');
+    exit;
 }
 
 $currentUsername = $_GET["username"];
@@ -15,6 +16,7 @@ $templateParams["utente"] = $dbh->getUserByUsername($currentUsername);
 
 if($templateParams["utente"] == null){
     header('Location: index.php');
+    exit;
 } else {
     $templateParams["userposts"] = $dbh->getPostByUsername($currentUsername);
     $templateParams["currentUserSeguiti"] = $dbh->getSeguitiByUsername($currentUsername);

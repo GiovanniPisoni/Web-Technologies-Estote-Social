@@ -4,11 +4,11 @@
             <!-- Profile image -->
             <div class="row">
                 <div class="col text-start" id="<?php echo $post['IDPost'] ?>">
-                    <a href="profile-api.php?id=<?php echo $post['Username_seguito'] ?>" class="text-decoration-none">
+                    <a href="profile-api.php?username=<?php echo $post['Username_seguito'] ?>" class="text-decoration-none">
                         <img src="./img/<?php echo $post['ImmagineProfilo'] ?>" alt="Profile image" class="rounded-circle" height="40" width="40">
                     </a>
                     <!-- Profile name -->
-                    <a href="profile.php?id=<?php echo $post['Username_seguito'] ?>" class="username usernameStyle" id="<?php echo $post["Username_seguito"]; ?>">@<?php echo $post["Username_seguito"]; ?></a>
+                    <a href="profile.php?username=<?php echo $post['Username_seguito'] ?>" class="username usernameStyle" id="<?php echo $post["Username_seguito"]; ?>">@<?php echo $post["Username_seguito"]; ?></a>
                     <!-- Post date -->
                     <p class="ms-1 mt-1 mb-0 smaller-font">
                         <?php 

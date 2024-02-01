@@ -10,8 +10,9 @@ if ($templateParams["isAuth"]) {
     $templateParams["loggedUserSeguiti"] = $dbh->getSeguitiByUsername($loggedUserId);
     $templateParams["posts"] = $dbh->showPostorderByDate($loggedUserId);
     $templateParams["utente"] = $dbh->getUserByUsername($loggedUserId);
-} else{
+} else if (!$templateParams["isAuth"]){
     header('Location: index.php');
+    exit;
 }
 
 $templateParams["js"] = array("js/read-notifications.js", "js/like.js", "js/comments-list.js",

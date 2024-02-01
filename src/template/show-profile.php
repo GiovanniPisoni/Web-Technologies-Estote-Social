@@ -1,21 +1,23 @@
 <div class="container my-2 mt-5">
     <section class ="bg-white p-4 shadow-sm rounded-5" id="<?php echo $profile["user_id"]; ?>">
         <div class="row ms-1 mb-3 align-items-center">
-            <div class="col-6">
+            <div class="d-flex align-items-center">
                 <?php if(isset($templateParams["utente"][0]["immagineProfilo"])): ?>
-                    <div style="width: 70px; height: 70px; border-radius: 50%; background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>'); background-size: cover;"></div>
+                    <div style="width: 70px; height: 70px;  margin-right: 10px; border-radius: 50%; background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>'); background-size: cover;"></div>
                 <?php else: ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="70" heigth="70" fill="currentColor" class="bi bi-person-circle ms-6" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                     </svg>
                 <?php endif; ?>
+                <div>
+                    <p class="profileHead fw-bold h4 mt-1 mb-1"><?php echo $templateParams["utente"][0]["username"]; ?></p>
+                </div>
             </div>
             <div class="col-10 px-2">
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <p class="profileHead fw-bold h4 mt-1 mb-1"><?php echo $templateParams["utente"][0]["username"]; ?></p>
                             <p id="nomeCompleto" class="mb-1"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
                         </div>
                         <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
