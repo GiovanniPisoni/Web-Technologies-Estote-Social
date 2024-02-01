@@ -64,6 +64,14 @@ nav {
     color: #000;
 }
 
+.profile-image {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-size: cover;
+}
+
 #commentsList{
     list-style: none;
 }

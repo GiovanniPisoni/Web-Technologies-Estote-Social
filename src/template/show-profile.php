@@ -3,7 +3,7 @@
         <div class="row ms-1 mb-3 align-items-center">
             <div class="d-flex align-items-center">
                 <?php if(isset($templateParams["utente"][0]["immagineProfilo"])): ?>
-                    <div style="width: 70px; height: 70px;  margin-right: 10px; border-radius: 50%; background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>'); background-size: cover;"></div>
+                    <div class="profile-image" style="background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>');"></div>
                 <?php else: ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="70" heigth="70" fill="currentColor" class="bi bi-person-circle ms-6" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
