@@ -46,14 +46,12 @@
                                     Account seguiti: <span id="numSeguiti"><?php echo count($templateParams["currentUserSeguiti"]); ?></span>
                                 </button>
                             </div>
-                        </div>
-                    <div class="row">
+                    </div>
+                    <div class="row mt-2 mb-2">
                         <div class="col-4 align-self-center">
                             <label class="profileHead fw-bolder">Bio:</label>
                             <p id="bio" class="profileHead"><?php echo $templateParams["utente"][0]["bio"]; ?></p>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-4 align-self-center d-flex justify-content-center">
                             <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
                                 <img src = "img/<?= $templateParams["utente"][0]["fazzolettone"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Fazzolettone">
@@ -68,12 +66,11 @@
                                 <img src="img/badge.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Specialita">
                             <?php endif; ?>
                         </div>
-                        <div class="col-4 align-self-center d-flex justify-content-center">
-                            <?php if(isset($templateParams["utente"][0]["totem"])): ?>
-                                <img src = "img/<?= $templateParams["utente"][0]["totem"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Totem">
-                            <?php else: ?>
-                                <img src="img/totem.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Totem">
-                            <?php endif; ?>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 align-self-center">
+                            <label class="profileHead fw-bolder">Totem:</label>
+                            <p id="totem" class="profileHead"><?php echo $templateParams["utente"][0]["totem"]; ?></p>
                         </div>
                     </div>
                 </div>
