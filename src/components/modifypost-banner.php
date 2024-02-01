@@ -40,9 +40,9 @@
                     </div>
                     <footer class="my-1">
                         <div class="d-flex justify-content-center">
-                        <button type="submit" id="sendPostButton" class="w-100 btn btn-success">Modifica</button>
-                </div>   
-            </footer>
+                            <button type="submit" id="sendPostButton" class="w-100 btn btn-success">Modifica</button>
+                        </div>   
+                    </footer>
                 </form>
             </div>
         </div>
