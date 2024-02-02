@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if(confirm("Sei sicuro di voler eliminare il post?")) {
                 const formData = new FormData();
                 let idPost = event.currentTarget.getAttribute('data-postid');
-                formData.append('idPost', idPost)
+                formData.append('idPost', idPost);
 
                 axios.post('./api/deletepost-api.php', formData).then(() => {
                     location.reload();

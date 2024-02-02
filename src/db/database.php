@@ -102,6 +102,9 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssssssss", $email, $name, $surname, $bio, $totem, $group, $dateofbirth, $username);
         $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
     }
 
     /** Funzione che non so se andremo ad usare, MOMENTANEA*/
