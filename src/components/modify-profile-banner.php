@@ -8,44 +8,44 @@
             <div class="modal-body">
                 <form action="#" method="POST" id="modifyProfileForm" enctype="multipart/form-data">
                     <div class="mx-4 mb-2">
-                        <label for="name" hidden>Nome</label>
-                        <input class="form-control" type="text" name="name" id="name" placeholder="Nome" autocomplete="given-name"></input>
+                        <label for="nameModify" hidden>Nome</label>
+                        <input class="form-control" type="text" name="nameModify" id="nameModify" placeholder="Nome" autocomplete="given-name"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="surname" hidden>Cognome</label>
-                        <input class="form-control" type="text" name="surname" id="surname" placeholder="Cognome"></input>
+                        <label for="surnameModify" hidden>Cognome</label>
+                        <input class="form-control" type="text" name="surnameModify" id="surnameModify" placeholder="Cognome"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="birthday" hidden>Data di nascita</label>
-                        <input class="form-control" type="date" name="birthday" id="birthday" placeholder="Data di nascita"></input>
+                        <label for="birthdayModify" hidden>Data di nascita</label>
+                        <input class="form-control" type="date" name="birthdayModify" id="birthdayModify" placeholder="Data di nascita"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="group" hidden>Gruppo di appartenenza</label>
-                        <input class="form-control" type="group" name="group" id="group" placeholder="Gruppo di appartenenza"></input>
+                        <label for="groupModify" hidden>Gruppo di appartenenza</label>
+                        <input class="form-control" type="text" name="groupModify" id="groupModify" placeholder="Gruppo di appartenenza"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="bio" hidden>Bio</label>
-                        <textarea class="form-control no-resize overflow-y-auto" type="bio" name="bio" id="bio" placeholder="Bio-Raccontaci un po' di te" rows="3"></textarea>
+                        <label for="bioModify" hidden>Bio</label>
+                        <textarea class="form-control no-resize overflow-y-auto" type="text" name="bioModify" id="bioModify" placeholder="Bio-Raccontaci un po' di te" rows="3"></textarea>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="email" hidden>Email</label>
-                        <input class="form-control" type="email" name="email" id="email" placeholder="Email" autocomplete="email"></input>
+                        <label for="emailModify" hidden>Email</label>
+                        <input class="form-control" type="text" name="emailModify" id="emailModify" placeholder="Email" autocomplete="email"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="totem" hidden>Totem</label>
-                        <input class="form-control" type="totem" name="totem" id="totem" placeholder="Totem"></input>
+                        <label for="totemModify" hidden>Totem</label>
+                        <input class="form-control" type="text" name="totemModify" id="totemModify" placeholder="Totem"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                        <label for="imageProfile">Immagine Profilo</label>
-                        <input class="form-control mt-1" type="file" name="imageProfile" id="imageProfile" accept="image/*"></input>
+                        <label for="imageProfileModify">Immagine Profilo</label>
+                        <input class="form-control mt-1" type="file" name="imageProfileModify" id="imageProfileModify" accept="image/*"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                            <label for="imgFazzolettone">Fazzolettone</label>
-                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgFazzolettone" accept="image/*"></input>
+                            <label for="imgFazzolettoneModify">Fazzolettone</label>
+                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" name="imgFazzolettoneModify" id="imgFazzolettoneModify" accept="image/*"></input>
                     </div>
                     <div class="mx-4 mb-2">
-                            <label for="imgSpecialita">Specialità</label>
-                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgSpecialita" accept="image/*"></input>
+                            <label for="imgSpecialitaModify">Specialità</label>
+                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" name="imgSpecialitaModify" id="imgSpecialitaModify" accept="image/*"></input>
                     </div>
                     <footer>
                         <div class="text-body-secondary text-start">
