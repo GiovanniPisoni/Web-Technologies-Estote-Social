@@ -100,7 +100,7 @@ class DatabaseHelper {
         //update the user's data by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sssssssssss", $email, $name, $surname, $image, $bio, $fazzolettone, $specialita, $totem, $group, $dateofbirth, $username);
+        $stmt->bind_param("ssssssss", $email, $name, $surname, $bio, $totem, $group, $dateofbirth, $username);
         $stmt->execute();
     }
 
