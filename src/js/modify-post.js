@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 formData.append('idPost', idPost);
 
-                if(removeOldImg) {
+                if(removeOldImg && postImg.files[0] == null) {
                     axios.post('./api/deletepostimage-api.php', formData);
                     //delete post image from file system
                     /*const formDataDelete = new FormData()
@@ -106,14 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             axios.post('./api/modifypost-api.php', formData).then(() => {
                                 alert("Post modificato con successo!");
-                                window.location.href = "./profile.php?username=" + username;
+                                location.reload();
                             });
                         }
                     });
                 } else {
                     axios.post('./api/modifypost-api.php', formData).then(() => {
                         alert("Post modificato con successo!");
-                        window.location.href = "./profile.php?username=" + username;
+                        location.reload();
                     });
                 }
             });

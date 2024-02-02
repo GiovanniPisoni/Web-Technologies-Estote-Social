@@ -15,10 +15,12 @@
         $dbh->updateImgProfilo($username, $immagine);
     }
     if(isset($_POST["imgFazzolettone"])) {
+        $dbh->deleteFazzolettone($username);
         $imgfazzolettone = $_POST["imgFazzolettone"];
         $dbh->updateFazzolettone($username, $imgfazzolettone);
     }
     if(isset($_POST["imgSpecialita"])) {
+        $dbh->deleteSpecialita($username);
         $imgspecialita = $_POST["imgSpecialita"];
         $dbh->updateSpecialita($username, $imgspecialita);
     }
