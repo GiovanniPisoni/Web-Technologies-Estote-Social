@@ -4,13 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modifyIcon").addEventListener("click", event => {
         const formData = new FormData();
         formData.append('username', username);
-        
+
         axios.post('./api/profile-api.php', formData).then(response => {
             if(response != null) {
+                console.log(response.data);
                 document.getElementById("name").value = response.data[0].nome;
                 document.getElementById("surname").value = response.data[0].cognome;
                 document.getElementById("email").value = response.data[0].mail;
                 document.getElementById("bio").value = response.data[0].bio;
+                console.log(document.getElementById("bio").value);
                 document.getElementById("totem").value = response.data[0].totem;
                 document.getElementById("group").value = response.data[0].gruppoappartenenza;
                 document.getElementById("birthday").value = response.data[0].datadiNascita;
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append('group', document.getElementById("group").value);
         formData.append('birthday', document.getElementById("birthday").value);
 
-        if (document.getElementById("imageProfile").files[0]) {
+        if (document.getElementById("imageProfile").files[0] != null) {
             const formDataImage = new FormData();
             formDataImage.append("image", document.getElementById("imageProfile").files[0]);
             axios.post('./api/image-api.php', formDataImage).then(responseUpload => {
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-        if(document.getElementById("imgFazzolettone").files[0]) {
+        if(document.getElementById("imgFazzolettone").files[0] != null) {
             const formDataFazzolettone = new FormData();
             formDataFazzolettone.append("image", document.getElementById("imgFazzolettone").files[0]);
             axios.post('./api/image-api.php', formDataFazzolettone).then(responseUpload => {
@@ -55,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-        if(document.getElementById("imgSpecialita").files[0]) {
+        if(document.getElementById("imgSpecialita").files[0] != null) {
             const formDataSpecialita = new FormData();
             formDataSpecialita.append("image", document.getElementById("imgSpecialita").files[0]);
             axios.post('./api/image-api.php', formDataSpecialita).then(responseUpload => {
@@ -66,6 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     formData.append('imgSpecialita', responseUpload.data["fileName"]);
                 }
             });
+        }
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
         }
 
         axios.post('./api/modifyprofile-api.php', formData).then(response => {

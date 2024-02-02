@@ -9,19 +9,19 @@
                 <form action="#" method="POST" id="modifyProfileForm" enctype="multipart/form-data">
                     <div class="mx-4 mb-2">
                         <label for="name" hidden>Nome</label>
-                        <input class="form-control" type="text" name="name" id="name" placeholder="Nome" autocomplete="given-name">
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Nome" autocomplete="given-name"></input>
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="surname" hidden>Cognome</label>
-                        <input class="form-control" type="text" name="surname" id="surname" placeholder="Cognome">
+                        <input class="form-control" type="text" name="surname" id="surname" placeholder="Cognome"></input>
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="birthday" hidden>Data di nascita</label>
-                        <input class="form-control" type="date" name="birthday" id="birthday" placeholder="Data di nascita">
+                        <input class="form-control" type="date" name="birthday" id="birthday" placeholder="Data di nascita"></input>
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="group" hidden>Gruppo di appartenenza</label>
-                        <input class="form-control" type="group" name="group" id="group" placeholder="Gruppo di appartenenza">
+                        <input class="form-control" type="group" name="group" id="group" placeholder="Gruppo di appartenenza"></input>
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="bio" hidden>Bio</label>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="email" hidden>Email</label>
-                        <input class="form-control" type="email" name="email" id="email" placeholder="Email" autocomplete="email">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email" autocomplete="email"></input>
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="totem" hidden>Totem</label>
@@ -37,15 +37,15 @@
                     </div>
                     <div class="mx-4 mb-2">
                         <label for="imageProfile">Immagine Profilo</label>
-                        <input class="form-control mt-1" type="file" name="imageProfile" id="imageProfile" accept="image/*">
+                        <input class="form-control mt-1" type="file" name="imageProfile" id="imageProfile" accept="image/*"></input>
                     </div>
                     <div class="mx-4 mb-2">
                             <label for="imgFazzolettone">Fazzolettone</label>
-                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgFazzolettone" accept="image/*"> 
+                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgFazzolettone" accept="image/*"></input>
                     </div>
                     <div class="mx-4 mb-2">
                             <label for="imgSpecialita">Specialità</label>
-                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgSpecialita" accept="image/*"> 
+                            <input class="form-control ms-1" aria-label="Immagine del post" type="file" id="imgSpecialita" accept="image/*"></input>
                     </div>
                     <footer>
                         <div class="text-body-secondary text-start">
