@@ -365,9 +365,9 @@ class DatabaseHelper {
 
     public function getPostByHashtag($hashtag) {
         $query = "
-            SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
-            FROM post
-            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 (?, '%')
+            SELECT p.idPost, p.immagine, p.username, p.data, p.testo, p.hashtag1, p.hashtag2, p.hashtag3, u.immagineProfilo
+            FROM post p INNER JOIN utente u ON p.username = u.username
+            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR LIKE CONCAT hashtag3 (?, '%')
         ";
         //get all the posts that have a certain hashtag
 
