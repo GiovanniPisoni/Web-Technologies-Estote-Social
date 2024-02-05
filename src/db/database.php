@@ -61,7 +61,7 @@ class DatabaseHelper {
     //this function is not correct because we don't have name and surname mandatory
     public function searchUser($input) {
         $query = "
-            SELECT username, immagineProfilo, nome, cognome, bio, fazzolettone, specialita, totem, gruppoappartenenza, datadiNascita, mail, 
+            SELECT username, immagineProfilo
             FROM utente 
             WHERE username LIKE CONCAT(?, '%') 
         "; 
