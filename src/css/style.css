@@ -106,3 +106,25 @@ nav {
 #commentText {
     resize: vertical;
 }
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+    div.desktop {
+        display: none;
+    }
+
+    div.mobile {
+        display: block;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 768px) {
+    div.desktop {
+        display: block;
+    }
+
+    div.mobile {
+        display: none;
+    }
+}
