@@ -15,7 +15,11 @@ if ($templateParams["isAuth"]) {
     exit;
 }
 
-$templateParams["js"] = array("js/read-notifications.js", "js/like.js", "js/comments-list.js",
-                                "utils/function.js", "js/add-post.js", "js/like-number.js");
+$templateParams["js"] = array("js/read-notifications.js", "utils/function.js", "js/add-post.js");
+if(!empty($templateParams["posts"])) {
+    array_push($templateParams["js"], "js/like.js");
+    array_push($templateParams["js"], "js/comments-list.js");
+    array_push($templateParams["js"], "js/like-number.js");
+}
 require 'template/base-homepage.php';
 ?>
