@@ -69,14 +69,14 @@
                         <!-- Fazzolettone, specialita and totem -->
                         <div class="col-4 align-self-center d-flex justify-content-center">
                             <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
-                                <img src = "img/<?= $templateParams["utente"][0]["fazzolettone"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Fazzolettone">
+                                <div class="image-in-profile" style="background-image: url('img/<?= $templateParams["utente"][0]["fazzolettone"] ?>');"></div>
                             <?php else: ?>
                                 <img src="img/fazzolettone.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Fazzolettone">
                             <?php endif; ?>
                         </div>
                         <div class="col-4 align-self-center d-flex justify-content-center">
                             <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
-                                <img src = "img/<?= $templateParams["utente"][0]["specialita"] ?>" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt = "Specialita">
+                                <div class="image-in-profile" style="background-image: url('img/<?= $templateParams["utente"][0]["specialita"] ?>');"></div>
                             <?php else: ?>
                                 <img src="img/badge.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Specialita">
                             <?php endif; ?>
