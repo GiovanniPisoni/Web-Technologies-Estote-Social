@@ -66,12 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-            for (var pair of formData.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]); 
-            }
-
             axios.post('./api/modifyprofile-api.php', formData).then(response => {
-                console.log(response.data);
                 alert("Profilo modificato con successo!");
                 location.reload();
             });
