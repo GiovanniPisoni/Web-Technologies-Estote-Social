@@ -169,7 +169,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $username, $username_seguito);
-        $stmt->execute();
+        $result = $stmt->execute();
+
+        return $result;
     }
 
 
@@ -182,7 +184,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $username, $username_seguito);
-        $stmt->execute();
+        $result = $stmt->execute();
+
+        return $result;
     }
 
     public function getNotificationsByUsername($username) {
@@ -229,9 +233,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idNotifica);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function isReadNotification($idNotifica) {
@@ -274,9 +278,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idNotifica);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function deleteReadNotifications() {
@@ -287,9 +291,9 @@ class DatabaseHelper {
         //delete all the read notifications
 
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function getUsernameByIdPost($idPost) {
@@ -429,22 +433,18 @@ class DatabaseHelper {
 
 
     public function updateImgProfilo($username, $image) {
-        try {
-            $query = "
-                UPDATE utente
-                SET immagineProfilo = ?
-                WHERE username = ?
-            ";
-            //update the user's image by username
+        $query = "
+            UPDATE utente
+            SET immagineProfilo = ?
+            WHERE username = ?
+        ";
+        //update the user's image by username
 
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("ss", $image, $username);
-            $stmt->execute();
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $image, $username);
+        $result = $stmt->execute();
 
-            return $stmt->execute();
-        } catch (Exception $e) {
-            return $e;
-        }
+        return $result;
     }
 
     public function getSpecialita($username) {
@@ -477,9 +477,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $specialita, $username);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function deleteSpecialita($username) {
@@ -492,9 +492,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function getFazzolettone($username) {
@@ -527,9 +527,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $fazzolettone, $username);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function deleteFazzolettone($username) {
@@ -542,9 +542,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $username);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function getImageUser($username) {
@@ -596,9 +596,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     //delete the post's image by idPost
@@ -613,9 +613,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("si", $image, $idPost);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function deletePostById($idPost) {
@@ -626,8 +626,8 @@ class DatabaseHelper {
         //delete the post's data by idPost
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idPost);
-        $stmt->execute();
-        return $stmt->execute();
+        $result = $stmt->execute();
+        return $result;
     }
 
    
@@ -730,9 +730,9 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("is", $idPost, $username);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     /**
@@ -781,9 +781,9 @@ class DatabaseHelper {
                 ";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $timeThd);
-        $stmt->execute();
+        $result = $stmt->execute();
 
-        return $stmt->execute();
+        return $result;
     }
 
     public function getLoginAttempt($username, $timeThd){

@@ -70,22 +70,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
 
-            document.getElementById("modifyPostForm").addEventListener("submit", (event) => {
+            document.getElementById("modifyPostForm").addEventListener("submit", async (event) => {
                 event.preventDefault()
                 const formData = new FormData();
 
                 formData.append('idPost', idPost);
 
                 if(removeOldImg && postImg.files[0] == null) {
-                    axios.post('./api/deletepostimage-api.php', formData);
-                    //delete post image from file system
-                    /*const formDataDelete = new FormData()
-                    formDataDelete.append("removeimage", oldImageName)
-                    axios.post('./api/deleteimage-api.php', formDataDelete).then(response => {
-                        if (!response.data["eliminazione"]) {
-                            console.log(response.data);
-                        }
-                    });*/
+                    await axios.post('./api/deletepostimage-api.php', formData);
                 }
                 formData.append('testo', document.getElementById("descriptionModify").value);
                 formData.append('hashtag1', document.getElementById("hashtag1Modify").value);
