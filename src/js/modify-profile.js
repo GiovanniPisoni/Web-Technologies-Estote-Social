@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById("save").addEventListener("click", (event) => {
+    document.getElementById("save").addEventListener("click", async (event) => {
         event.preventDefault();
         const formData = new FormData();
 
@@ -35,49 +35,46 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.getElementById("imageProfileModify").files[0] != null) {
             const formDataImage = new FormData();
             formDataImage.append("image", document.getElementById("imageProfileModify").files[0]);
-            axios.post('./api/image-api.php', formDataImage).then(responseUpload => {
-                if (!responseUpload.data["uploadEseguito"]) {
-                    console.log(responseUpload.data)
-                    console.log(responseUpload.data["erroreUpload"]);
-                } else {
-                    formData.append('immagineProfilo', responseUpload.data["fileName"]);
-                }
-            });
+            const responseUpload = await axios.post('./api/image-api.php', formDataImage); // Aggiungi await qui
+            if (!responseUpload.data["uploadEseguito"]) {
+                console.log(responseUpload.data)
+                console.log(responseUpload.data["erroreUpload"]);
+            } else {
+                formData.append('immagineProfilo', responseUpload.data["fileName"]);
+            }
         }
         if(document.getElementById("imgFazzolettoneModify").files[0] != null) {
             const formDataFazzolettone = new FormData();
             formDataFazzolettone.append("image", document.getElementById("imgFazzolettoneModify").files[0]);
-            axios.post('./api/image-api.php', formDataFazzolettone).then(responseUpload => {
-                if (!responseUpload.data["uploadEseguito"]) {
-                    console.log(responseUpload.data)
-                    console.log(responseUpload.data["erroreUpload"]);
-                } else {
-                    formData.append('imgFazzolettone', responseUpload.data["fileName"]);
-                }
-            });
+            const responseUpload = await axios.post('./api/image-api.php', formDataFazzolettone); // Aggiungi await qui
+            if (!responseUpload.data["uploadEseguito"]) {
+                console.log(responseUpload.data)
+                console.log(responseUpload.data["erroreUpload"]);
+            } else {
+                formData.append('imgFazzolettone', responseUpload.data["fileName"]);
+            }
         }
         if(document.getElementById("imgSpecialitaModify").files[0] != null) {
             const formDataSpecialita = new FormData();
             formDataSpecialita.append("image", document.getElementById("imgSpecialitaModify").files[0]);
-            axios.post('./api/image-api.php', formDataSpecialita).then(responseUpload => {
-                if (!responseUpload.data["uploadEseguito"]) {
-                    console.log(responseUpload.data)
-                    console.log(responseUpload.data["erroreUpload"]);
-                } else {
-                    formData.append('imgSpecialita', responseUpload.data["fileName"]);
-                }
+            const responseUpload = await axios.post('./api/image-api.php', formDataSpecialita); // Aggiungi await qui
+            if (!responseUpload.data["uploadEseguito"]) {
+                console.log(responseUpload.data)
+                console.log(responseUpload.data["erroreUpload"]);
+            } else {
+                formData.append('imgSpecialita', responseUpload.data["fileName"]);
+            }
+        }
+
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]); 
+            }
+
+            axios.post('./api/modifyprofile-api.php', formData).then(response => {
+                console.log(response.data);
+                alert("Profilo modificato con successo!");
+                location.reload();
             });
-        }
-
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
-
-        axios.post('./api/modifyprofile-api.php', formData).then(response => {
-            console.log(response.data);
-            alert("Profilo modificato con successo!");
-            location.reload();
-        });
     });
 
     document.getElementById("delete").addEventListener("click", (event) => {

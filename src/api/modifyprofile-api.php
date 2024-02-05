@@ -11,7 +11,7 @@
     $birthday = $_POST["birthday"];
     
     if(isset($_POST["immagineProfilo"])) {
-        $immagine = $_POST["immagine"];
+        $immagine = $_POST["immagineProfilo"];
         $dbh->updateImgProfilo($username, $immagine);
     }
     if(isset($_POST["imgFazzolettone"])) {
