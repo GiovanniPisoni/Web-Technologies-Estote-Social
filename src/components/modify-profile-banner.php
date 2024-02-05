@@ -52,11 +52,11 @@
                             <p class="small text-center" name="imgdimension" id="imgdimension">Max image dimension: 10Mb</p>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <label for="register" hidden>Annulla modifiche</label>
+                            <label for="delete" hidden>Annulla modifiche</label>
                             <input class="btn btn-danger w-100 mt-3 mb-1" type="submit" name="delete" id="delete" value="Annulla modifiche">
                         </div>
                         <div class="d-flex justify-content-center">
-                            <label for="register" hidden>Salva ed esci</label>
+                            <label for="save" hidden>Salva ed esci</label>
                             <input class="btn btn-success w-100 mb-3" type="submit" name="save" id="save" value="Salva ed esci">
                         </div>
                     </footer>

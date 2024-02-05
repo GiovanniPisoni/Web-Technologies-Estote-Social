@@ -63,7 +63,7 @@
                     <!-- Bio -->
                     <div class="row mt-2 mb-2">
                         <div class="col-4 align-self-center">
-                            <label class="profileHead fw-bolder">Bio:</label>
+                            <p class="profileHead fw-bolder mb-0">Bio:</p>
                             <p id="bio" class="profileHead"><?php echo $templateParams["utente"][0]["bio"]; ?></p>
                         </div>
                         <!-- Fazzolettone, specialita and totem -->
@@ -84,7 +84,7 @@
                     </div>
                     <div class="row">
                         <div class="col-4 align-self-center">
-                            <label class="profileHead fw-bolder">Totem:</label>
+                            <p class="profileHead fw-bolder mb-0">Totem:</p>
                             <p id="totem" class="profileHead"><?php echo $templateParams["utente"][0]["totem"]; ?></p>
                         </div>
                     </div>
