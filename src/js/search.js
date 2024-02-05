@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             await axios.post('./api/searchpost-api.php', formData).then(response => {
                 const ul = document.getElementById("hashtagResult");
-                console.log(response);
                 createListPost(ul, response);
             });
         }
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createList(ul, response, username) {
         ul.innerHTML = "";
-        if (response.data == null) {
+        if (response.data[0] == null) {
             const li = document.createElement("li");
 
             li.appendChild(document.createTextNode("Nessun utente trovato"));
@@ -60,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createListPost(ul, response) {
         ul.innerHTML = "";
-        if (response.data == null) {
+        if (response.data[0] == null) {
             const li = document.createElement("li");
             li.appendChild(document.createTextNode("Nessun post trovato"));
             ul.appendChild(li);
