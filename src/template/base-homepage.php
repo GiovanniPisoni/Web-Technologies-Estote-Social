@@ -30,7 +30,7 @@
                         if (!empty($templateParams["notificationUnread"])):
                             $iconPath = "./img/backpack_notify.png";
                         ?>
-                            <span class="badge bg-danger">new</span>
+                            <span class="badge new-notify text-black">new</span>
                         <?php else:
                             $iconPath = "./img/backpack.png";
                             endif;

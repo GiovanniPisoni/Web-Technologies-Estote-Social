@@ -1,5 +1,6 @@
 :root {
     --bg-primary: #567c5f;
+    --bg-secondary: #ffc824;
 }
 
 nav {
@@ -32,6 +33,10 @@ nav {
 
 .opacity-50 {
     opacity: 0.5;
+}
+
+.new-notify {
+    background-color: var(--bg-secondary);
 }
 
 .smaller-font {
