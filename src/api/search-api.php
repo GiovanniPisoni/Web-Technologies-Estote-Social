@@ -7,7 +7,7 @@
     $result = $dbh->searchUser($input);
 
     if(empty($result)){
-        $result = false;
+        $result = array();
     }
 
     header('Content-Type: application/json');
