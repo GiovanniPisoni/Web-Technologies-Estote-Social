@@ -429,18 +429,22 @@ class DatabaseHelper {
 
 
     public function updateImgProfilo($username, $image) {
-        $query = "
-            UPDATE utente
-            SET immagineProfilo = ?
-            WHERE username = ?
-        ";
-        //update the user's image by username
+        try {
+            $query = "
+                UPDATE utente
+                SET immagineProfilo = ?
+                WHERE username = ?
+            ";
+            //update the user's image by username
 
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $image, $username);
-        $stmt->execute();
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $image, $username);
+            $stmt->execute();
 
-        return $stmt->execute();
+            return $stmt->execute();
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 
     public function getSpecialita($username) {
