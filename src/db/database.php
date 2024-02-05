@@ -349,7 +349,7 @@ class DatabaseHelper {
 
     public function searchByHashtag($hashtag) {
         $query = "
-            SELECT Idpost
+            SELECT *
             FROM post
             WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 (?, '%')
         ";
@@ -367,7 +367,7 @@ class DatabaseHelper {
         $query = "
             SELECT idPost, immagine, username, data, testo, hashtag1, hashtag2, hashtag3
             FROM post
-            WHERE hashtag1 = ? OR hashtag2 = ? OR hashtag3 = ?
+            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 (?, '%')
         ";
         //get all the posts that have a certain hashtag
 
