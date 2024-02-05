@@ -79,4 +79,19 @@ document.addEventListener("DOMContentLoaded", () => {
             location.reload();
         });
     });
+
+    document.getElementById("delete").addEventListener("click", (event) => {
+        event.preventDefault();
+        
+        document.getElementById("nameModify").value = null; 
+        document.getElementById("surnameModify").value = null; 
+        document.getElementById("emailModify").value = null; 
+        document.getElementById("bioModify").value = null; 
+        document.getElementById("totemModify").value = null; 
+        document.getElementById("groupModify").value = null; 
+        document.getElementById("birthdayModify").value = null;
+        document.getElementById("imageProfileModify").value = null;
+        document.getElementById("imgFazzolettoneModify").value = null;
+        document.getElementById("imgSpecialitaModify").value = null;
+    });
 });
