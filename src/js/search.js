@@ -5,10 +5,10 @@ document.getElementById("searchButton").addEventListener("click", event => {
     if(input != "") {
         const formData = new FormData();
         formData.append('input', input);
-        document.getElementById("result").style.display = "block";
+        document.getElementById("userResult").style.display = "block";
 
         axios.post('./api/search-api.php', formData).then(response => {
-            const ul = document.getElementById("result");
+            const ul = document.getElementById("userResult");
             createList(ul, response, username);
         });
     }

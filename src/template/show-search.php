@@ -12,10 +12,20 @@
         </div>
         <div id="display" class="bg-light"></div>
     </form>
+    <p class="h5 bold">Utenti:</p>
     <div class="row my-2">
         <div class="col d-flex">
-            <div id="result" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
-                <ul id="result"></ul>
+            <div id="userResult" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
+                <ul id="userResult"></ul>
+            </div>
+        </div>
+    </div>
+    <p class="h5 bold mb-1">Post:</p>
+    <p class="text-body-secondary">Post con gli hashtag relativi alla tua ricerca</p>
+    <div class="row my-2 mt-1">
+        <div class="col d-flex">
+            <div id="hashtagResult" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
+                <ul id="hashtagResult"></ul>
             </div>
         </div>
     </div>
