@@ -53,24 +53,24 @@ document.addEventListener("DOMContentLoaded", function () {
             formDataImage.append('image', img);
             axios.post('./api/image-api.php', formDataImage).then((responseUpload) => {
                 if (!responseUpload.data["uploadEseguito"]) {
-                    alert("Qualcosa è andato storto :/");
                     window.location.href = "./index.php";
+                    alert("Qualcosa è andato storto :/");
                 }else{
                     formData.append('immagine', responseUpload.data["fileName"]);
                     axios.post('./api/newpost-api.php', formData).then((response) => {
-                        alert("Post aggiunto con successo!");     
                         location.reload();
+                        alert("Post aggiunto con successo!");     
                     });
                 }
             });
         }else{
             if(text.length === 0){
-                alert("Parametri assenti!");
                 window.location.href = "./index.php";
+                alert("Parametri assenti!");
             }else{
                 axios.post('./api/newpost-api.php', formData).then((response) => {
-                    alert("Post aggiunto con successo!");
                     location.reload();
+                    alert("Post aggiunto con successo!");
                 });
             }
         }

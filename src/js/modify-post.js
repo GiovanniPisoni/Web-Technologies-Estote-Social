@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     currImgName = postImg.files[0].name;
                     if(oldImageName != "") {
                         removeOldImg = true;
-                        console.log("Settato remove old image perchè c'era un'immagine vecchia (" + oldImageName + ") a: "+ removeOldImg);
                     }
                 }
             });
@@ -97,15 +96,15 @@ document.addEventListener("DOMContentLoaded", () => {
                             formData.append('immagine', responseUpload.data["fileName"]);
 
                             axios.post('./api/modifypost-api.php', formData).then(() => {
-                                alert("Post modificato con successo!");
                                 location.reload();
+                                alert("Post modificato con successo!");
                             });
                         }
                     });
                 } else {
                     axios.post('./api/modifypost-api.php', formData).then(() => {
-                        alert("Post modificato con successo!");
                         location.reload();
+                        alert("Post modificato con successo!");
                     });
                 }
             });
