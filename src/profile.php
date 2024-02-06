@@ -26,8 +26,13 @@ if($templateParams["utente"] == null){
 
 $templateParams["title"] = "Profilo";
 $templateParams["name"] = "show-profile.php";
-$templateParams["js"] = array("js/read-notifications.js", "js/comments-list.js", "utils/function.js", "js/like.js",
-                                "js/add-post.js", "js/userList.js", "js/like-number.js");
+$templateParams["js"] = array("js/read-notifications.js", "utils/function.js",
+                                "js/add-post.js", "js/userList.js");
+if($templateParams["userposts"] != null) {
+    array_push($templateParams["js"], "js/like.js");
+    array_push($templateParams["js"], "js/comments-list.js");
+    array_push($templateParams["js"], "js/like-number.js");
+}
 if($currentUsername == $_SESSION["username"]) {
     if(!empty($templateParams["currentUserPosts"])) {
         array_push($templateParams["js"], "js/post-management.js");
