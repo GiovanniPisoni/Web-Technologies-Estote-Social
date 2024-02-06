@@ -1,4 +1,4 @@
-<div class="modal fade" id="modifypost-banner" data-bs-backdrop="static" tabindex="-1" aria-label="Modifica post" aria-hidden="true">
+<div class="modal fade" id="modifypost-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modifypost" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
