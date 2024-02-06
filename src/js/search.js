@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createList(ul, response, username) {
         ul.innerHTML = "";
+        ul.classList.add("list-unstyled");
         if (response.data[0] == null) {
             const li = document.createElement("li");
 
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createListPost(ul, response) {
         ul.innerHTML = "";
+        ul.classList.add("list-unstyled");
         if (response.data[0] == null) {
             const li = document.createElement("li");
             li.appendChild(document.createTextNode("Nessun post trovato"));

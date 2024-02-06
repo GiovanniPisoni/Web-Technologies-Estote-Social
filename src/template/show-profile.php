@@ -19,46 +19,66 @@
                 </div>
             <?php endif; ?>
             <!-- Profile image -->
-            <div class="d-flex align-items-center">
-                <?php if(isset($templateParams["utente"][0]["immagineProfilo"])): ?>
-                    <div class="profile-image" style="background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>');"></div>
-                <?php else: ?>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="70" heigth="70" fill="currentColor" class="bi bi-person-circle ms-6" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                    </svg>
-                <?php endif; ?>
-                <!-- Username -->
-                <div>
-                    <p class="profileHead fw-bold h4 mt-1 mb-1"><?php echo $templateParams["utente"][0]["username"]; ?></p>
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <?php if(isset($templateParams["utente"][0]["immagineProfilo"])): ?>
+                        <div class="profile-image" style="background-image: url('img/<?= $templateParams["utente"][0]["immagineProfilo"] ?>');"></div>
+                    <?php else: ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="70" heigth="70" fill="currentColor" class="bi bi-person-circle ms-6" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    <?php endif; ?>
+                    <!-- Username -->
+                    <div>
+                        <p class="profileHead fw-bold h4 mt-1 mb-1"><?php echo $templateParams["utente"][0]["username"]; ?></p>
+                    </div>
                 </div>
+            </div>
+            <div class="row mb-2 align-items-center">
+                <div class="col-3">
+                    <p id="nomeCompleto" class="mb-2 mt-2"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
+                </div>
+                <!-- Follow button -->
+                <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
+                        <div class="col-8 text-end align-items-center">
+                            <button class="btn btn-success border-dark" id="seguiButton" type="button">Segui</button>
+                        </div>
+                <?php endif; ?>
             </div>
             <div class="col-10 px-2">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
-                            <p id="nomeCompleto" class="mb-1"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
+                        <!-- Posts -->
+                        <div class="col-12 col-md-6 text-start mb-2 mb-md-0">
+                            <h1 class="profileHead h5">Post: <span><?php echo count($templateParams["userposts"]) ?></span></h1>
                         </div>
-                        <!-- Follow button -->
-                        <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
-                            <div class="col align-self-center">
-                                <button class="btn btn-success border-dark" id="seguiButton" type="button">Segui</button>
-                            </div>
-                        <?php endif; ?>
-                        <!-- Posts, follower and following people -->
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <h1 class="profileHead h5">Post: <span><?php echo count($templateParams["userposts"]) ?></span></h1>
-                            </div>
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <button id="follower" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
-                                    Follower: <span id="numFollower"><?php echo count($templateParams["currentUserSeguaci"]); ?></span>
-                                </button>
-                            </div>
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <button id="seguiti" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
-                                    Account seguiti: <span id="numSeguiti"><?php echo count($templateParams["currentUserSeguiti"]); ?></span>
-                                </button>
-                            </div>
+                        <!-- follower and following people -->
+                        <div class="col-6 col-md-3 mb-2 mb-md-0">
+                            <button id="follower" class="profileHead btn btn-light mb-1" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
+                                Follower: <span id="numFollower"><?php echo count($templateParams["currentUserSeguaci"]); ?></span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button id="seguiti" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
+                                Account seguiti: <span id="numSeguiti"><?php echo count($templateParams["currentUserSeguiti"]); ?></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <!-- Fazzolettone, specialita and totem -->
+                        <div class="col">
+                            <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
+                                <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["fazzolettone"] ?>');"></div>
+                            <?php else: ?>
+                                <img src="img/fazzolettone.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden me-2" alt="Fazzolettone">
+                            <?php endif; ?>
+                            <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
+                                <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["specialita"] ?>');"></div>
+                            <?php else: ?>
+                                <img src="img/badge.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden me-2" alt="Specialita">
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <!-- Bio -->
                     <div class="row mt-2 mb-2">
@@ -66,28 +86,15 @@
                             <p class="profileHead fw-bolder mb-0">Bio:</p>
                             <p id="bio" class="profileHead"><?php echo $templateParams["utente"][0]["bio"]; ?></p>
                         </div>
-                        <!-- Fazzolettone, specialita and totem -->
-                        <div class="col-4 align-self-center d-flex justify-content-center">
-                            <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
-                                <div class="image-in-profile" style="background-image: url('img/<?= $templateParams["utente"][0]["fazzolettone"] ?>');"></div>
-                            <?php else: ?>
-                                <img src="img/fazzolettone.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Fazzolettone">
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-4 align-self-center d-flex justify-content-center">
-                            <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
-                                <div class="image-in-profile" style="background-image: url('img/<?= $templateParams["utente"][0]["specialita"] ?>');"></div>
-                            <?php else: ?>
-                                <img src="img/badge.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden" alt="Specialita">
-                            <?php endif; ?>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4 align-self-center">
-                            <p class="profileHead fw-bolder mb-0">Totem:</p>
-                            <p id="totem" class="profileHead"><?php echo $templateParams["utente"][0]["totem"]; ?></p>
+                    <?php if(isset($templateParams["utente"][0]["totem"])): ?>
+                        <div class="row">
+                            <div class="col-4 align-self-center">
+                                <p class="profileHead fw-bolder mb-0">Totem:</p>
+                                <p id="totem" class="profileHead"><?php echo $templateParams["utente"][0]["totem"]; ?></p>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
