@@ -40,10 +40,14 @@
                     <p id="nomeCompleto" class="mb-2 mt-2"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
                 </div>
                 <!-- Follow button -->
-                <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
-                        <div class="col-8 text-end align-items-center">
-                            <button class="btn btn-success border-dark" id="seguiButton" type="button">Segui</button>
-                        </div>
+                <?php if($_SESSION["username"] != $templateParams["utente"][0]["username"]): ?>
+                    <div class="col-8 text-end align-items-center">
+                        <?php if($dbh->checkFollow($_SESSION["username"], $templateParams["utente"][0]["username"])): ?>
+                            <button class="btn btn-success border-dark followed" id="seguiButton" type="button" data-username="<?php echo $_SESSION["username"]; ?>" data-usernameseguito="<?php echo $templateParams["utente"][0]["username"]; ?>">Segui già</button>
+                        <?php else: ?>
+                            <button class="btn btn-success border-dark" id="seguiButton" type="button" data-username="<?php echo $_SESSION["username"]; ?>" data-usernameseguito="<?php echo $templateParams["utente"][0]["username"]; ?>">Segui</button>
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
             </div>
             <div class="col-10 px-2">
@@ -82,14 +86,14 @@
                     </div>
                     <!-- Bio -->
                     <div class="row mt-2 mb-2">
-                        <div class="col-4 align-self-center">
+                        <div class="col align-self-center">
                             <p class="profileHead fw-bolder mb-0">Bio:</p>
                             <p id="bio" class="profileHead"><?php echo $templateParams["utente"][0]["bio"]; ?></p>
                         </div>
                     </div>
                     <?php if(isset($templateParams["utente"][0]["totem"])): ?>
                         <div class="row">
-                            <div class="col-4 align-self-center">
+                            <div class="col align-self-center">
                                 <p class="profileHead fw-bolder mb-0">Totem:</p>
                                 <p id="totem" class="profileHead"><?php echo $templateParams["utente"][0]["totem"]; ?></p>
                             </div>

@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgProfile.classList.add("rounded-circle");
                 imgProfile.height = "40";
                 imgProfile.width = "40";
+                imgProfile.style.marginRight = "10px";
                 aProfile.href = `profile.php?username=${post.username}`;
                 aProfile.classList.add("username", "usernameStyle");
                 aProfile.textContent = `@${post.username}`;
