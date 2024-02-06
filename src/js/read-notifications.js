@@ -9,15 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             curr.style.opacity = "0.5";
             const formData = new FormData();
             formData.append("idNotifica", id);
-            axios.post("./api/readnotification-api.php", formData)
-                .then(response => {
-                    // Handle success (you may want to remove the notification from the DOM)
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    // Handle error
-                    console.error(error);
-                });
+            axios.post("./api/readnotification-api.php", formData);
             curr.classList.add("seen");
         });
     });
@@ -29,19 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const id = deleteButton.dataset.id;
             const formData = new FormData();
             formData.append("idNotifica", id);
-            axios.post("./api/deletenotification-api.php", formData)
-                .then(response => {
-                    // Handle success (remove the notification from the DOM)
-                    console.log(response.data);
-                    const deletedNotification = document.getElementById(id);
-                    if (deletedNotification) {
-                        deletedNotification.remove(); // Rimuovi l'elemento dalla DOM
-                    }
-                })
-                .catch(error => {
-                    // Handle error
-                    console.error(error);
-                });
+            axios.post("./api/deletenotification-api.php", formData).then(() => {
+                const deletedNotification = document.getElementById(id);
+                if (deletedNotification) {
+                    deletedNotification.remove(); // Rimuovi l'elemento dalla DOM
+                }
+            });
         }
     });
     
