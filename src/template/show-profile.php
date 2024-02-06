@@ -53,26 +53,17 @@
                         <div class="col-12 col-md-6 text-start mb-2 mb-md-0">
                             <h1 class="profileHead h5">Post: <span><?php echo count($templateParams["userposts"]) ?></span></h1>
                         </div>
-                        <!-- Follow button -->
-                        <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
-                            <div class="col align-self-center">
-                                <button class="btn btn-success border-dark" id="seguiButton" type="button">Segui</button>
-                            </div>
-                        <?php endif; ?>
-                        <!-- Posts, follower and following people -->
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <h1 class="profileHead h5">Post: <span><?php echo count($templateParams["userposts"]) ?></span></h1>
-                            </div>
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <button id="follower" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
-                                    Follower: <span id="numFollower"><?php echo count($templateParams["currentUserSeguaci"]); ?></span>
-                                </button>
-                            </div>
-                            <div class="col align-items-center align-self-center d-flex justify-content-center">
-                                <button id="seguiti" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
-                                    Account seguiti: <span id="numSeguiti"><?php echo count($templateParams["currentUserSeguiti"]); ?></span>
-                                </button>
-                            </div>
+                        <!-- follower and following people -->
+                        <div class="col-6 col-md-3 mb-2 mb-md-0">
+                            <button id="follower" class="profileHead btn btn-light mb-1" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
+                                Follower: <span id="numFollower"><?php echo count($templateParams["currentUserSeguaci"]); ?></span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button id="seguiti" class="profileHead btn btn-light" type="button" data-bs-toggle="modal" data-bs-target="#userList-banner">
+                                Account seguiti: <span id="numSeguiti"><?php echo count($templateParams["currentUserSeguiti"]); ?></span>
+                            </button>
+                        </div>
                     </div>
                     <div class="row mt-2">
                         <!-- Fazzolettone, specialita and totem -->

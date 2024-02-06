@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     imgDiv.style.marginRight = "10px";
                     li.style.display = "flex";
                     li.style.alignItems = "center";
+                    li.style.marginBottom = "10px";
 
                     li.appendChild(imgDiv);
 
