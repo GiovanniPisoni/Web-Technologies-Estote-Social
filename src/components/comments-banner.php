@@ -13,6 +13,7 @@
                     <form action="#" id="commentForm" method="POST">
                         <div class="row d-flex justify-content">
                             <div class="col-9">
+                                <label for="commentText" hidden>Nuovo commento</label>
                                 <input type="text" class="form-control w-100" id="commentText" name="commentText" aria-label="Commenta" placeholder="Aggiungi qui un commento" required>
                             </div>
                             <input type="hidden" id="postHidden" value=""/>
