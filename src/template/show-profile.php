@@ -76,14 +76,14 @@
                             <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
                                 <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["fazzolettone"] ?>');"></div>
                             <?php else: ?>
-                                <img src="img/fazzolettone.png" width="40" class="fluid-img rounded-circle overflow-hidden me-2" alt="Fazzolettone">
+                                <img src="img/fazzolettone.png" width="50" class="fluid-img rounded-circle overflow-hidden me-2" alt="Fazzolettone">
                             <?php endif; ?>
                         </div>
                         <div class="col-1 col-md-1 mx-3 px-0">
                             <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
                                 <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["specialita"] ?>');"></div>
                             <?php else: ?>
-                                <img src="img/badge.png" width="40" class="fluid-img rounded-circle overflow-hidden me-2" alt="Specialita">
+                                <img src="img/badge.png" width="50" class="fluid-img rounded-circle overflow-hidden me-2" alt="Specialita">
                             <?php endif; ?>
                         </div>
                     </div>
