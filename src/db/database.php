@@ -58,7 +58,22 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    //this function is not correct because we don't have name and surname mandatory
+    public function getSeguitiByUsername($username) {
+        $query = "
+            SELECT s.username_seguito, u.immagineProfilo
+            FROM seguire s INNER JOIN utente u ON s.Username_seguito = u.username
+            WHERE s.Username_follower = ?
+        ";
+        //search for the followed users of a user by username
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function searchUser($input) {
         $query = "
             SELECT username, immagineProfilo
@@ -69,22 +84,6 @@ class DatabaseHelper {
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $input);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getUsersByUsernameImageOnly($username) {
-        $query = "
-            SELECT username, immagineProfilo
-            FROM utente 
-            WHERE username LIKE ?
-        ";
-       //get username and immagineProfilo of all the users that match the input
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -105,42 +104,6 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result;
-    }
-
-    /** Funzione che non so se andremo ad usare, MOMENTANEA*/
-    public function getUsersFriendsByusername ($username) {
-        $query = "
-            SELECT u.username, u.immagineProfilo
-            FROM seguire s1
-            INNER JOIN seguire s2 ON s1.username_seguito = s2.username_Follower AND s1.username_Follower = s2.username_seguito
-            INNER JOIN utente u ON s1.username_Follower = u.username
-            WHERE s1.username_seguito = ?;
-        
-        ";
-        //search for the friends of a user by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getSeguitiByUsername($username) {
-        $query = "
-            SELECT s.username_seguito, u.immagineProfilo
-            FROM seguire s INNER JOIN utente u ON s.Username_seguito = u.username
-            WHERE s.Username_follower = ?
-        ";
-        //search for the followed users of a user by username
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function checkFollow($username_follower, $username_seguito) {
@@ -174,7 +137,6 @@ class DatabaseHelper {
         return $result;
     }
 
-
     public function follow($username_follower, $username_seguito) {
         $query = "
             INSERT INTO seguire (username_follower, username_seguito)
@@ -205,7 +167,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-
     public function getUnreadNotificationsByUsername($username) {
         $query = "
             SELECT *
@@ -221,7 +182,6 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
 
     public function readNotification($idNotifica) {
         $query = "
@@ -253,7 +213,6 @@ class DatabaseHelper {
     
         return (bool) $letta;
     }
-    
 
     public function insertNotification($tipo, $usernameReceiver, $usernameSender, $letta) {
         $query = "
@@ -283,19 +242,6 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function deleteReadNotifications() {
-        $query = "
-            DELETE FROM notifica
-            WHERE letta = true
-        ";
-        //delete all the read notifications
-
-        $stmt = $this->db->prepare($query);
-        $result = $stmt->execute();
-
-        return $result;
-    }
-
     public function getUsernameByIdPost($idPost) {
         $query = "
             SELECT username
@@ -314,7 +260,6 @@ class DatabaseHelper {
         // Restituisci direttamente il valore dell'username
         return $row["username"];
     }
-    
 
     public function insertPost($image, $username, $date, $text, $hashtag1, $hashtag2, $hashtag3) {
         $queryPost = "
@@ -329,8 +274,6 @@ class DatabaseHelper {
         return $success;
     }
     
-    
-
     public function updatePost($idPost, $text, $hashtag1, $hashtag2, $hashtag3) {
         $query = "
             UPDATE post
@@ -345,22 +288,6 @@ class DatabaseHelper {
         $success = $stmt->execute();
 
         return $success;
-    }
-
-    public function searchByHashtag($hashtag) {
-        $query = "
-            SELECT *
-            FROM post
-            WHERE hashtag1 LIKE CONCAT (?, '%') OR hashtag2 LIKE CONCAT (?, '%') OR hashtag3 (?, '%')
-        ";
-        //get all the posts that have a certain hashtag
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sss", $hashtag, $hashtag, $hashtag);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getPostByHashtag($hashtag) {
@@ -428,9 +355,6 @@ class DatabaseHelper {
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    
-
 
     public function updateImgProfilo($username, $image) {
         $query = "
@@ -515,7 +439,6 @@ class DatabaseHelper {
         // Restituisci direttamente il valore della specialità
         return ($row !== null) ? $row["fazzolettone"] : null;
     }
-    
 
     public function updateFazzolettone($username, $fazzolettone) {
         $query = "
@@ -565,7 +488,6 @@ class DatabaseHelper {
         // Restituisci direttamente il valore dell'immagine
         return $row["immagine"];
     }
-    
 
     public function getImageIdPost($idPost) {
         $query = "
@@ -586,7 +508,6 @@ class DatabaseHelper {
         return ($row !== null) ? $row['immagine'] : null;
     }
     
-    
     public function deletePostImage($idPost) {
         $query = "
             UPDATE post
@@ -600,8 +521,6 @@ class DatabaseHelper {
 
         return $result;
     }
-
-    //delete the post's image by idPost
 
     public function updatePostImage($idPost, $image) {
         $query = "
@@ -629,8 +548,6 @@ class DatabaseHelper {
         $result = $stmt->execute();
         return $result;
     }
-
-   
 
     /**
      * Comments CRUD
@@ -687,7 +604,6 @@ class DatabaseHelper {
         // Restituisci il valore del numero di like se esiste, altrimenti 0
         return ($row !== null) ? (int)$row['numeroLike'] : 0;
     }
-    
 
     public function getLikesByUserAndPostId($username, $idPost) {
         $query = "
@@ -736,11 +652,6 @@ class DatabaseHelper {
     }
 
     /**
-     * Notifications CRUD
-     */
-
-    
-    /**
      * Login
      */
 
@@ -773,7 +684,6 @@ class DatabaseHelper {
     }
 
     //funzione che elimina i tentativi di login più vecchi di un certo tempo
-
     public function deleteLoginAttemptByTime($timeThd){
         $query = "
                 DELETE FROM loginattempt

@@ -53,11 +53,13 @@
     //Function that check if there was some brute force attack
     function checkBruteForce($username, $dbh) {
         
+        $oneHourAgo = time() - 3600;
+        $dbh->deleteLoginAttemptByTime($oneHourAgo); //Delete all the attempts older than 1 hour
         $now = time();//Get the current time
         $valid_attempts = $now - (60 * 60); //Set the valid attempts to 1 hours ago
         $attemptResult = $dbh->getloginAttempt($username, $valid_attempts); //Check if there are more than 5 attempts in the last hour
 
-        if(count($attemptResult) > 3) {
+        if(count($attemptResult) > 5) {
             return true;
         } else {
             return false;
