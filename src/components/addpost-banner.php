@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title h5" id="addPost">Aggiungi un nuovo post</h1>
+                <h2 class="modal-title h5" id="addPost">Aggiungi un nuovo post</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
             <div class="modal-body">
@@ -36,7 +36,7 @@
                         <input class="form-control" type="text" id="hashtag3" name="hashtag3" placeholder="Aggiungi un hashtag per facilitare la ricerca agli altri utenti">
                     </div>
                     <div class="text-body-secondary text-start">
-                         <p class="small" id="clarification">Max image dimension: 10Mb</p>
+                         <p class="small" id="addPostClarification">Max image dimension: 10Mb</p>
                     </div>
                     <footer class="my-1">
                         <div class="d-flex justify-content-center">

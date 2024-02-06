@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title h5" id="notification">Notifiche</h1>
+                <h2 class="modal-title h5" id="notification">Notifiche</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
             <div class="modal-body">

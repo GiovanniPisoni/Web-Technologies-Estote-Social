@@ -49,6 +49,6 @@
         <p id="result" class="text-center fw-bold text-danger-emphasis"></p>
     </div>
     <div class="text-body-secondary text-start">
-        <p class="small" id="clarification">*Campi obbligatori</p>
+        <p class="small" id="registerClarification">*Campi obbligatori</p>
     </div>
 </form>

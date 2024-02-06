@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if(input != "") {
             const formData = new FormData();
             formData.append('input', input);
-            document.getElementById("userResult").style.display = "block";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("resultPosts").style.display = "block";
 
             await axios.post('./api/search-api.php', formData).then(response => {
                 const ul = document.getElementById("userResult");

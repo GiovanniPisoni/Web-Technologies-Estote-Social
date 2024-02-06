@@ -66,21 +66,24 @@
                         <div class="col text-start d-flex justify-content-center align-items-center me-3">
                             <a href="search.php" class="link-underline link-underline-opacity-0">
                                 <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
-                                    <image href="./img/find.png" height="35" width="35" alt="serchIcon"/>
+                                    <title>Search</title>
+                                    <image href="./img/find.png" height="35" width="35"/>
                                 </svg>
                             </a>
                         </div>
                         <div class="col text-start d-flex justify-content-center align-items-center"> 
                             <a href="index.php" class="link-underline link-underline-opacity-0">
                                 <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
-                                    <image href="./img/tent.png" height="35" width="35" alt="homeIcon"/>
+                                    <title>Home</title>
+                                    <image href="./img/tent.png" height="35" width="35"/>
                                 </svg>
                             </a>
                         </div>
                         <div class="col text-start d-flex justify-content-center align-items-center ms-3">
                             <a href="profile.php?username=<?php echo $_SESSION["username"]; ?>" class="link-underline link-underline-opacity-0">
                                 <svg width="32.5" height="32.5" xmlns="http://www.w3.org/2000/svg">
-                                    <image href="./img/user.png" height="32.5" width="32.5" alt="profileIcon"/>
+                                    <title>Profile</title>
+                                    <image href="./img/user.png" height="32.5" width="32.5"/>
                                 </svg>
                             </a>
                         </div>

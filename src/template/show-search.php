@@ -2,6 +2,7 @@
     <form action ="#" id="searchForm">
         <div class="row">
             <div class="d-flex justify-content-center mt-3  col">
+                <label for="searchbar" hidden>Search bar</label>
                 <input type="text" id="searchbar" aria-label="Cerca" placeholder="Cerca..." required/>
                 <button type="submit" id="searchButton" class="btn btn-success ms-1" data-username="<?php echo $_SESSION['username']; ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -15,7 +16,7 @@
     <p class="h5 bold">Utenti:</p>
     <div class="row my-2">
         <div class="col d-flex">
-            <div id="userResult" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
+            <div id="result" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
                 <ul id="userResult"></ul>
             </div>
         </div>
@@ -24,7 +25,7 @@
     <p class="text-body-secondary">Post con gli hashtag relativi alla tua ricerca</p>
     <div class="row my-2 mt-1">
         <div class="col d-flex">
-            <div id="hashtagResult" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
+            <div id="resultPosts" class="bg-light border border-dark py-2 px-3 my-1 rounded w-100">
                 <ul id="hashtagResult"></ul>
             </div>
         </div>

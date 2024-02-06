@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="list-type">Lista Utenti</h5>
+                <h2 class="modal-title h5" id="list-type">Lista Utenti</h2>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi" onclick="location.reload()"></button>
             </div>
             <div class="modal-body">
