@@ -1,10 +1,13 @@
 <?php if(!empty($templateParams["notification"])): ?>
     <?php foreach($templateParams["notification"] as $notification): ?>
         <article id="<?php echo $notification["IDNotifica"]; ?>" class="notification d-flex p-2 mt-2 border <?php echo in_array($notification, $templateParams["notificationUnread"]) ? '' : 'opacity-50'; ?>">
+            <header class="hidden-header">
+                <h1>Notifiche</h1>
+            </header>
             <div class="row">
                 <div class="col-auto d-flex align-items-left">
                     <?php if($notification["Tipo"] == "follow"): ?>
-                        <img src="./img/follow.png" width="25" height="25">
+                        <img src="./img/follow.png" width="25" height="25" alt="Follow Simbol">
                     <?php elseif($notification["Tipo"] == "like"): ?>
                         <img src="./img/symbol_liked.png" width="20" height="20" alt="Like Symbol">
                     <?php else: ?>

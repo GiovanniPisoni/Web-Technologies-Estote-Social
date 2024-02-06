@@ -1,4 +1,4 @@
-<div class="modal fade" id="addpost-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Aggiungi post" aria-hidden="true">
+<div class="modal fade" id="addpost-banner" data-bs-backdrop="static" tabindex="-1" aria-label="Aggiungi post" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,7 @@
                             <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                             <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"/>
                         </svg>
-                        <img class="size-container img-fluid mx-auto" id="container" alt="Post image">
+                        <img src="" class="size-container img-fluid mx-auto" id="container" alt="Post image">
                     </div>
                     <div class="fil d-flex justify-content-center mb-3">
                         <label for="imgpost" hidden>Immagine</label>
@@ -36,7 +36,7 @@
                         <input class="form-control" type="text" id="hashtag3" name="hashtag3" placeholder="Aggiungi un hashtag per facilitare la ricerca agli altri utenti">
                     </div>
                     <div class="text-body-secondary text-start">
-                         <p class="small" name="clarification" id="clarification">Max image dimension: 10Mb</p>
+                         <p class="small" id="clarification">Max image dimension: 10Mb</p>
                     </div>
                     <footer class="my-1">
                         <div class="d-flex justify-content-center">

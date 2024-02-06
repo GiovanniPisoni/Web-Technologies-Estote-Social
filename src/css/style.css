@@ -89,6 +89,10 @@ nav {
     color:black
 }
 
+.hidden-header {
+    display: none;
+}
+
 #commentsList{
     list-style: none;
 }

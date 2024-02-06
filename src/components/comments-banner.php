@@ -1,4 +1,4 @@
-<div class="modal fade" id="comments-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Commenti" aria-hidden="true">
+<div class="modal fade" id="comments-banner" data-bs-backdrop="static" tabindex="-1" aria-label="Commenti" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

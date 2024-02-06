@@ -1,4 +1,4 @@
-<div class="modal fade" id="modify-profile-banner" data-bs-backdrop="static" tabindex="-1" aria-labelledby="Aggiungi post" aria-hidden="true">
+<div class="modal fade" id="modify-profile-banner" data-bs-backdrop="static" tabindex="-1" aria-label="Modifica profilo" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

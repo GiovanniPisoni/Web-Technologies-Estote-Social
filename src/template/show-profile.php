@@ -120,6 +120,9 @@
             <?php if(!empty($templateParams["userposts"])): ?>
                 <?php foreach ($templateParams["userposts"] as $post): ?>
                     <article class="bg-light border border-dark my-4 px-4 pt-3 pb-1 rounded">
+                        <header class="hidden-header">
+                            <h1>PostProfile</h1>
+                        </header>
                         <?php if($_SESSION["username"] == $templateParams["utente"][0]["username"]): ?>
                             <div class="row col text-start" id="<?php echo $post['idPost'] ?>">
                                 <div class="d-flex align-items-center justify-content-end me-2" >
