@@ -2,7 +2,7 @@
     <?php foreach($templateParams["notification"] as $notification): ?>
         <article id="<?php echo $notification["IDNotifica"]; ?>" class="notification d-flex p-2 mt-2 border <?php echo in_array($notification, $templateParams["notificationUnread"]) ? '' : 'opacity-50'; ?>">
             <header class="hidden-header">
-                <h1>Notifiche</h1>
+                <h2>Notifiche</h2>
             </header>
             <div class="row">
                 <div class="col-auto d-flex align-items-left">

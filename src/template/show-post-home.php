@@ -2,7 +2,7 @@
     <?php foreach ($templateParams["posts"] as $post): ?>
         <article class="bg-light border border-dark my-4 px-4 pt-3 pb-1 rounded">
             <header class="hidden-header">
-                <h1>PostHome</h1>
+                <h2>PostHome</h2>
             </header>
             <!-- Profile image -->
             <div class="row">
