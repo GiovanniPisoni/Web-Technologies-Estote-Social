@@ -40,9 +40,13 @@
                             <p id="nomeCompleto" class="mb-1"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
                         </div>
                         <!-- Follow button -->
-                        <?php if($loggedUserId != $templateParams["utente"][0]["username"]): ?>
+                        <?php if($_SESSION["username"] != $templateParams["utente"][0]["username"]): ?>
                             <div class="col align-self-center">
-                                <button class="btn btn-success border-dark" id="seguiButton" type="button">Segui</button>
+                                <?php if($dbh->checkFollow($_SESSION["username"], $templateParams["utente"][0]["username"])): ?>
+                                    <button class="btn btn-success border-dark followed" id="seguiButton" type="button" data-username="<?php echo $_SESSION["username"]; ?>" data-usernameseguito="<?php echo $templateParams["utente"][0]["username"]; ?>">Segui già</button>
+                                <?php else: ?>
+                                    <button class="btn btn-success border-dark" id="seguiButton" type="button" data-username="<?php echo $_SESSION["username"]; ?>" data-usernameseguito="<?php echo $templateParams["utente"][0]["username"]; ?>">Segui</button>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <!-- Posts, follower and following people -->

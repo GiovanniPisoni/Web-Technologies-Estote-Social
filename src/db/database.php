@@ -143,7 +143,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function checkFollow($usernameFollower, $usernameFollowed) {
+    public function checkFollow($username_follower, $username_seguito) {
         $query = "
             SELECT *
             FROM seguire
@@ -152,7 +152,7 @@ class DatabaseHelper {
         //search for the followers of a user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $usernameFollower, $username_seguito);
+        $stmt->bind_param("ss", $username_follower, $username_seguito);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -168,14 +168,14 @@ class DatabaseHelper {
         //unfollow an user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $username_seguito);
+        $stmt->bind_param("ss", $username_follower, $username_seguito);
         $result = $stmt->execute();
 
         return $result;
     }
 
 
-    public function follow($username, $username_seguito) {
+    public function follow($username_follower, $username_seguito) {
         $query = "
             INSERT INTO seguire (username_follower, username_seguito)
             VALUES (?, ?)
@@ -183,7 +183,7 @@ class DatabaseHelper {
         //follow an user by username
 
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $username_seguito);
+        $stmt->bind_param("ss", $username_follower, $username_seguito);
         $result = $stmt->execute();
 
         return $result;

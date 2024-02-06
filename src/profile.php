@@ -35,6 +35,8 @@ if($currentUsername == $_SESSION["username"]) {
     }
     array_push($templateParams["js"], "js/modify-profile.js");
     array_push($templateParams["js"], "js/logout.js");
+} else {
+    array_push($templateParams["js"], "js/follow.js");
 }
 
 require 'template/base-homepage.php';

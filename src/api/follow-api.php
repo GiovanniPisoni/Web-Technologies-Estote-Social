@@ -2,7 +2,7 @@
     require_once("../db_config.php");
 
     //rimuove il follow se già presente, o aggiunge il follow ad un particolare utente (da parte dell'utente loggato)
-    $usernameSeguito = $_POST["username"];
+    $usernameSeguito = $_POST["usernameseguito"];
     $remove = false;
     if(isset($_POST["remove"])) {
         $remove = $_POST["remove"];
@@ -13,8 +13,8 @@
     } else {
         $dbh->follow($_SESSION["username"], $usernameSeguito); 
     }
-    $result["follower"] = count($dbh->getFollowerByUsername($usernameSeguito));
-    $result["senderId"] = $_SESSION["username"];
+    $result["senderUsername"] = $_SESSION["username"];
+    $result["receiverUsername"] = $usernameSeguito;
 
     header('Content-Type: application/json');
     echo json_encode($result);
