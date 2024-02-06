@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         axios.post('./api/profile-api.php', formData).then(response => {
             if(response != null) {
-                console.log(response.data);
                 document.getElementById("nameModify").value = response.data[0].nome;
                 document.getElementById("surnameModify").value = response.data[0].cognome;
                 document.getElementById("emailModify").value = response.data[0].mail;

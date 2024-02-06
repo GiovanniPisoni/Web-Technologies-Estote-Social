@@ -17,6 +17,7 @@
                         </svg>
                     </a>
                 </div>
+                <?php require_once("./components/modifyprofile-banner.php"); ?>
             <?php endif; ?>
             <!-- Profile image -->
             <div class="row">
@@ -184,7 +185,6 @@
                     </article>
                 <?php endforeach; ?>
                 <?php require_once("./components/comments-banner.php"); ?>
-                <?php require_once("./components/modify-profile-banner.php"); ?>
                 <?php require_once("./components/modifypost-banner.php"); ?>
             <?php else: ?>
                 <p class="text-center mt-5">Non hai ancora aggiunto post... crea subito il primo!</p>
