@@ -11,8 +11,8 @@ if ($templateParams["isAuth"]) {
     $posts = $dbh->showPostorderByDate($loggedUserId);
     foreach ($posts as $post) {
             $postDate = strtotime($post["Data"]);
-            $tenDaysAgo = strtotime("-30 days");
-            if($postDate >= $tenDaysAgo):
+            $monthAgo = strtotime("-30 days");
+            if($postDate >= $monthAgo):
                 $templateParams["posts"][] = $post;
             endif;
     }
