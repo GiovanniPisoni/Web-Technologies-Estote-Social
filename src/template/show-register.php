@@ -9,15 +9,15 @@
     </div>
     <div class="mx-4 mb-2">
         <label for="birthday" hidden>Data di nascita</label>
-        <input class="form-control" type="date" name="birthday" id="birthday" placeholder="Data di nascita">
+        <input class="form-control" type="date" name="birthday" id="birthday">
     </div>
     <div class="mx-4 mb-2">
         <label for="group" hidden>Gruppo di appartenenza</label>
-        <input class="form-control" type="group" name="group" id="group" placeholder="Gruppo di appartenenza">
+        <input class="form-control" type="text" name="group" id="group" placeholder="Gruppo di appartenenza">
     </div>
     <div class="mx-4 mb-2">
         <label for="bio" hidden>Bio</label>
-        <textarea class="form-control no-resize overflow-y-auto" type="bio" name="bio" id="bio" placeholder="Bio-Raccontaci un po' di te*" rows="3" required></textarea>
+        <textarea class="form-control no-resize overflow-y-auto" name="bio" id="bio" placeholder="Bio-Raccontaci un po' di te*" rows="3" required></textarea>
     </div>
     <div class="mx-4 mb-2">
         <label for="email" hidden>Email</label>
@@ -40,7 +40,7 @@
         <input class="form-control mt-1" type="file" name="image" id="image" accept="image/*" required>
     </div>
     <div class="text-body-secondary text-start">
-        <p class="small text-center" name="imgdimension" id="imgdimension">Max image dimension: 10Mb</p>
+        <p class="small text-center" id="imgdimension">Max image dimension: 10Mb</p>
     </div>
     <div>
         <label for="register" hidden>Registrati</label>
@@ -49,5 +49,6 @@
         <p id="result" class="text-center fw-bold text-danger-emphasis"></p>
     </div>
     <div class="text-body-secondary text-start">
-        <p class="small" name="clarification" id="clarification">*Campi obbligatori</p>
+        <p class="small" id="clarification">*Campi obbligatori</p>
     </div>
+</form>
