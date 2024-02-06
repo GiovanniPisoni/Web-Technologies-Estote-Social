@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
-                <div class="col-3">
+                <div class="col-3 ms-2">
                     <p id="nomeCompleto" class="mb-2 mt-2"><?php echo $templateParams["utente"][0]["nome"], " ", $templateParams["utente"][0]["cognome"]; ?></p>
                 </div>
                 <!-- Follow button -->
@@ -72,12 +72,14 @@
                     </div>
                     <div class="row mt-2">
                         <!-- Fazzolettone, specialita and totem -->
-                        <div class="col">
+                        <div class="col-1 col-md-1 mx-2 px-0">
                             <?php if(isset($templateParams["utente"][0]["fazzolettone"])): ?>
                                 <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["fazzolettone"] ?>');"></div>
                             <?php else: ?>
                                 <img src="img/fazzolettone.png" width="40" heigth="40" class="fluid-img rounded-circle overflow-hidden me-2" alt="Fazzolettone">
                             <?php endif; ?>
+                        </div>
+                        <div class="col-1 col-md-1 mx-3 px-0">
                             <?php if(isset($templateParams["utente"][0]["specialita"])): ?>
                                 <div class="image-in-profile me-2" style="background-image: url('img/<?= $templateParams["utente"][0]["specialita"] ?>');"></div>
                             <?php else: ?>
