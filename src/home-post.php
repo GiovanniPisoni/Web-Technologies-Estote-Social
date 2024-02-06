@@ -8,7 +8,14 @@ if ($templateParams["isAuth"]) {
     $loggedUserId = $_SESSION["username"];
     $templateParams["notifiche"] = $dbh->getNotificationsByUsername($loggedUserId);
     $templateParams["loggedUserSeguiti"] = $dbh->getSeguitiByUsername($loggedUserId);
-    $templateParams["posts"] = $dbh->showPostorderByDate($loggedUserId);
+    $posts = $dbh->showPostorderByDate($loggedUserId);
+    foreach ($posts as $post) {
+            $postDate = strtotime($post["Data"]);
+            $tenDaysAgo = strtotime("-30 days");
+            if($postDate >= $tenDaysAgo):
+                $templateParams["posts"][] = $post;
+            endif;
+    }
     $templateParams["utente"] = $dbh->getUserByUsername($loggedUserId);
 } else if (!$templateParams["isAuth"]){
     header('Location: index.php');

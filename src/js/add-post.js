@@ -53,19 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
             formDataImage.append('image', img);
             axios.post('./api/image-api.php', formDataImage).then((responseUpload) => {
                 if (!responseUpload.data["uploadEseguito"]) {
-                    window.location.href = "./index.php";
+                    location.reload();
                     alert("Qualcosa è andato storto :/");
                 }else{
                     formData.append('immagine', responseUpload.data["fileName"]);
                     axios.post('./api/newpost-api.php', formData).then((response) => {
                         location.reload();
-                        alert("Post aggiunto con successo!");     
+                        alert("Post aggiunto con successo!");
                     });
                 }
             });
         }else{
             if(text.length === 0){
-                window.location.href = "./index.php";
+                location.reload();
                 alert("Parametri assenti!");
             }else{
                 axios.post('./api/newpost-api.php', formData).then((response) => {
