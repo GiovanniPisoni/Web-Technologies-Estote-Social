@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://github.com/GiovanniPisoni/Web-Technologies-Estote-Social/blob/main/src/img/logo.png">
+</div>
+
 # Estote Social
 Estote Social is a social network designed for all scouts in the world, where you can follow your firends and your groups, share new experiences, new activities and news about scout's life
 # How to use
